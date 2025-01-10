@@ -1,30 +1,27 @@
 import { Database } from '@/lib/schema'
 import { Session, useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useEffect, useState } from 'react'
+import { useQuery } from 'react-query'
 
 type Todos = Database['public']['Tables']['todos']['Row']
 
 export default function TodoList({ session }: { session: Session }) {
   const supabase = useSupabaseClient<Database>()
-  const [todos, setTodos] = useState<Todos[]>([])
   const [newTaskText, setNewTaskText] = useState('')
   const [errorText, setErrorText] = useState('')
 
   const user = session.user
 
-  useEffect(() => {
-    const fetchTodos = async () => {
-      const { data: todos, error } = await supabase
+  const { data, refetch } = useQuery({
+    queryKey: ['todos', user.id],
+    queryFn: async () => {
+      const ret = await supabase
         .from('todos')
         .select('*')
         .order('id', { ascending: true })
-
-      if (error) console.log('error', error)
-      else setTodos(todos)
+      return ret;
     }
-
-    fetchTodos()
-  }, [supabase])
+  })
 
   const addTodo = async (taskText: string) => {
     let task = taskText.trim()
@@ -38,7 +35,7 @@ export default function TodoList({ session }: { session: Session }) {
       if (error) {
         setErrorText(error.message)
       } else {
-        setTodos([...todos, todo])
+        await refetch();
         setNewTaskText('')
       }
     }
@@ -47,12 +44,12 @@ export default function TodoList({ session }: { session: Session }) {
   const deleteTodo = async (id: number) => {
     try {
       await supabase.from('todos').delete().eq('id', id).throwOnError()
-      setTodos(todos.filter((x) => x.id != id))
+      await refetch();
     } catch (error) {
       console.log('error', error)
     }
   }
-
+  
   return (
     <div className="w-full">
       <h1 className="mb-12">Todo List.</h1>
@@ -80,7 +77,7 @@ export default function TodoList({ session }: { session: Session }) {
       {!!errorText && <Alert text={errorText} />}
       <div className="bg-white shadow overflow-hidden rounded-md">
         <ul>
-          {todos.map((todo) => (
+          {data?.data?.map((todo) => (
             <Todo key={todo.id} todo={todo} onDelete={() => deleteTodo(todo.id)} />
           ))}
         </ul>

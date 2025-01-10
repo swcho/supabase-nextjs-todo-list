@@ -1,0 +1,13 @@
+: 1736058295:0;npm run dev
+: 1736494044:0;npm i -D supabase
+: 1736494083:0;npx supabase init
+: 1736494102:0;npx supabase --help
+: 1736494114:0;npx supabase link
+: 1736494221:0;npx supabase link --help
+: 1736494380:0;npx supabase link
+: 1736498193:0;npm run dev
+: 1736500449:0;npm i react-query
+: 1736500723:0;npm run dev
+: 1736501610:0;npx supabase migration new add_delete_policy_for_todos
+: 1736501689:0;npx supabase db reset
+: 1736501700:0;npx supabase db push
