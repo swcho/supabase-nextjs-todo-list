@@ -11,3 +11,13 @@
 : 1736501610:0;npx supabase migration new add_delete_policy_for_todos
 : 1736501689:0;npx supabase db reset
 : 1736501700:0;npx supabase db push
+: 1736503680:0;npm i -D vitest
+: 1736504033:0;npm test
+: 1736504229:0;npm i -D @vitejs/plugin-react
+: 1736504246:0;npm i -D vite-tsconfig-paths
+: 1736504251:0;npm test
+: 1736504622:0;npm i -D dotenv
+: 1736504684:0;npm test
+: 1736504709:0;npm i -D @testing-library/jest-dom
+: 1736504721:0;npm test
+: 1736541619:0;npm run gen:schema
