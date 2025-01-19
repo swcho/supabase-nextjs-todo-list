@@ -1,7 +1,8 @@
 import Head from 'next/head'
-import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
+import { useSession } from '@supabase/auth-helpers-react'
 import { Auth, ThemeSupa } from '@supabase/auth-ui-react'
 import TodoList from '@/components/TodoList'
+import { useSupabaseClient } from '@/lib/initSupabase'
 
 export default function Home() {
   const session = useSession()

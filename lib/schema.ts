@@ -34,29 +34,90 @@ export type Database = {
   }
   public: {
     Tables: {
+      team_members: {
+        Row: {
+          created_at: string
+          role: string | null
+          team_id: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          role?: string | null
+          team_id: number
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          role?: string | null
+          team_id?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "team_members_team_id_fkey"
+            columns: ["team_id"]
+            isOneToOne: false
+            referencedRelation: "teams"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      teams: {
+        Row: {
+          created_at: string
+          id: number
+          name: string
+          owner_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          name: string
+          owner_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          name?: string
+          owner_id?: string
+        }
+        Relationships: []
+      }
       todos: {
         Row: {
           id: number
           inserted_at: string
-          is_complete: boolean | null
-          task: string | null
+          is_complete: boolean
+          task: string
+          team_id: number | null
           user_id: string
         }
         Insert: {
           id?: number
           inserted_at?: string
-          is_complete?: boolean | null
-          task?: string | null
+          is_complete?: boolean
+          task: string
+          team_id?: number | null
           user_id: string
         }
         Update: {
           id?: number
           inserted_at?: string
-          is_complete?: boolean | null
-          task?: string | null
+          is_complete?: boolean
+          task?: string
+          team_id?: number | null
           user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "todos_team_id_fkey"
+            columns: ["team_id"]
+            isOneToOne: false
+            referencedRelation: "teams"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {

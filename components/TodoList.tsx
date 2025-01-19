@@ -1,12 +1,13 @@
+import { useSupabaseClient } from '@/lib/initSupabase'
 import { Database } from '@/lib/schema'
-import { Session, useSupabaseClient } from '@supabase/auth-helpers-react'
+import { Session } from '@supabase/auth-helpers-react'
 import { useEffect, useState } from 'react'
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 
 type Todos = Database['public']['Tables']['todos']['Row']
 
 export default function TodoList({ session }: { session: Session }) {
-  const supabase = useSupabaseClient<Database>()
+  const supabase = useSupabaseClient()
   const [newTaskText, setNewTaskText] = useState('')
   const [errorText, setErrorText] = useState('')
 
@@ -87,7 +88,7 @@ export default function TodoList({ session }: { session: Session }) {
 }
 
 const Todo = ({ todo, onDelete }: { todo: Todos; onDelete: () => void }) => {
-  const supabase = useSupabaseClient<Database>()
+  const supabase = useSupabaseClient()
   const [isCompleted, setIsCompleted] = useState(todo.is_complete)
 
   const toggle = async () => {
