@@ -137,4 +137,4 @@ INSERT
           AND team_members.user_id = auth.uid()
       )
     )
-  )
+    )

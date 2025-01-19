@@ -8,7 +8,7 @@ export declare namespace useForTeamTodoPage {
   export type ReturnData = Return['data']
 }
 
-export function useForTeamTodoPage(id: string) {
+export function useForTeamTodoPage(id: number) {
   const supabase = useSupabaseClient();
   const session = useSession();
   if (!session) {
@@ -70,7 +70,7 @@ export function useTeams() {
           team_members (
             *
           )
-        `).returns<useTeams.TeamWithMembers[]>()
+        `)
       return teams;
     },
   });
