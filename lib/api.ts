@@ -1,7 +1,5 @@
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-import { Database } from './database.types'
+import { supabase } from './initSupabase'
 
-const supabase = createClientComponentClient&lt;Database&gt;()
 
 export async function createTeam(name: string) {
   const { data: { user } } = await supabase.auth.getUser()

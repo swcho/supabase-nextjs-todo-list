@@ -1,26 +1,23 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
+"use client";
 import { cookies } from 'next/headers'
-import { Database } from '@/lib/database.types'
 import TeamsClient from './teams-client'
+import { useTeams } from '@/hooks/database';
+import { useSession } from '@supabase/auth-helpers-react';
 
-export default async function TeamsPage() {
-  const supabase = createServerComponentClient&lt;Database&gt;({ cookies })
-
-  const { data: { user } } = await supabase.auth.getUser()
-  const { data: teams } = await supabase
-    .from('teams')
-    .select(`
-      *,
-      team_members (
-        user_id,
-        role
-      )
-    `)
-
+export default function TeamsPage() {
+  const session = useSession();
+  if (!session) {
+    throw new Error('Access denied')
+  }
+  const { user } = session
+  const { data: teams } = useTeams()
   return (
     <div className="w-full max-w-4xl mx-auto p-4">
       <h1 className="text-2xl font-bold mb-8">팀 관리</h1>
+      {teams && (
+
       <TeamsClient user={user} teams={teams} />
+      )}
     </div>
   )
 }

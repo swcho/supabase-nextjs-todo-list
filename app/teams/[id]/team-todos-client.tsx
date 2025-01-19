@@ -1,15 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import { User } from '@supabase/auth-helpers-nextjs'
-import { Database } from '@/lib/database.types'
 import { createTeamTodo } from '@/lib/api'
+import { User } from '@supabase/auth-helpers-react'
+import { NullableProps, Optional } from '@/lib/types'
+import { useForTeamTodoPage } from '@/hooks/database'
 
-type Todo = Database['public']['Tables']['todos']['Row'] & {
-  user: {
-    email: string
-  }
-}
 
 export default function TeamTodosClient({
   user,
@@ -17,7 +13,7 @@ export default function TeamTodosClient({
   teamId,
 }: {
   user: User | null
-  todos: Todo[] | null
+  todos: useForTeamTodoPage.ReturnData['todos'] | null
   teamId: number
 }) {
   const [newTaskText, setNewTaskText] = useState('')
@@ -109,7 +105,7 @@ export default function TeamTodosClient({
                   {todo.task}
                 </p>
                 <p className="text-sm text-gray-500">
-                  작성자: {todo.user_id === user?.id ? '나' : todo.user.email}
+                  작성자: {todo.user_id === user?.id ? '나' : (todo as any).user.email}
                 </p>
               </div>
             </div>

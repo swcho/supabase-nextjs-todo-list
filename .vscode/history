@@ -21,3 +21,40 @@
 : 1736504709:0;npm i -D @testing-library/jest-dom
 : 1736504721:0;npm test
 : 1736541619:0;npm run gen:schema
+: 1737152136:0;npm run dev
+: 1737152322:0;git pull
+: 1737177841:0;npm run gen:schema
+: 1737177845:0;npm run dev
+: 1737177919:0;npm run gen:schema
+: 1737180203:0;npm r react-query
+: 1737180219:0;npm i @tanstack/react-query
+: 1737180602:0;npx supabase migration new teams
+: 1737184561:0;npm build
+: 1737184573:0;npm run build
+: 1737184599:0;npx supabase db push
+: 1737185102:0;npm i supabase
+: 1737185271:0;npm run gen:schema
+: 1737191283:0;npx supabase migration new todos_task_make_not_null
+: 1737191315:0;npx supabase db push
+: 1737191343:0;npm run gen:schema
+: 1737191411:0;npx supabase migration new todos_is_complete_make_not_null
+: 1737191501:0;npx supabase db push && npm run gen:schema
+: 1737191984:0;git rebase origin/feature/team-support
+: 1737192001:0;git stash push
+: 1737241531:0;npx supabase migration new team_members_pkey_altering
+: 1737241549:0;npx supabase db push && npm run gen:schema
+: 1737243069:0;npx supabase migration new team_members_recreate
+: 1737243170:0;npx supabase db push && npm run gen:schema
+: 1737244020:0;npx supabase migration new drop_unique_key_previous_created
+: 1737244082:0;npx supabase db push && npm run gen:schema
+: 1737244778:0;npm run dev
+: 1737245303:0;npx supabase migration new fix_team_members_recursive_reference
+: 1737245559:0;npx supabase db push && npm run gen:schema
+: 1737245588:0;npm run dev
+: 1737246064:8;npx supabase db push && npm run gen:schema
+: 1737246110:0;npx supabase migration new fix_team_members_recursive_reference_2
+: 1737246148:0;npx supabase db push && npm run gen:schema
+: 1737246447:0;npx supabase migration new fix_team_members_recursive_reference_3
+: 1737246466:0;npx supabase db push && npm run gen:schema
+: 1737246909:0;npx supabase migration new drop_team_memebers_view
+: 1737246924:0;npx supabase db push && npm run gen:schema

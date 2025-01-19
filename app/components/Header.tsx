@@ -1,12 +1,12 @@
 'use client'
 
+import { useSupabaseClient } from '@/lib/initSupabase'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 
 export default function Header({ user }: { user: any }) {
-  const pathname = usePathname()
-  const supabase = createClientComponentClient()
+  const pathname = usePathname()!
+  const supabase = useSupabaseClient()
 
   const handleSignOut = async () => {
     await supabase.auth.signOut()

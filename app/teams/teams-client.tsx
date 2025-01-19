@@ -1,27 +1,20 @@
 'use client'
 
 import { useState } from 'react'
-import { User } from '@supabase/auth-helpers-nextjs'
-import { Database } from '@/lib/database.types'
 import { createTeam, addTeamMember, removeTeamMember } from '@/lib/api'
-
-type Team = Database['public']['Tables']['teams']['Row'] & {
-  team_members: Array<{
-    user_id: string
-    role: string
-  }>
-}
+import { User } from '@supabase/auth-helpers-react'
+import { useTeams } from '@/hooks/database'
 
 export default function TeamsClient({
   user,
   teams,
 }: {
   user: User | null
-  teams: Team[] | null
+  teams: useTeams.ReturnData;
 }) {
   const [newTeamName, setNewTeamName] = useState('')
   const [newMemberEmail, setNewMemberEmail] = useState('')
-  const [selectedTeam, setSelectedTeam] = useState<Team | null>(null)
+  const [selectedTeam, setSelectedTeam] = useState<useTeams.TeamWithMembers | null>(null)
 
   const handleCreateTeam = async (e: React.FormEvent) => {
     e.preventDefault()
