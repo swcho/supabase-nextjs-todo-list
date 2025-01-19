@@ -58,3 +58,28 @@
 : 1737246466:0;npx supabase db push && npm run gen:schema
 : 1737246909:0;npx supabase migration new drop_team_memebers_view
 : 1737246924:0;npx supabase db push && npm run gen:schema
+: 1737247753:10279;npm run dev
+: 1737258041:0;rm -rf node_modules .next
+: 1737258046:0;npm i
+: 1737258076:0;npm run dev
+: 1737264683:0;npm supabase --help
+: 1737264692:0;npx supabase --help
+: 1737264747:0;npm --help
+: 1737264782:0;npm update @supabase/*
+: 1737264796:0;npm update @supabase/auth-helpers-react
+: 1737264806:0;npm i @supabase/auth-helpers-react
+: 1737264875:0;npm update
+: 1737264883:0;npm outdated
+: 1737264928:0;npm update @supabase/supabase-js
+: 1737264934:0;npm outdated
+: 1737264996:0;npm i @supabase/auth-helpers-react
+: 1737265006:0;npm i @supabase/supabase-js
+: 1737265054:0;npm i @supabase/auth-ui-react
+: 1737265067:0;npm outdated
+: 1737265097:0;npm i tailwindcss
+: 1737265105:0;npm outdated
+: 1737265166:0;npm i @supabase/auth-ui-react
+: 1737265173:0;npm i @supabase/auth-helpers-react
+: 1737265312:0;npm run dev
+: 1737267617:0;npm outdddate]
+: 1737267632:0;npm outdated

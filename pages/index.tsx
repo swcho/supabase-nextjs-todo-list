@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { useSession } from '@supabase/auth-helpers-react'
-import { Auth, ThemeSupa } from '@supabase/auth-ui-react'
+import { Auth} from '@supabase/auth-ui-react'
 import TodoList from '@/components/TodoList'
 import { useSupabaseClient } from '@/lib/initSupabase'
 
@@ -24,7 +24,7 @@ export default function Home() {
                 <span className="font-sans text-4xl text-center pb-2 mb-1 border-b mx-4 align-center">
                   Login
                 </span>
-                <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} theme="dark" />
+                <Auth supabaseClient={supabase} theme="dark" />
               </div>
             </div>
           </div>

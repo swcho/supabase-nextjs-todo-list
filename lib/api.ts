@@ -1,28 +1,29 @@
 import { supabase } from './initSupabase'
 
-
 export async function createTeam(name: string) {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) throw new Error('Not authenticated')
 
+  console.log('createTeam', { user, name })
   const { data, error } = await supabase
     .from('teams')
     .insert({
       name,
       owner_id: user.id
     })
-    .select()
+    .select(`*`)
     .single()
 
+  console.log('createTeam.inserted', { data, error })
   if (error) throw error
   
-  // Add owner as team member
+  // // Add owner as team member
   const { error: memberError } = await supabase
     .from('team_members')
     .insert({
       team_id: data.id,
       user_id: user.id,
-      role: 'owner'
+      role: 'admin'
     })
 
   if (memberError) throw memberError
@@ -47,24 +48,24 @@ export async function getTeams() {
 
 export async function addTeamMember(teamId: number, email: string) {
   // First get user by email
-  const { data: users, error: userError } = await supabase
-    .from('users')
-    .select('id')
-    .eq('email', email)
-    .single()
+  // const { data: users, error: userError } = await supabase
+  //   .from('users')
+  //   .select('id')
+  //   .eq('email', email)
+  //   .single()
 
-  if (userError) throw userError
-  if (!users) throw new Error('User not found')
+  // if (userError) throw userError
+  // if (!users) throw new Error('User not found')
 
-  const { error } = await supabase
-    .from('team_members')
-    .insert({
-      team_id: teamId,
-      user_id: users.id,
-      role: 'member'
-    })
+  // const { error } = await supabase
+  //   .from('team_members')
+  //   .insert({
+  //     team_id: teamId,
+  //     user_id: users.id,
+  //     role: 'member'
+  //   })
 
-  if (error) throw error
+  // if (error) throw error
 }
 
 export async function removeTeamMember(teamId: number, userId: string) {

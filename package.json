@@ -18,9 +18,9 @@
   },
   "dependencies": {
     "@next/font": "13.1.6",
-    "@supabase/auth-helpers-react": "^0.3.1",
-    "@supabase/auth-ui-react": "^0.2.8",
-    "@supabase/supabase-js": "^2.8.0",
+    "@supabase/auth-helpers-react": "^0.5.0",
+    "@supabase/auth-ui-react": "^0.4.7",
+    "@supabase/supabase-js": "^2.47.16",
     "@tanstack/react-query": "^5.64.1",
     "@types/node": "18.14.0",
     "@types/react": "18.0.28",
@@ -39,7 +39,7 @@
     "dotenv": "^16.4.7",
     "jsdom": "^26.0.0",
     "supabase": "^2.6.8",
-    "tailwindcss": "^3.2.7",
+    "tailwindcss": "^3.4.17",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^2.1.8"
   }
