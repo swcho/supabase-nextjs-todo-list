@@ -11,7 +11,7 @@ import { useForTeamTodoPage } from "@/hooks/database";
 export default function TeamTodosPage({
   params: { id },
 }: {
-  params: { id: string };
+  params: { id: number };
 }) {
   const {
     data: { user, todos, team },
@@ -45,7 +45,7 @@ export default function TeamTodosPage({
           팀 목록으로
         </Link>
       </div>
-      <TeamTodosClient user={user} todos={todos} teamId={parseInt(id)} />
+      <TeamTodosClient user={user} todos={todos} teamId={id} />
     </div>
   );
 }
