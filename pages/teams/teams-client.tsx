@@ -7,7 +7,7 @@ export default function TeamsClient({
   user,
   teams,
 }: {
-  user: User | null
+  user: User
   teams: useTeams.ReturnData;
 }) {
   const [newTeamName, setNewTeamName] = useState('')
@@ -17,7 +17,7 @@ export default function TeamsClient({
   const handleCreateTeam = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
-      await createTeam(newTeamName)
+      await createTeam(user, newTeamName)
       setNewTeamName('')
       window.location.reload()
     } catch (error) {

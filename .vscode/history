@@ -83,3 +83,32 @@
 : 1737265312:0;npm run dev
 : 1737267617:0;npm outdddate]
 : 1737267632:0;npm outdated
+: 1737273499:0;npm run test:watch
+: 1737273812:0;npm i -D vitest-fail-on-console
+: 1737273827:0;npm run test:watch
+: 1737332594:0;npm i -D @vitest/browser
+: 1737332616:0;ll
+: 1737332691:0;npm i vitest
+: 1737332729:0;npm i -D vitest @vitest/browser
+: 1737332753:0;npm run test
+: 1737333012:0;npm i -D playwright
+: 1737333020:0;npm run test
+: 1737338671:0;npx supabase migration new update_team_members_policies
+: 1737339158:0;npx supabase db push && npm run gen:schema
+: 1737339675:0;npm run test
+: 1737340013:0;npx supabase db push && npm run gen:schema
+: 1737340028:0;npm run test
+: 1737340271:0;npx supabase db push && npm run gen:schema
+: 1737340282:0;npm run test
+: 1737340725:0;npx supabase db push && npm run gen:schema
+: 1737340731:0;npx supabase db -y push && npm run gen:schema
+: 1737340741:0;npx supabase db push -y && npm run gen:schema
+: 1737340773:0;npx supabase db push && npm run gen:schema
+: 1737340785:0;npm run test
+: 1737340926:0;npx supabase db push && npm run gen:schema
+: 1737340937:0;npm run test
+: 1737341079:0;npx supabase db push && npm run gen:schema
+: 1737341089:0;npm run test
+: 1737341491:0;npx supabase db push && npm run gen:schema
+: 1737341637:0;npm run test
+: 1737341743:0;npx supabase db push && npm run gen:schema
