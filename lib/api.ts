@@ -40,20 +40,20 @@ export async function createTeam(user: User, name: string) {
 }
 
 export async function deleteTeam(teamId: number) {
-  console.log('deleteTeam', { teamId })
+  // console.log('deleteTeam', { teamId })
   const { data: dataMembers, error: errMembers } = await supabase
     .from("team_members")
     .delete()
     .match({ team_id: teamId }).select();
-  console.log('deleteTeam.team_members', { dataMembers, errMembers})
+  // console.log('deleteTeam.team_members', { dataMembers, errMembers})
   if (errMembers) throw errMembers;
   const { data, error: errTeams } = await supabase
     .from("teams")
     .delete()
-    .match({ id: teamId });
-  console.log('deleteTeam.teams', { errTeams })
+    .match({ id: teamId }).select();
+  // console.log('deleteTeam.teams', { errTeams })
   if (errTeams) throw errTeams;
-  console.log("deleteTeam", { data });
+  // console.log("deleteTeam", { data });
   return data;
 }
 

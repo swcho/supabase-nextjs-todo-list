@@ -112,3 +112,9 @@
 : 1737341491:0;npx supabase db push && npm run gen:schema
 : 1737341637:0;npm run test
 : 1737341743:0;npx supabase db push && npm run gen:schema
+: 1737756107:0;npx supabase db pull
+: 1737756128:0;npm supabase migration repair --status applied 20250120022005
+: 1737756133:0;npx supabase migration repair --status applied 20250120022005
+: 1737756155:0;npx supabase migration list
+: 1737761093:0;npx vitest run --help
+: 1737761098:0;npx vitest run --help | grep time

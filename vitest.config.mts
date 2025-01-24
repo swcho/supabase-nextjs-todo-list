@@ -16,13 +16,13 @@ export default defineConfig({
       './test/setup.ts'
     ],
     include: ['**/*.test.{ts,tsx}'],
-    browser: {
-      provider: 'playwright',
-      enabled: true,
-      instances: [
-        { browser: 'chromium', },
-      ]
-    },
+    // browser: {
+    //   provider: 'playwright',
+    //   enabled: true,
+    //   instances: [
+    //     { browser: 'chromium', },
+    //   ]
+    // },
   },
   define: {
     'process.env': JSON.stringify(config().parsed),
