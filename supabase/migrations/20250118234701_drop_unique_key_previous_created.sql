@@ -1,2 +1,0 @@
-ALTER TABLE team_members
-DROP CONSTRAINT team_members_team_id_user_id_key;

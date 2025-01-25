@@ -118,3 +118,23 @@
 : 1737756155:0;npx supabase migration list
 : 1737761093:0;npx vitest run --help
 : 1737761098:0;npx vitest run --help | grep time
+: 1737761296:0;npx supabase db pull
+: 1737761322:0;docker ps
+: 1737766087:0;npm supabase init
+: 1737766094:0;npx supabase init
+: 1737766105:0;npx supabase init --force
+: 1737766170:0;npx supabase start
+: 1737766507:0;npx supabase link
+: 1737766579:0;npx supabase start
+: 1737766595:0;npx supabase stop
+: 1737766599:0;npx supabase start
+: 1737781296:0;npx supabase db pull
+: 1737781318:0;supabase migration repair --status reverted 20250120022005
+: 1737781321:0;
+: 1737781326:0;npx supabase migration repair --status reverted 20250120022005
+: 1737781519:0;npm run test
+: 1737781652:0;npx supabase --help
+: 1737781698:0;npx supabase status
+: 1737782239:0;npx supabase db pull
+: 1737782519:0;npx supabase db pull --schema auth,storage
+: 1737782607:0;npx supabase db reset
