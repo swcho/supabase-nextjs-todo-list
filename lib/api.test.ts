@@ -2,7 +2,6 @@ import { describe, expect, it } from "vitest";
 import { createTeam, deleteTeam, getTeams } from "./api";
 import { supabase } from "./initSupabase";
 import { loginGuard, TEST_USER_01 } from "@/test/fixtures";
-import exp from "constants";
 
 describe("api", () => {
   it.skip('clean up', async () => {
@@ -25,9 +24,9 @@ describe("api", () => {
   it('Create and delete', async () => {
     await loginGuard(TEST_USER_01, async ({ user }) => {
       expect((await getTeams()).length).toEqual(0)
-      const newTeam = await createTeam(user, 'test team')
+      const newTeamId = await createTeam(user, 'test team')
       expect((await getTeams()).length).toEqual(1)
-      await deleteTeam(newTeam.id)
+      await deleteTeam(newTeamId)
       expect((await getTeams()).length).toEqual(0)
     });
   })

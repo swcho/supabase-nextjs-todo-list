@@ -143,3 +143,24 @@
 : 1737783380:0;npx supabase db pull
 : 1737783460:0;npx supabase db reset
 : 1737783509:0;npm run test
+: 1737786194:0;npx supabase status
+: 1737786360:0;npx migration new use_functions
+: 1737786380:0;npx supabase migration new use_functions
+: 1737787058:0;npx supabase db reset
+: 1737787093:0;npx supabase db reset --debug
+: 1737787255:0;npx supabase db reset
+: 1737787440:0;npx supabase db reset --debug
+: 1737787784:0;npm run gen:schema
+: 1737788255:0;npx supabase gen types --help
+: 1737788290:0;npm run gen:schema
+: 1737788698:0;npm run test
+: 1737789140:0;npx supabase db reset
+: 1737789187:0;npm run gen:schema
+: 1737789198:0;npm run test
+: 1737789578:0;npx supabase db reset
+: 1737789694:0;npm run gen:schema
+: 1737789754:0;npm run test
+: 1737789905:0;npx supabase db reset & npm run gen:schema
+: 1737789919:0;npx supabase db reset
+: 1737789960:0;npm run gen:schema
+: 1737790065:0;npx supabase db reset

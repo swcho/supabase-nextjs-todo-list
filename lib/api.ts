@@ -15,45 +15,16 @@ export async function getTeams() {
 }
 
 export async function createTeam(user: User, name: string) {
-  // console.log('createTeam', { user, name })
   const { data, error } = await supabase
-    .from("teams")
-    .insert({
-      name,
-      owner_id: user.id,
-    })
-    .select(`*`)
-    .single();
-
-  // console.log('createTeam.inserted', { data, error })
+    .rpc('create_team', { team_name: name });
   if (error) throw error;
-
-  const { error: memberError } = await supabase.from("team_members").insert({
-    team_id: data.id,
-    user_id: user.id,
-    role: "admin",
-  });
-
-  if (memberError) throw memberError;
-
   return data;
 }
 
 export async function deleteTeam(teamId: number) {
-  // console.log('deleteTeam', { teamId })
-  const { data: dataMembers, error: errMembers } = await supabase
-    .from("team_members")
-    .delete()
-    .match({ team_id: teamId }).select();
-  // console.log('deleteTeam.team_members', { dataMembers, errMembers})
-  if (errMembers) throw errMembers;
-  const { data, error: errTeams } = await supabase
-    .from("teams")
-    .delete()
-    .match({ id: teamId }).select();
-  // console.log('deleteTeam.teams', { errTeams })
-  if (errTeams) throw errTeams;
-  // console.log("deleteTeam", { data });
+  const { data, error } = await supabase
+    .rpc('delete_team', { team_id: teamId });
+  if (error) throw error;
   return data;
 }
 

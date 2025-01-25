@@ -124,7 +124,35 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      create_team: {
+        Args: {
+          team_name: string
+        }
+        Returns: number
+      }
+      delete_team: {
+        Args: {
+          team_id: number
+        }
+        Returns: boolean
+      }
+      get_user_teams: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          id: number
+          name: string
+          created_at: string
+          owner_id: string
+          is_owner: boolean
+        }[]
+      }
+      update_team: {
+        Args: {
+          team_id: number
+          new_name: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
       [_ in never]: never
@@ -231,3 +259,4 @@ export type CompositeTypes<
   : PublicCompositeTypeNameOrOptions extends keyof PublicSchema["CompositeTypes"]
     ? PublicSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
     : never
+
