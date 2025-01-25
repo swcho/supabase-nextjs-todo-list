@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { createTeam, deleteTeam, getTeams } from "./api";
+import { createTeam, deleteTeam, getTeams, getTeamsV2 } from "./api";
 import { supabase } from "./initSupabase";
 import { loginGuard, TEST_USER_01, TEST_USER_02 } from "@/test/fixtures";
 
@@ -50,9 +50,11 @@ describe("api", () => {
     await loginGuard(TEST_USER_01, async ({ user }) => {
       await createTeam(user, 'test team #1')
       const resp = await supabase.from("team_members").select();
-      console.log({ user, resp });
-      const resp2 = await getTeams()
-      console.log({ user, resp2 });
+      // console.log({ user, resp });
+      const teams = await getTeamsV2()
+      expect(teams.length).toEqual(1)
+      expect(teams[0].members?.length).toEqual(1)
+      // console.log({ user, teams });
     });
   })
 });

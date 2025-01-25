@@ -146,6 +146,10 @@ export type Database = {
           is_owner: boolean
         }[]
       }
+      get_user_teams_v2: {
+        Args: Record<PropertyKey, never>
+        Returns: Database["public"]["CompositeTypes"]["team_type"][]
+      }
       update_team: {
         Args: {
           team_id: number
@@ -158,7 +162,17 @@ export type Database = {
       [_ in never]: never
     }
     CompositeTypes: {
-      [_ in never]: never
+      member_type: {
+        id: string | null
+        email: string | null
+        joined_at: string | null
+      }
+      team_type: {
+        id: number | null
+        name: string | null
+        created_at: string | null
+        members: Database["public"]["CompositeTypes"]["member_type"][] | null
+      }
     }
   }
 }

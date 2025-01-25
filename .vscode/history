@@ -165,3 +165,6 @@
 : 1737789960:0;npm run gen:schema
 : 1737790065:0;npx supabase db reset
 : 1737796000:0;npx supabase db diff -f rls_restricted
+: 1737796813:0;npx supabase migration new get_user_teams_v2
+: 1737797375:0;npx supabase db reset
+: 1737797436:0;npm run gen:schema

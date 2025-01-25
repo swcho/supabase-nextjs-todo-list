@@ -8,6 +8,16 @@ export async function getTeams() {
   return data;
 }
 
+export async function getTeamsV2() {
+  const explain = await supabase
+    .rpc('get_user_teams_v2').explain();
+  console.log({ explain });
+  const { data, error } = await supabase
+    .rpc('get_user_teams_v2');
+  if (error) throw error;
+  return data;
+}
+
 export async function createTeam(user: User, name: string) {
   const { data, error } = await supabase
     .rpc('create_team', { team_name: name });
