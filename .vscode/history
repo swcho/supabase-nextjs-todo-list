@@ -138,3 +138,8 @@
 : 1737782239:0;npx supabase db pull
 : 1737782519:0;npx supabase db pull --schema auth,storage
 : 1737782607:0;npx supabase db reset
+: 1737782979:0;npx supabase db dump --data-only -f supabase/seed.sql
+: 1737783372:0;npx supabas db pull
+: 1737783380:0;npx supabase db pull
+: 1737783460:0;npx supabase db reset
+: 1737783509:0;npm run test
