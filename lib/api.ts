@@ -2,14 +2,8 @@ import { User } from "@supabase/supabase-js";
 import { supabase } from "./initSupabase";
 
 export async function getTeams() {
-  const { data, error } = await supabase.from("teams").select(`
-      *,
-      team_members (
-        user_id,
-        role
-      )
-    `);
-
+  const { data, error } = await supabase
+    .rpc('get_user_teams');
   if (error) throw error;
   return data;
 }

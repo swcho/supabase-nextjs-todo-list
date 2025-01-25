@@ -164,3 +164,4 @@
 : 1737789919:0;npx supabase db reset
 : 1737789960:0;npm run gen:schema
 : 1737790065:0;npx supabase db reset
+: 1737796000:0;npx supabase db diff -f rls_restricted
