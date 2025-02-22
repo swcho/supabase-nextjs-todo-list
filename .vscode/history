@@ -168,3 +168,38 @@
 : 1737796813:0;npx supabase migration new get_user_teams_v2
 : 1737797375:0;npx supabase db reset
 : 1737797436:0;npm run gen:schema
+: 1737848160:0;docker ps
+: 1737848187:0;npx supabase stop
+: 1737848205:0;docker ps
+: 1737848207:0;docker ps -a
+: 1740170427:0;npx supabase up
+: 1740170445:0;npx supabase start
+: 1740170853:0;docker ps
+: 1740170945:0;npm run dev
+: 1740177503:0;npx next --help
+: 1740177737:0;npm i next@latest react@latest react-dom@latest eslint-config-next@latest\
+
+: 1740178490:0;npm run dev
+: 1740178626:0;npm r @next/font
+: 1740178642:0;npm run dev
+: 1740178724:0;rm -rf node_modules .next
+: 1740178731:0;npm i
+: 1740178753:0;npm run dev
+: 1740179166:0;npx shadcn --help
+: 1740179187:0;npx shadcn add button
+: 1740179274:0;npx shadcn add avatar dropdown-menu command popover
+: 1740179617:0;npx shadcn-ui@latest init\
+
+: 1740179658:0;npm run dev
+: 1740188276:0;npm uninstall tailwindcss postcss autoprefixer\
+npm install -D tailwindcss postcss autoprefixer\
+npx tailwindcss init -p\
+
+: 1740188302:0;npm run dev
+: 1740188753:0;npm install -D tailwindcss postcss autoprefixer\
+
+: 1740188774:0;npm install -D tailwindcss postcss autoprefixer -f\
+
+: 1740188786:0;npx tailwindcss init -p\
+
+: 1740188795:0;npm run dev
