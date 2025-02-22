@@ -16,6 +16,7 @@ export default defineConfig({
       './test/setup.ts'
     ],
     include: ['**/*.test.{ts,tsx}'],
+    reporters: ['verbose']
     // browser: {
     //   provider: 'playwright',
     //   enabled: true,

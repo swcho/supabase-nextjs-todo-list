@@ -24,5 +24,27 @@
     "http",
     "net"
   ],
-  "sql-formatter.uppercase": true
+  "sql-formatter.uppercase": true,
+  "sqltools.connections": [
+    {
+      "connectionTimeout": 30,
+      "database": "mysql",
+      "driver": "MySQL",
+      "name": "swtest",
+      "password": "y6RBbXI8Mt",
+      "port": 3306,
+      "server": "mysql-default.swtest.svc.ai2.io.navercorp.com",
+      "username": "root"
+    },
+    {
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 54322,
+      "driver": "PostgreSQL",
+      "name": "supabase",
+      "database": "postgres",
+      "username": "postgres",
+      "password": "postgres"
+    }
+  ],
 }

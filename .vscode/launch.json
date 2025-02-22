@@ -2,15 +2,43 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "auto",
+      "type": "auto-debug",
+      "request": "launch",
+      "map": {
+        "*.test.ts": "Debug Current Test File",
+        "*.ts": "Debug Current File with Test"
+      }
+    },
+    {
       "type": "node",
       "request": "launch",
-      "name": "Debug Vitest Tests",
+      "name": "Debug Current Test File",
       "autoAttachChildProcesses": true,
       "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}/node_modules/vitest/vitest.mjs",
       "args": ["run", "${relativeFile}", "--testTimeout=0"],
       "smartStep": true,
       "console": "integratedTerminal"
-    }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Current File with Test",
+      "autoAttachChildProcesses": true,
+      "skipFiles": [
+        "<node_internals>/**",
+        "**/node_modules/**"
+      ],
+      "program": "${workspaceRoot}/node_modules/vitest/vitest.mjs",
+      "args": [
+        "run",
+        "${fileDirname}/${fileBasenameNoExtension}.test${fileExtname}",
+        "--testTimeout=0",
+        "--silent=false"
+      ],
+      "smartStep": true,
+      "console": "integratedTerminal"
+    },
   ]
 }

@@ -205,3 +205,24 @@ npx tailwindcss init -p\
 : 1740188795:0;npm run dev
 : 1740191381:0;npx supabase db push
 : 1740195312:0;npx shadcn add input label textarea
+: 1740197124:0;npx supabase migration new get_user_teams_v2_return_with_team_type
+: 1740197339:0;npx supabase db reset
+: 1740197456:0;npx supabase db reset --debug
+: 1740197863:0;npm run gen:schema
+: 1740198455:0;npx supabase db reset --debug
+: 1740198502:0;npm run gen:schema
+: 1740198602:0;npx supabase db reset --debug
+: 1740198719:0;npm run gen:schema
+: 1740199132:0;npx supabase db reset --debug
+: 1740199327:0;npm run gen:schema
+: 1740214175:0;npx supabase status
+: 1740214189:0;npm i supabase
+: 1740214194:0;npm i supabase -f
+: 1740214202:0;npx supabase status
+: 1740249174:0;npm run gen:schema
+: 1740251411:0;npx supabase db diff -f todo_functions
+: 1740251597:0;docker ps
+: 1740251948:0;npx supabase db diff -f todo_functions
+: 1740252278:0;npx supabase db diff --linked\
+
+: 1740252405:0;npx supabase db diff -f todo_functions

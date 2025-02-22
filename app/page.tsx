@@ -8,6 +8,7 @@ import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import TodoList from "@/components/TodoList";
 import Head from "next/head";
+import { AppContextProvider } from "./components/AppContext";
 
 export type Props = {};
 
@@ -43,7 +44,7 @@ function page(props: Props) {
             </div>
           </div>
         ) : (
-          <>
+          <AppContextProvider>
             <Header />
             <div
               className="w-full h-full flex flex-col justify-center items-center p-4"
@@ -60,7 +61,7 @@ function page(props: Props) {
                 Logout
               </button>
             </div>
-          </>
+          </AppContextProvider>
         )}
       </div>
     </>

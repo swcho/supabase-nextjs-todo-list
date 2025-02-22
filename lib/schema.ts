@@ -128,13 +128,32 @@ export type Database = {
         Args: {
           team_name: string
         }
-        Returns: number
+        Returns: Database["public"]["CompositeTypes"]["team_type"]
+      }
+      create_team_todo: {
+        Args: {
+          team_id: number
+          task: string
+        }
+        Returns: Database["public"]["CompositeTypes"]["todo_type"]
       }
       delete_team: {
         Args: {
           team_id: number
         }
         Returns: boolean
+      }
+      delete_todo: {
+        Args: {
+          todo_id: number
+        }
+        Returns: undefined
+      }
+      get_team_todos: {
+        Args: {
+          team_id: number
+        }
+        Returns: Database["public"]["CompositeTypes"]["todo_type"][]
       }
       get_user_teams: {
         Args: Record<PropertyKey, never>
@@ -150,6 +169,13 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: Database["public"]["CompositeTypes"]["team_type"][]
       }
+      set_todo_completed: {
+        Args: {
+          todo_id: number
+          is_completed: boolean
+        }
+        Returns: Database["public"]["CompositeTypes"]["todo_type"]
+      }
       update_team: {
         Args: {
           team_id: number
@@ -164,6 +190,7 @@ export type Database = {
     CompositeTypes: {
       member_type: {
         id: string | null
+        aud: string | null
         email: string | null
         joined_at: string | null
       }
@@ -172,6 +199,14 @@ export type Database = {
         name: string | null
         created_at: string | null
         members: Database["public"]["CompositeTypes"]["member_type"][] | null
+      }
+      todo_type: {
+        id: number | null
+        team_id: number | null
+        user_id: string | null
+        todo: string | null
+        is_completed: boolean | null
+        created_at: string | null
       }
     }
   }

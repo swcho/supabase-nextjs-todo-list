@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Check, ChevronsUpDown, PlusCircle, Users } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
 import {
   Command,
@@ -30,17 +30,17 @@ import { useTeams } from "@/hooks/database";
 import { createTeam, Team } from "@/lib/api";
 import { useSession } from "@supabase/auth-helpers-react";
 import { CreateTeamDialog } from "./CreateTeamDialog";
+import { useAppContext } from "./AppContext";
 
 function Header() {
   const session = useSession();
   if (!session) {
     throw new Error("Access denied");
   }
+  const { activeTeam, setActiveTeam } = useAppContext()
 
   const [open, setOpen] = useState(false);
   const { data: teams = [], refetch } = useTeams();
-  const [selectedTeamId, setSelectedTeamId] = useState<number | null | undefined>(teams[0]?.id ?? undefined);
-  const selectedTeam = useMemo(() => teams.find((team) => team.id === selectedTeamId), [teams, selectedTeamId]);
   const { user } = session;
   const [createTeamOpen, setCreateTeamOpen] = useState(false);
   const handleCreateTeam = async (team: {
@@ -49,13 +49,16 @@ function Header() {
     image: string;
   }) => {
     console.log("handleCreateTeam", team);
-    const newTeam = await createTeam(team.name)
+    const newTeam = await createTeam(team.name);
     await refetch();
-    setSelectedTeamId(newTeam);
-    // setTeams([...teams, newTeam])
-    // setSelectedTeam(newTeam)
+    setActiveTeam(newTeam);
   };
   
+  useEffect(() => {
+    if (!activeTeam) {
+      setActiveTeam(teams[0]);
+    }
+  }, []);
 
   // console.log("Header", { teams });
   return (
@@ -74,10 +77,10 @@ function Header() {
                   <Avatar className="h-5 w-5">
                     {/* <AvatarImage src={selectedTeam.image} alt={selectedTeam.name} /> */}
                     <AvatarFallback>
-                      {selectedTeam?.name?.charAt(0)}
+                      {activeTeam?.name?.charAt(0)}
                     </AvatarFallback>
                   </Avatar>
-                  {selectedTeam?.name}
+                  {activeTeam?.name}
                 </div>
                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
               </Button>
@@ -93,7 +96,7 @@ function Header() {
                         key={team.id}
                         value={team.name || ""}
                         onSelect={() => {
-                          setSelectedTeamId(team.id);
+                          setActiveTeam(team);
                           setOpen(false);
                         }}
                       >
@@ -109,7 +112,7 @@ function Header() {
                         <Check
                           className={cn(
                             "ml-auto h-4 w-4",
-                            selectedTeam?.id === team.id
+                            activeTeam?.id === team.id
                               ? "opacity-100"
                               : "opacity-0"
                           )}

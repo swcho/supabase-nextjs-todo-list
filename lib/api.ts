@@ -2,11 +2,10 @@ import { User } from "@supabase/supabase-js";
 import { supabase } from "./initSupabase";
 import { Database } from "./schema";
 
-export type Team = Database["public"]["CompositeTypes"]["team_type"]
+export type Team = Database["public"]["CompositeTypes"]["team_type"];
 
 export async function getTeams() {
-  const { data, error } = await supabase
-    .rpc('get_user_teams');
+  const { data, error } = await supabase.rpc("get_user_teams");
   if (error) throw error;
   return data;
 }
@@ -15,22 +14,23 @@ export async function getTeamsV2() {
   // const explain = await supabase
   //   .rpc('get_user_teams_v2').explain();
   // console.log({ explain });
-  const { data, error } = await supabase
-    .rpc('get_user_teams_v2');
+  const { data, error } = await supabase.rpc("get_user_teams_v2");
   if (error) throw error;
   return data;
 }
 
 export async function createTeam(name: string) {
-  const { data, error } = await supabase
-    .rpc('create_team', { team_name: name });
+  const { data, error } = await supabase.rpc("create_team", {
+    team_name: name,
+  });
   if (error) throw error;
   return data;
 }
 
 export async function deleteTeam(teamId: number) {
-  const { data, error } = await supabase
-    .rpc('delete_team', { team_id: teamId });
+  const { data, error } = await supabase.rpc("delete_team", {
+    team_id: teamId,
+  });
   if (error) throw error;
   return data;
 }
@@ -63,40 +63,42 @@ export async function removeTeamMember(teamId: number, userId: string) {
   if (error) throw error;
 }
 
-export async function getTeamTodos(teamId: number) {
-  const { data, error } = await supabase
-    .from("todos")
-    .select(
-      `
-      *,
-      user:user_id (
-        email
-      )
-    `
-    )
-    .eq("team_id", teamId)
-    .order("inserted_at", { ascending: false });
-
-  if (error) throw error;
+export async function createTeamTodo(teamId: number, task: string) {
+  const { data, error } = await supabase.rpc("create_team_todo", {
+    team_id: teamId,
+    task,
+  });
+  if (error) {
+    throw error;
+  }
   return data;
 }
 
-export async function createTeamTodo(teamId: number, task: string) {
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) throw new Error("Not authenticated");
+export async function getTeamTodos(team_id: number) {
+  const { data, error } = await supabase.rpc("get_team_todos", { team_id });
+  if (error) {
+    throw error;
+  }
+  return data;
+}
 
-  const { data, error } = await supabase
-    .from("todos")
-    .insert({
-      task,
-      team_id: teamId,
-      user_id: user.id,
-    })
-    .select()
-    .single();
+export async function setTodoComplete(todo_id: number, is_completed: boolean) {
+  const { data, error } = await supabase.rpc("set_todo_completed", {
+    todo_id,
+    is_completed,
+  });
+  if (error) {
+    throw error;
+  }
+  return data;
+}
 
-  if (error) throw error;
+export async function deleteTodo(todoId: number) {
+  const { error, data } = await supabase.rpc("delete_todo", {
+    todo_id: todoId,
+  });
+  if (error) {
+    throw error;
+  }
   return data;
 }
