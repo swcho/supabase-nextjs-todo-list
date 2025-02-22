@@ -203,3 +203,5 @@ npx tailwindcss init -p\
 : 1740188786:0;npx tailwindcss init -p\
 
 : 1740188795:0;npm run dev
+: 1740191381:0;npx supabase db push
+: 1740195312:0;npx shadcn add input label textarea

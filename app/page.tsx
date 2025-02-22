@@ -2,10 +2,10 @@
 
 import * as React from "react";
 import { useSupabaseClient } from "@/lib/initSupabase";
-import { useSession } from "@supabase/auth-helpers-react";
+import { useSession, useSessionContext } from "@supabase/auth-helpers-react";
 import Header from "./components/Header";
 import { Auth } from "@supabase/auth-ui-react";
-import { ThemeSupa } from '@supabase/auth-ui-shared'
+import { ThemeSupa } from "@supabase/auth-ui-shared";
 import TodoList from "@/components/TodoList";
 import Head from "next/head";
 
@@ -13,8 +13,12 @@ export type Props = {};
 
 function page(props: Props) {
   const {} = props;
-  const session = useSession();
+  const { isLoading, session } = useSessionContext();
   const supabase = useSupabaseClient();
+
+  if (isLoading) {
+    return <></>;
+  }
   return (
     <>
       <Head>
@@ -31,7 +35,10 @@ function page(props: Props) {
                 <span className="font-sans text-4xl text-center pb-2 mb-1 border-b mx-4 align-center">
                   Login
                 </span>
-                <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} />
+                <Auth
+                  supabaseClient={supabase}
+                  appearance={{ theme: ThemeSupa }}
+                />
               </div>
             </div>
           </div>

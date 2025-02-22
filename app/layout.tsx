@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import type React from "react";
+import React from "react";
 import "@/app/globals.css";
 import { Inter } from "next/font/google";
 import type { Metadata } from "next";
@@ -26,7 +26,9 @@ export default function RootLayout({
     <html lang="en">
       <SessionContextProvider supabaseClient={supabase}>
         <QueryClientProvider client={queryClient}>
-          <body className={inter.className}>{children}</body>
+          <body className={inter.className}>
+            <React.Suspense>{children}</React.Suspense>
+          </body>
         </QueryClientProvider>
       </SessionContextProvider>
     </html>

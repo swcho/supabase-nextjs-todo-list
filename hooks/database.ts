@@ -1,3 +1,4 @@
+import { getTeamsV2 } from "@/lib/api";
 import { useSupabaseClient } from "@/lib/initSupabase";
 import { Database } from "@/lib/schema";
 import { useSession } from "@supabase/auth-helpers-react";
@@ -59,19 +60,10 @@ export declare namespace useTeams {
 }
 
 export function useTeams() {
-  const supabase = useSupabaseClient();
   return useSuspenseQuery({
     queryKey: ["useTeams" ],
     queryFn: async () => {
-      const { data: teams } = await supabase
-        .from("teams")
-        .select(`
-          *,
-          team_members (
-            *
-          )
-        `)
-      return teams;
+      return getTeamsV2();
     },
   });
 }

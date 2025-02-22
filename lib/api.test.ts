@@ -33,7 +33,7 @@ describe("api", () => {
   it.skip('Create and delete', async () => {
     await loginGuard(TEST_USER_01, async ({ user }) => {
       expect((await getTeams()).length).toEqual(0)
-      const newTeamId = await createTeam(user, 'test team')
+      const newTeamId = await createTeam('test team')
       expect((await getTeams()).length).toEqual(1)
       await deleteTeam(newTeamId)
       expect((await getTeams()).length).toEqual(0)
@@ -43,12 +43,12 @@ describe("api", () => {
     // create team for TEST_USER_02
     await loginGuard(TEST_USER_02, async ({ user }) => {
       expect((await getTeams()).length).toEqual(0)
-      await createTeam(user, 'test team #1')
+      await createTeam('test team #1')
       expect((await getTeams()).length).toEqual(1)
     });
     // read team_members
     await loginGuard(TEST_USER_01, async ({ user }) => {
-      await createTeam(user, 'test team #1')
+      await createTeam('test team #1')
       const resp = await supabase.from("team_members").select();
       // console.log({ user, resp });
       const teams = await getTeamsV2()
