@@ -2,13 +2,13 @@
 
 import * as React from "react";
 import { useSupabaseClient } from "@/lib/initSupabase";
-import { useSession, useSessionContext } from "@supabase/auth-helpers-react";
+import { useSessionContext } from "@supabase/auth-helpers-react";
 import Header from "./components/Header";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
-import TodoList from "@/components/TodoList";
 import Head from "next/head";
 import { AppContextProvider } from "./components/AppContext";
+import TodoListWrapper from "./components/TodoListWrapper";
 
 export type Props = {};
 
@@ -50,7 +50,7 @@ function page(props: Props) {
               className="w-full h-full flex flex-col justify-center items-center p-4"
               style={{ minWidth: 250, maxWidth: 600, margin: "auto" }}
             >
-              <TodoList session={session} />
+              <TodoListWrapper />
               <button
                 className="btn-black w-full mt-12"
                 onClick={async () => {

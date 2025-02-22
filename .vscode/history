@@ -226,3 +226,4 @@ npx tailwindcss init -p\
 : 1740252278:0;npx supabase db diff --linked\
 
 : 1740252405:0;npx supabase db diff -f todo_functions
+: 1740254265:0;npm run dev

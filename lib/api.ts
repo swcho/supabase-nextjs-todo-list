@@ -2,7 +2,12 @@ import { User } from "@supabase/supabase-js";
 import { supabase } from "./initSupabase";
 import { Database } from "./schema";
 
+type StrictRequired<T> = {
+  [K in keyof T]-?: NonNullable<T[K]>;
+};
+
 export type Team = Database["public"]["CompositeTypes"]["team_type"];
+export type Todo = StrictRequired<Database["public"]["CompositeTypes"]["todo_type"]>;
 
 export async function getTeams() {
   const { data, error } = await supabase.rpc("get_user_teams");
@@ -71,7 +76,7 @@ export async function createTeamTodo(teamId: number, task: string) {
   if (error) {
     throw error;
   }
-  return data;
+  return data as any as Todo;
 }
 
 export async function getTeamTodos(team_id: number) {
@@ -79,7 +84,7 @@ export async function getTeamTodos(team_id: number) {
   if (error) {
     throw error;
   }
-  return data;
+  return data as any as Todo[];
 }
 
 export async function setTodoComplete(todo_id: number, is_completed: boolean) {
