@@ -1,3 +1,6 @@
+
+create type "public"."todo_type" as ("id" bigint, "team_id" bigint, "user_id" uuid, "todo" text, "is_completed" boolean, "created_at" timestamp without time zone);
+
 set check_function_bodies = off;
 
 CREATE OR REPLACE FUNCTION public.create_team_todo(team_id bigint, task text)
@@ -92,7 +95,8 @@ END
 $function$
 ;
 
-create type "public"."todo_type" as ("id" bigint, "team_id" bigint, "user_id" uuid, "todo" text, "is_completed" boolean, "created_at" timestamp without time zone);
+-- drop function create_team
+DROP FUNCTION IF EXISTS public.create_team(text);
 
 CREATE OR REPLACE FUNCTION public.create_team(team_name text)
  RETURNS team_type
