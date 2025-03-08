@@ -240,3 +240,46 @@ npx tailwindcss init -p\
 : 1741456752:0;ncu -i
 : 1741456814:0;ncu --help
 : 1741458387:0;npm i
+: 1741458582:0;npx supabase start
+: 1741458856:0;npx supabase status
+: 1741458870:0;colima status
+: 1741458889:0;npx supabase start --debug
+: 1741458925:0;docker ps
+: 1741458932:0;docker ps -a
+: 1741459006:0;npx supabase --help
+: 1741459196:0;npm i
+: 1741459442:0;npx supabase start
+: 1741461205:0;npx supabase link
+: 1741461311:0;npx supabase start
+: 1741461598:0;docker ps
+: 1741461604:0;docker ps -al
+: 1741461607:0;docker ps -a
+: 1741461629:0;npx supabase stop
+: 1741461649:0;npx supabase start
+: 1741462375:0;npx supabase stop --no-backup
+: 1741462384:0;npx supabase start
+: 1741462600:0;docker ps
+: 1741462603:0;docker ps -a
+: 1741462626:0;colima status
+: 1741462660:0;colima ssh
+: 1741462846:0;npx supabase start
+: 1741463206:0;say "ëƒ½ë‚¬ìƒªµëƒ«ƒ¨ëƒ«¤."
+: 1741463221:0;say "supabase start finished"
+: 1741463328:0;sleep 3
+: 1741463447:0;exit
+: 1741463458:0;sleep 3
+: 1741463483:0;sleep 5
+: 1741463689:0;npx supabase start; osascript -e 'display notification "ìƒ¾ƒ±ìƒ·ƒ¥ìƒ½´ ìƒ¹ƒ¤ë£ƒ¬ëƒ°ƒ¸ìƒ·ƒ¨ìƒªµëƒ«ƒ¨ëƒ«¤!" with title "ìƒµƒ¬ë¦¼" subtitle "ìƒ£íƒ£ƒ¼ ìƒ·ƒ¥ëƒ­°ìƒ½´íƒª¸"'\
+
+: 1741463746:0;npx supabase stop --no-backup
+: 1741463749:0;npx supabase start; osascript -e 'display notification "ìƒ¾ƒ±ìƒ·ƒ¥ìƒ½´ ìƒ¹ƒ¤ë£ƒ¬ëƒ°ƒ¸ìƒ·ƒ¨ìƒªµëƒ«ƒ¨ëƒ«¤!" with title "ìƒµƒ¬ë¦¼" subtitle "ìƒ£íƒ£ƒ¼ ìƒ·ƒ¥ëƒ­°ìƒ½´íƒª¸"'\
+
+: 1741464214:0;npx supabase start -x vector; osascript -e 'display notification "ìƒ¾ƒ±ìƒ·ƒ¥ìƒ½´ ìƒ¹ƒ¤ë£ƒ¬ëƒ°ƒ¸ìƒ·ƒ¨ìƒªµëƒ«ƒ¨ëƒ«¤!" with title "ìƒµƒ¬ë¦¼" subtitle "ìƒ£íƒ£ƒ¼ ìƒ·ƒ¥ëƒ­°ìƒ½´íƒª¸"'\
+
+: 1741464274:0;docker ps
+: 1741464350:0;npm run dev
+: 1741466949:0;npm i date-fns
+: 1741466982:0;npx shadcn add card
+: 1741467002:0;npx shadcn add badge
+: 1741468214:0;npm install -g @anthropic-ai/claude-code\
+
