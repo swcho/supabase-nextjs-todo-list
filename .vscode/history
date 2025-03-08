@@ -231,3 +231,12 @@ npx tailwindcss init -p\
 : 1740254417:0;exi
 : 1740254418:0;exit
 : 1740254436:0;npx supabase db push
+: 1741426626:0;npm run clean
+: 1741426636:0;rm -rf node_modules .next
+: 1741426638:0;npm i
+: 1741456578:0;ncu
+: 1741456594:0;ncu --help
+: 1741456728:0;ncu --install
+: 1741456752:0;ncu -i
+: 1741456814:0;ncu --help
+: 1741458387:0;npm i
