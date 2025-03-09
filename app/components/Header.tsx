@@ -10,7 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Check, ChevronsUpDown, PlusCircle, Users } from "lucide-react";
+import { Check, ChevronsUpDown, PlusCircle, Users, UserPlus } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
 import {
@@ -28,8 +28,9 @@ import {
 } from "@/components/ui/popover";
 import { useTeams } from "@/hooks/database";
 import { createTeam, Team } from "@/lib/api";
-import { useSession } from "@supabase/auth-helpers-react";
+import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { CreateTeamDialog } from "./CreateTeamDialog";
+import { InviteUserDialog } from "./InviteUserDialog";
 import { useAppContext } from "./AppContext";
 
 function Header() {
@@ -38,11 +39,14 @@ function Header() {
     throw new Error("Access denied");
   }
   const { activeTeam, setActiveTeam } = useAppContext()
+  const supabaseClient = useSupabaseClient();
 
   const [open, setOpen] = useState(false);
   const { data: teams = [], refetch } = useTeams();
   const { user } = session;
   const [createTeamOpen, setCreateTeamOpen] = useState(false);
+  const [inviteUserOpen, setInviteUserOpen] = useState(false);
+  
   const handleCreateTeam = async (team: {
     name: string;
     description: string;
@@ -54,13 +58,17 @@ function Header() {
     setActiveTeam(newTeam);
   };
   
+  const handleSignOut = async () => {
+    await supabaseClient.auth.signOut();
+    window.location.href = "/";
+  };
+  
   useEffect(() => {
-    if (!activeTeam) {
+    if (!activeTeam && teams.length > 0) {
       setActiveTeam(teams[0]);
     }
-  }, []);
+  }, [teams, activeTeam, setActiveTeam]);
 
-  // console.log("Header", { teams });
   return (
     <header className="border-b">
       <div className="flex h-16 items-center px-4 md:px-6">
@@ -128,10 +136,22 @@ function Header() {
             variant="outline"
             size="icon"
             onClick={() => setCreateTeamOpen(true)}
+            title="Create team"
           >
             <PlusCircle className="h-4 w-4" />
             <span className="sr-only">Create team</span>
           </Button>
+          {activeTeam && (
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => setInviteUserOpen(true)}
+              title="Invite user"
+            >
+              <UserPlus className="h-4 w-4" />
+              <span className="sr-only">Invite user</span>
+            </Button>
+          )}
         </div>
         <div className="ml-auto flex items-center gap-2">
           <DropdownMenu>
@@ -146,21 +166,21 @@ function Header() {
             <DropdownMenuContent className="w-56" align="end" forceMount>
               <DropdownMenuLabel className="font-normal">
                 <div className="flex flex-col space-y-1">
-                  {/* <p className="text-sm font-medium leading-none">
-                    {user.email}
-                  </p> */}
                   <p className="text-xs leading-none text-muted-foreground">
                     {user.email}
                   </p>
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
+              <DropdownMenuItem 
+                disabled={!activeTeam}
+                onClick={() => { activeTeam && (window.location.href = "/team-settings"); }}
+              >
                 <Users className="mr-2 h-4 w-4" />
                 <span>Team settings</span>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Log out</DropdownMenuItem>
+              <DropdownMenuItem onClick={handleSignOut}>Log out</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
@@ -169,6 +189,13 @@ function Header() {
         open={createTeamOpen}
         onOpenChange={setCreateTeamOpen}
         onCreateTeam={handleCreateTeam}
+      />
+      <InviteUserDialog
+        open={inviteUserOpen}
+        onOpenChange={setInviteUserOpen}
+        onUserInvited={() => {
+          // Could refresh team data here if needed
+        }}
       />
     </header>
   );

@@ -12,7 +12,7 @@ import TodoListWrapper from "./components/TodoListWrapper";
 
 export type Props = {};
 
-function page(props: Props) {
+function RootPage(props: Props) {
   const {} = props;
   const { isLoading, session } = useSessionContext();
   const supabase = useSupabaseClient();
@@ -68,4 +68,4 @@ function page(props: Props) {
   );
 }
 
-export default React.memo(page);
+export default React.memo(RootPage);

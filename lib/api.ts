@@ -8,6 +8,7 @@ type StrictRequired<T> = {
 
 export type Team = Database["public"]["CompositeTypes"]["team_type"];
 export type Todo = StrictRequired<Database["public"]["CompositeTypes"]["todo_type"]>;
+export type TeamInvitation = Database['public']['Functions']['get_team_invitations']['Returns'][0];
 
 export async function getTeams() {
   const { data, error } = await supabase.rpc("get_user_teams");
@@ -41,22 +42,13 @@ export async function deleteTeam(teamId: number) {
 }
 
 export async function addTeamMember(teamId: number, email: string) {
-  // First get user by email
-  // const { data: users, error: userError } = await supabase
-  //   .from('users')
-  //   .select('id')
-  //   .eq('email', email)
-  //   .single()
-  // if (userError) throw userError
-  // if (!users) throw new Error('User not found')
-  // const { error } = await supabase
-  //   .from('team_members')
-  //   .insert({
-  //     team_id: teamId,
-  //     user_id: users.id,
-  //     role: 'member'
-  //   })
-  // if (error) throw error
+  const { data, error } = await supabase.rpc("create_team_invitation", {
+    team_id: teamId,
+    invitee_email: email,
+  });
+  
+  if (error) throw error;
+  return data;
 }
 
 export async function removeTeamMember(teamId: number, userId: string) {
@@ -66,6 +58,33 @@ export async function removeTeamMember(teamId: number, userId: string) {
     .match({ team_id: teamId, user_id: userId });
 
   if (error) throw error;
+}
+
+export async function getTeamInvitations(teamId: number): Promise<TeamInvitation[]> {
+  const { data, error } = await supabase.rpc("get_team_invitations", {
+    team_id: teamId,
+  });
+  
+  if (error) throw error;
+  return data;
+}
+
+export async function deleteTeamInvitation(invitationId: string) {
+  const { data, error } = await supabase.rpc("delete_team_invitation", {
+    invitation_id: invitationId,
+  });
+  
+  if (error) throw error;
+  return data;
+}
+
+export async function acceptTeamInvitation(token: string) {
+  const { data, error } = await supabase.rpc("accept_team_invitation", {
+    invitation_token: token,
+  });
+  
+  if (error) throw error;
+  return data;
 }
 
 export async function createTeamTodo(teamId: number, task: string) {

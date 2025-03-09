@@ -283,3 +283,13 @@ npx tailwindcss init -p\
 : 1741467002:0;npx shadcn add badge
 : 1741468214:0;npm install -g @anthropic-ai/claude-code\
 
+: 1741468320:0;claude 
+: 1741469630:0;npx supabase db reset --debug
+: 1741469939:0;npm run gen:schema
+: 1741484340:0;claude 
+: 1741484669:0;npm run dev
+: 1741487115:0;npx supabase db reset --debug
+: 1741487156:0;npm run gen:schema
+: 1741487251:0;npm run dev
+: 1741487479:0;git branch -B invitations
+: 1741487491:0;git checkout -B invitations

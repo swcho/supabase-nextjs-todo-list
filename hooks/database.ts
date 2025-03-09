@@ -1,4 +1,4 @@
-import { getTeamsV2 } from "@/lib/api";
+import { getTeamsV2, getTeamInvitations, TeamInvitation } from "@/lib/api";
 import { useSupabaseClient } from "@/lib/initSupabase";
 import { Database } from "@/lib/schema";
 import { useSession } from "@supabase/auth-helpers-react";
@@ -64,6 +64,20 @@ export function useTeams() {
     queryKey: ["useTeams" ],
     queryFn: async () => {
       return getTeamsV2();
+    },
+  });
+}
+
+export declare namespace useTeamInvitations {
+  export type Return = ReturnType<typeof useTeamInvitations>
+  export type ReturnData = Return['data']
+}
+
+export function useTeamInvitations(teamId: number) {
+  return useSuspenseQuery({
+    queryKey: ["useTeamInvitations", teamId],
+    queryFn: async () => {
+      return getTeamInvitations(teamId);
     },
   });
 }

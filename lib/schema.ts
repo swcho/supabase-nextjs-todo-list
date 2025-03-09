@@ -34,6 +34,47 @@ export type Database = {
   }
   public: {
     Tables: {
+      team_invitations: {
+        Row: {
+          accepted_at: string | null
+          created_at: string | null
+          created_by: string | null
+          email: string
+          expires_at: string
+          id: string
+          team_id: number | null
+          token: string
+        }
+        Insert: {
+          accepted_at?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          email: string
+          expires_at: string
+          id?: string
+          team_id?: number | null
+          token: string
+        }
+        Update: {
+          accepted_at?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          email?: string
+          expires_at?: string
+          id?: string
+          team_id?: number | null
+          token?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "team_invitations_team_id_fkey"
+            columns: ["team_id"]
+            isOneToOne: false
+            referencedRelation: "teams"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       team_members: {
         Row: {
           created_at: string
@@ -124,11 +165,25 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      accept_team_invitation: {
+        Args: {
+          invitation_token: string
+        }
+        Returns: boolean
+      }
       create_team: {
         Args: {
           team_name: string
         }
         Returns: Database["public"]["CompositeTypes"]["team_type"]
+      }
+      create_team_invitation: {
+        Args: {
+          team_id: number
+          invitee_email: string
+          expires_in?: unknown
+        }
+        Returns: string
       }
       create_team_todo: {
         Args: {
@@ -143,11 +198,30 @@ export type Database = {
         }
         Returns: boolean
       }
+      delete_team_invitation: {
+        Args: {
+          invitation_id: string
+        }
+        Returns: boolean
+      }
       delete_todo: {
         Args: {
           todo_id: number
         }
         Returns: undefined
+      }
+      get_team_invitations: {
+        Args: {
+          team_id: number
+        }
+        Returns: {
+          id: string
+          email: string
+          created_at: string
+          expires_at: string
+          accepted_at: string
+          status: string
+        }[]
       }
       get_team_todos: {
         Args: {
