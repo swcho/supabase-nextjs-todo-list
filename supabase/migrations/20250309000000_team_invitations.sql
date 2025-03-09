@@ -69,7 +69,7 @@ BEGIN
   -- Check if user is an admin of the team
   SELECT EXISTS (
     SELECT 1 FROM team_members
-    WHERE team_id = create_team_invitation.team_id
+    WHERE team_members.team_id = create_team_invitation.team_id
     AND user_id = auth.uid()
     AND role = 'admin'
   ) INTO is_admin;
@@ -79,7 +79,7 @@ BEGIN
   END IF;
   
   -- Generate a random token
-  invitation_token := encode(gen_random_bytes(24), 'hex');
+  invitation_token := gen_random_uuid()::text;
   
   -- Create the invitation
   INSERT INTO team_invitations (
