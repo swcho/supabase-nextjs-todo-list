@@ -181,7 +181,7 @@ BEGIN
   -- Check if user is a team admin
   IF NOT EXISTS (
     SELECT 1 FROM team_members
-    WHERE team_id = get_team_invitations.team_id
+    WHERE team_members.team_id = get_team_invitations.team_id
     AND user_id = auth.uid()
     AND role = 'admin'
   ) THEN
@@ -242,6 +242,65 @@ BEGIN
   WHERE id = invitation_id;
   
   RETURN FOUND;
+END;
+$$;
+
+-- Function to delete all invitations by user for test purposes
+CREATE OR REPLACE FUNCTION public.delete_user_invitations(
+  user_id uuid
+)
+RETURNS boolean
+SECURITY DEFINER
+SET search_path = public
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  DELETE FROM team_invitations
+  WHERE created_by = delete_user_invitations.user_id;
+  RETURN FOUND;
+END;
+$$;
+
+-- Delete public.get_user_invitations if it exists
+DROP FUNCTION IF EXISTS public.get_user_invitations();
+
+-- Get all invitations for a user
+CREATE OR REPLACE FUNCTION public.get_user_invitations()
+RETURNS TABLE (
+  id uuid,
+  team_id bigint,
+  team_name text,
+  email text,
+  created_at timestamptz,
+  expires_at timestamptz,
+  token text,
+  accepted_at timestamptz,
+  status text
+)
+SECURITY DEFINER
+SET search_path = public
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  RETURN QUERY
+  SELECT 
+    ti.id,
+    ti.team_id,
+    t.name as team_name,
+    ti.email,
+    ti.created_at,
+    ti.expires_at,
+    ti.token,
+    ti.accepted_at,
+    CASE
+      WHEN ti.accepted_at IS NOT NULL THEN 'accepted'
+      WHEN ti.expires_at < now() THEN 'expired'
+      ELSE 'pending'
+    END as status
+  FROM team_invitations ti
+  JOIN teams t ON ti.team_id = t.id
+  WHERE ti.email = (SELECT auth_users.email FROM auth.users auth_users WHERE auth_users.id = auth.uid())
+  ORDER BY ti.created_at DESC;
 END;
 $$;
 

@@ -41,12 +41,18 @@ export async function deleteTeam(teamId: number) {
   return data;
 }
 
-export async function addTeamMember(teamId: number, email: string) {
+export async function inviteTeamMember(teamId: number, email: string) {
   const { data, error } = await supabase.rpc("create_team_invitation", {
     team_id: teamId,
     invitee_email: email,
   });
   
+  if (error) throw error;
+  return data;
+}
+
+export async function getMyInvitations() {
+  const { data, error } = await supabase.rpc("get_user_invitations")
   if (error) throw error;
   return data;
 }
@@ -83,6 +89,14 @@ export async function acceptTeamInvitation(token: string) {
     invitation_token: token,
   });
   
+  if (error) throw error;
+  return data;
+}
+
+export async function deleteUserInvitations(user_id: string) {
+  const { data, error } = await supabase.rpc("delete_user_invitations", {
+    user_id
+  });
   if (error) throw error;
   return data;
 }

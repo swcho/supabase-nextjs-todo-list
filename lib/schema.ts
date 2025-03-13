@@ -210,6 +210,12 @@ export type Database = {
         }
         Returns: undefined
       }
+      delete_user_invitations: {
+        Args: {
+          user_id: string
+        }
+        Returns: boolean
+      }
       get_team_invitations: {
         Args: {
           team_id: number
@@ -228,6 +234,20 @@ export type Database = {
           team_id: number
         }
         Returns: Database["public"]["CompositeTypes"]["todo_type"][]
+      }
+      get_user_invitations: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          id: string
+          team_id: number
+          team_name: string
+          email: string
+          created_at: string
+          expires_at: string
+          token: string
+          accepted_at: string
+          status: string
+        }[]
       }
       get_user_teams: {
         Args: Record<PropertyKey, never>
