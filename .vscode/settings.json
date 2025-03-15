@@ -47,4 +47,6 @@
       "password": "postgres"
     }
   ],
+  // "vitest.cliArguments": "--config vitest.config.mts --sequence.concurrent false",
+  // "vitest.rootConfig": "vitest.config.mts"
 }

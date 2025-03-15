@@ -14,7 +14,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Check, Copy, Mail } from "lucide-react"
-import { addTeamMember } from "@/lib/api"
+import { inviteTeamMember } from "@/lib/rpc/invitation"
 import { useAppContext } from "./AppContext"
 
 interface InviteUserDialogProps {
@@ -60,7 +60,7 @@ export function InviteUserDialog({ open, onOpenChange, onUserInvited }: InviteUs
     try {
       setIsLoading(true)
       console.log("activeTeam.id", activeTeam.id)
-      const invitationId = await addTeamMember(activeTeam.id, email.trim())
+      const invitationId = await inviteTeamMember(activeTeam.id, email.trim())
       
       // Generate invitation link
       const inviteToken = `${window.location.origin}/invite?token=${invitationId}`

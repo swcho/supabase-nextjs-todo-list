@@ -27,11 +27,11 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useTeams } from "@/hooks/database";
-import { createTeam, Team } from "@/lib/api";
 import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { CreateTeamDialog } from "./CreateTeamDialog";
 import { InviteUserDialog } from "./InviteUserDialog";
 import { useAppContext } from "./AppContext";
+import { createTeam } from "@/lib/rpc/team";
 
 function Header() {
   const session = useSession();

@@ -1,8 +1,9 @@
-import { getTeamsV2, getTeamInvitations, TeamInvitation } from "@/lib/api";
+import { getTeamInvitations, TeamInvitation } from "@/lib/rpc/invitation";
 import { useSupabaseClient } from "@/lib/initSupabase";
 import { Database } from "@/lib/schema";
 import { useSession } from "@supabase/auth-helpers-react";
 import { useSuspenseQuery } from "@tanstack/react-query";
+import { getTeamsV2 } from "@/lib/rpc/team";
 
 export declare namespace useForTeamTodoPage {
   export type Return = ReturnType<typeof useForTeamTodoPage>

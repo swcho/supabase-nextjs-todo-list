@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
-import { acceptTeamInvitation } from "@/lib/api"
+import { acceptTeamInvitation } from "@/lib/rpc/invitation"
 import { supabase } from "@/lib/initSupabase"
 import { useSessionContext } from "@supabase/auth-helpers-react"
 import { Card } from "@/components/ui/card"
@@ -12,7 +12,7 @@ import { Check, XCircle, Loader2 } from "lucide-react"
 export default function InvitePage() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const token = searchParams.get("token")
+  const token = searchParams?.get("token")
   const { session } = useSessionContext()
   
   const [status, setStatus] = useState<"loading" | "success" | "error" | "unauthenticated">("loading")

@@ -12,7 +12,7 @@ import { UserMinus } from "lucide-react"
 import { TeamInvitations } from "../components/TeamInvitations"
 import { InviteUserDialog } from "../components/InviteUserDialog"
 import { useState } from "react"
-import { removeTeamMember } from "@/lib/api"
+import { removeTeamMember } from "@/lib/rpc/invitation"
 import { useSession } from "@supabase/auth-helpers-react"
 
 export default function TeamSettingsPage() {

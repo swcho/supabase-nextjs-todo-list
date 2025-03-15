@@ -5,10 +5,11 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 import { config } from 'dotenv'
 
 export default defineConfig({
-  plugins: [react(), tsconfigPaths()],
+  plugins: [tsconfigPaths()],
+  // plugins: [react(), tsconfigPaths()],
   test: {
-    globals: true,
-    environment: 'jsdom',
+    // globals: true,
+    // environment: 'jsdom',
     env: {
       ...config().parsed,
     },
@@ -16,7 +17,15 @@ export default defineConfig({
       './test/setup.ts'
     ],
     include: ['**/*.test.{ts,tsx}'],
-    reporters: ['verbose']
+    reporters: ['verbose'],
+    sequence: {
+      concurrent: false,
+      shuffle: false,
+    },
+    fileParallelism: false,
+    poolOptions: {
+      threads: { singleThread: true }
+    },
     // browser: {
     //   provider: 'playwright',
     //   enabled: true,
@@ -25,7 +34,7 @@ export default defineConfig({
     //   ]
     // },
   },
-  define: {
-    'process.env': JSON.stringify(config().parsed),
-  },
+  // define: {
+  //   'process.env': JSON.stringify(config().parsed),
+  // },
 })

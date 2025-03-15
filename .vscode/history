@@ -263,18 +263,18 @@ npx tailwindcss init -p\
 : 1741462626:0;colima status
 : 1741462660:0;colima ssh
 : 1741462846:0;npx supabase start
-: 1741463206:0;say "ëƒ½ë‚¬ìƒªµëƒ«ƒ¨ëƒ«¤."
+: 1741463206:0;say "ëƒï¿½ë‚¬ìƒªï¿½ëƒ«ï¿½ï¿½ëƒ«ï¿½."
 : 1741463221:0;say "supabase start finished"
 : 1741463328:0;sleep 3
 : 1741463447:0;exit
 : 1741463458:0;sleep 3
 : 1741463483:0;sleep 5
-: 1741463689:0;npx supabase start; osascript -e 'display notification "ìƒ¾ƒ±ìƒ·ƒ¥ìƒ½´ ìƒ¹ƒ¤ë£ƒ¬ëƒ°ƒ¸ìƒ·ƒ¨ìƒªµëƒ«ƒ¨ëƒ«¤!" with title "ìƒµƒ¬ë¦¼" subtitle "ìƒ£íƒ£ƒ¼ ìƒ·ƒ¥ëƒ­°ìƒ½´íƒª¸"'\
+: 1741463689:0;npx supabase start; osascript -e 'display notification "ìƒ¾ï¿½ï¿½ìƒ·ï¿½ï¿½ìƒ½ï¿½ ìƒ¹ï¿½ï¿½ë£ƒï¿½ëƒ°ï¿½ï¿½ìƒ·ï¿½ï¿½ìƒªï¿½ëƒ«ï¿½ï¿½ëƒ«ï¿½!" with title "ìƒµï¿½ï¿½ë¦¼" subtitle "ìƒ£ï¿½íƒ£ï¿½ï¿½ ìƒ·ï¿½ï¿½ëƒ­ï¿½ìƒ½ï¿½íƒªï¿½"'\
 
 : 1741463746:0;npx supabase stop --no-backup
-: 1741463749:0;npx supabase start; osascript -e 'display notification "ìƒ¾ƒ±ìƒ·ƒ¥ìƒ½´ ìƒ¹ƒ¤ë£ƒ¬ëƒ°ƒ¸ìƒ·ƒ¨ìƒªµëƒ«ƒ¨ëƒ«¤!" with title "ìƒµƒ¬ë¦¼" subtitle "ìƒ£íƒ£ƒ¼ ìƒ·ƒ¥ëƒ­°ìƒ½´íƒª¸"'\
+: 1741463749:0;npx supabase start; osascript -e 'display notification "ìƒ¾ï¿½ï¿½ìƒ·ï¿½ï¿½ìƒ½ï¿½ ìƒ¹ï¿½ï¿½ë£ƒï¿½ëƒ°ï¿½ï¿½ìƒ·ï¿½ï¿½ìƒªï¿½ëƒ«ï¿½ï¿½ëƒ«ï¿½!" with title "ìƒµï¿½ï¿½ë¦¼" subtitle "ìƒ£ï¿½íƒ£ï¿½ï¿½ ìƒ·ï¿½ï¿½ëƒ­ï¿½ìƒ½ï¿½íƒªï¿½"'\
 
-: 1741464214:0;npx supabase start -x vector; osascript -e 'display notification "ìƒ¾ƒ±ìƒ·ƒ¥ìƒ½´ ìƒ¹ƒ¤ë£ƒ¬ëƒ°ƒ¸ìƒ·ƒ¨ìƒªµëƒ«ƒ¨ëƒ«¤!" with title "ìƒµƒ¬ë¦¼" subtitle "ìƒ£íƒ£ƒ¼ ìƒ·ƒ¥ëƒ­°ìƒ½´íƒª¸"'\
+: 1741464214:0;npx supabase start -x vector; osascript -e 'display notification "ìƒ¾ï¿½ï¿½ìƒ·ï¿½ï¿½ìƒ½ï¿½ ìƒ¹ï¿½ï¿½ë£ƒï¿½ëƒ°ï¿½ï¿½ìƒ·ï¿½ï¿½ìƒªï¿½ëƒ«ï¿½ï¿½ëƒ«ï¿½!" with title "ìƒµï¿½ï¿½ë¦¼" subtitle "ìƒ£ï¿½íƒ£ï¿½ï¿½ ìƒ·ï¿½ï¿½ëƒ­ï¿½ìƒ½ï¿½íƒªï¿½"'\
 
 : 1741464274:0;docker ps
 : 1741464350:0;npm run dev
@@ -292,4 +292,43 @@ npx tailwindcss init -p\
 : 1741487156:0;npm run gen:schema
 : 1741487251:0;npm run dev
 : 1741487479:0;git branch -B invitations
-: 1741487491:0;git checkout -B invitations
+: 1741487491:0;git checkout -B invitations: 1741896446:0;npm run dev
+: 1741902335:0;npm run test
+: 1741903718:0;npx vitest
+: 1741903754:0;npx vitest --sequence.concurrent=false
+: 1741903861:0;npx vitest
+: 1741904853:0;npx vitest --no-file-parallelism
+: 1741905085:0;npx run test
+: 1741905094:0;npm run test
+: 1741905110:0;npm why punycode
+: 1741905325:0;npm run test
+: 1741905548:0;npm why jsdom
+: 1741906107:0;ncu
+: 1741906200:0;npm run test
+: 1741906268:0;npm run start
+: 1741906283:0;npm run dev
+: 1741906585:0;ncu
+: 1741914027:0;npx supabase stop
+: 1741914071:0;docker volume ls --filter label=com.supabase.cli.project=supabase-nextjs-todo-list
+: 1741914093:0;ncu supabase
+: 1741914111:0;ncu
+: 1741914137:0;ncu -u supabase
+: 1741914142:0;npm i
+: 1741914153:0;npx supabase start
+: 1741914363:0;npx supabase stop --no-backup
+: 1741914373:0;npx supabase start
+: 1741914461:0;npx supabase stop --no-backup
+: 1741914466:0;docker volume ls --filter label=com.supabase.cli.project=supabase-nextjs-todo-list
+: 1741914475:0;npx supabase start
+: 1741915323:0;colima status
+: 1741915550:0;npx supabase start
+: 1741915568:0;npx supabase start --help
+: 1741915596:0;npx supabase start --debug
+: 1741915607:0;npx supabase stop --no-backup
+: 1741915609:0;npx supabase start --debug
+: 1741915750:0;npx supabase stop --no-backup
+: 1741915782:0;npx supabase start -x vector
+: 1741915845:0;npx supabase stop
+: 1741915881:0;npx supabase start -x vector
+: 1741915937:0;npm run dev
+: 1741916073:0;npx supabase stop

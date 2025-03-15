@@ -6,7 +6,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { addTeamMember, TeamInvitation } from "@/lib/api"
+import { inviteTeamMember, TeamInvitation } from "@/lib/rpc/invitation"
 
 interface InvitationsProps {
   invitations: TeamInvitation[]
@@ -20,7 +20,7 @@ export function Invitations({ invitations, onHandle, onInvite }: InvitationsProp
 
   const handleInviteSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    await addTeamMember(1, email) // Replace 1 with the actual team ID
+    await inviteTeamMember(1, email) // Replace 1 with the actual team ID
     // await addTeamMember(1, email, role) // Replace 1 with the actual team ID
     setEmail('')
     setRole('')

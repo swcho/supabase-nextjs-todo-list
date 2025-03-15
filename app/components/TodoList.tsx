@@ -4,14 +4,8 @@ import { Session } from "@supabase/auth-helpers-react";
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useAppContext } from "@/app/components/AppContext";
-import {
-  createTeamTodo,
-  deleteTodo,
-  getTeamTodos,
-  setTodoComplete,
-  Team,
-  Todo,
-} from "@/lib/api";
+import { Team } from "@/lib/rpc/team";
+import { createTeamTodo, deleteTodo, getTeamTodos, setTodoComplete, Todo } from "@/lib/rpc/todo";
 
 export default function TodoList({ session, activeTeam }: { session: Session; activeTeam: Team }) {
   const [newTaskText, setNewTaskText] = useState("");

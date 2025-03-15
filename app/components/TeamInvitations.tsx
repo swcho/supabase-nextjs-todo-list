@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { deleteTeamInvitation, TeamInvitation } from "@/lib/api"
+import { deleteTeamInvitation, TeamInvitation } from "@/lib/rpc/invitation"
 import { format, isAfter } from "date-fns"
 import { Mail, Trash, Copy, RefreshCw, Check } from "lucide-react"
 import { useState } from "react"
