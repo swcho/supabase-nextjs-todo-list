@@ -355,3 +355,17 @@ npx tailwindcss init -p\
 : 1741999195:0;npm run dev
 : 1742026932:0;npx supabase db dump --file ./supabase/seed.sql
 : 1742028147:0;npm run prepare-merge
+: 1742029691:0;npm install -D playwright
+: 1742029702:0;npx playwright init
+: 1742029851:0;npm i -D @playwright/test
+: 1742029908:0;git checkout -B playwright-e2e-testing
+: 1742029992:0;npm run test:e2e
+: 1742030096:0;npx playwright init
+: 1742030103:0;npx playwright --help
+: 1742030210:0;npm run test:e2e
+: 1742030320:0;npx playwright test
+: 1742030394:0;npm run test:e2e:dev
+: 1742030491:0;npm run dev
+: 1742030506:0;npm run test:e2e:dev
+: 1742030526:0;npx playwright install 
+: 1742030582:0;npm run test:e2e:dev

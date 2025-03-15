@@ -17,6 +17,7 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { cn } from "@/lib/utils"
+import { TEST_ID_TEAM_NAME, TEST_ID_TEAM_SUBMIT } from "@/test/test-id-list"
 
 interface CreateTeamDialogProps {
   open: boolean
@@ -71,7 +72,7 @@ export function CreateTeamDialog({ open, onOpenChange, onCreateTeam }: CreateTea
             <div className="grid gap-2">
               <Label htmlFor="name">Team name</Label>
               <Input
-                id="name"
+                id={TEST_ID_TEAM_NAME}
                 value={name}
                 onChange={(e) => {
                   setName(e.target.value)
@@ -113,7 +114,7 @@ export function CreateTeamDialog({ open, onOpenChange, onCreateTeam }: CreateTea
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit">Create team</Button>
+            <Button id={TEST_ID_TEAM_SUBMIT} type="submit">Create team</Button>
           </DialogFooter>
         </form>
       </DialogContent>

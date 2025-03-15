@@ -14,6 +14,8 @@
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest watch",
+    "test:e2e": "playwright test",
+    "test:e2e:dev": "playwright test --ui",
     "prepare-merge": "supabase db diff --schema public > supabase/migrations/prepare_merge.sql"
   },
   "overrides": {
@@ -50,6 +52,7 @@
     "typescript": "4.9.5"
   },
   "devDependencies": {
+    "@playwright/test": "^1.51.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@vitejs/plugin-react": "^4.3.4",
     "@vitest/browser": "^3.0.8",

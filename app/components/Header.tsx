@@ -10,7 +10,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Check, ChevronsUpDown, PlusCircle, Users, UserPlus } from "lucide-react";
+import {
+  Check,
+  ChevronsUpDown,
+  PlusCircle,
+  Users,
+  UserPlus,
+  Settings
+} from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
 import {
@@ -32,13 +39,14 @@ import { CreateTeamDialog } from "./CreateTeamDialog";
 import { InviteUserDialog } from "./InviteUserDialog";
 import { useAppContext } from "./AppContext";
 import { createTeam } from "@/lib/rpc/team";
+import { TEST_ID_CREATE_TEAM_BUTTON } from "@/test/test-id-list";
 
 function Header() {
   const session = useSession();
   if (!session) {
     throw new Error("Access denied");
   }
-  const { activeTeam, setActiveTeam } = useAppContext()
+  const { activeTeam, setActiveTeam } = useAppContext();
   const supabaseClient = useSupabaseClient();
 
   const [open, setOpen] = useState(false);
@@ -46,7 +54,7 @@ function Header() {
   const { user } = session;
   const [createTeamOpen, setCreateTeamOpen] = useState(false);
   const [inviteUserOpen, setInviteUserOpen] = useState(false);
-  
+
   const handleCreateTeam = async (team: {
     name: string;
     description: string;
@@ -57,12 +65,12 @@ function Header() {
     await refetch();
     setActiveTeam(newTeam);
   };
-  
+
   const handleSignOut = async () => {
     await supabaseClient.auth.signOut();
     window.location.href = "/";
   };
-  
+
   useEffect(() => {
     if (!activeTeam && teams.length > 0) {
       setActiveTeam(teams[0]);
@@ -132,7 +140,30 @@ function Header() {
               </Command>
             </PopoverContent>
           </Popover>
+          {activeTeam && (
+            <>
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => setInviteUserOpen(true)}
+                title="Invite user"
+              >
+                <Settings className="h-4 w-4" />
+                <span className="sr-only">설정</span>
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => setInviteUserOpen(true)}
+                title="Invite user"
+              >
+                <UserPlus className="h-4 w-4" />
+                <span className="sr-only">Invite user</span>
+              </Button>
+            </>
+          )}
           <Button
+            id={TEST_ID_CREATE_TEAM_BUTTON}
             variant="outline"
             size="icon"
             onClick={() => setCreateTeamOpen(true)}
@@ -141,17 +172,6 @@ function Header() {
             <PlusCircle className="h-4 w-4" />
             <span className="sr-only">Create team</span>
           </Button>
-          {activeTeam && (
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => setInviteUserOpen(true)}
-              title="Invite user"
-            >
-              <UserPlus className="h-4 w-4" />
-              <span className="sr-only">Invite user</span>
-            </Button>
-          )}
         </div>
         <div className="ml-auto flex items-center gap-2">
           <DropdownMenu>
@@ -172,15 +192,19 @@ function Header() {
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem 
+              <DropdownMenuItem
                 disabled={!activeTeam}
-                onClick={() => { activeTeam && (window.location.href = "/team-settings"); }}
+                onClick={() => {
+                  activeTeam && (window.location.href = "/team-settings");
+                }}
               >
                 <Users className="mr-2 h-4 w-4" />
                 <span>Team settings</span>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={handleSignOut}>Log out</DropdownMenuItem>
+              <DropdownMenuItem onClick={handleSignOut}>
+                Log out
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
