@@ -1,4 +1,6 @@
-import { Team } from "@/lib/api";
+"use client";
+
+import { Team } from "@/lib/rpc/team";
 import { createContext, PropsWithChildren, useContext, useState } from "react";
 
 function useAppContextValue() {

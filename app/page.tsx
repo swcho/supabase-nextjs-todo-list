@@ -12,7 +12,7 @@ import TodoListWrapper from "./components/TodoListWrapper";
 
 export type Props = {};
 
-function page(props: Props) {
+function RootPage(props: Props) {
   const {} = props;
   const { isLoading, session } = useSessionContext();
   const supabase = useSupabaseClient();
@@ -51,15 +51,6 @@ function page(props: Props) {
               style={{ minWidth: 250, maxWidth: 600, margin: "auto" }}
             >
               <TodoListWrapper />
-              <button
-                className="btn-black w-full mt-12"
-                onClick={async () => {
-                  const { error } = await supabase.auth.signOut();
-                  if (error) console.log("Error logging out:", error.message);
-                }}
-              >
-                Logout
-              </button>
             </div>
           </AppContextProvider>
         )}
@@ -68,4 +59,4 @@ function page(props: Props) {
   );
 }
 
-export default React.memo(page);
+export default React.memo(RootPage);
