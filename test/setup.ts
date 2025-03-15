@@ -6,3 +6,4 @@
 // dotenv.config({ path: '.env' })  // .env.local 파일 로드
 
 // expect.extend(matchers)
+export {}
