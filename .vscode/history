@@ -353,3 +353,4 @@ npx tailwindcss init -p\
 : 1741999177:0;npm i
 : 1741999183:0;npm why whatwg-url
 : 1741999195:0;npm run dev
+: 1742026932:0;npx supabase db dump --file ./supabase/seed.sql

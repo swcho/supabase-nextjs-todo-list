@@ -1,11 +1,4 @@
-SET session_replication_role = replica;
 
---
--- PostgreSQL database dump
---
-
--- Dumped from database version 15.8
--- Dumped by pg_dump version 15.8
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -18,185 +11,813 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
---
--- Data for Name: audit_log_entries; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
 
---
--- Data for Name: flow_state; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
+CREATE EXTENSION IF NOT EXISTS "pgsodium";
 
 
 
---
--- Data for Name: users; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
 
-INSERT INTO "auth"."users" ("instance_id", "id", "aud", "role", "email", "encrypted_password", "email_confirmed_at", "invited_at", "confirmation_token", "confirmation_sent_at", "recovery_token", "recovery_sent_at", "email_change_token_new", "email_change", "email_change_sent_at", "last_sign_in_at", "raw_app_meta_data", "raw_user_meta_data", "is_super_admin", "created_at", "updated_at", "phone", "phone_confirmed_at", "phone_change", "phone_change_token", "phone_change_sent_at", "email_change_token_current", "email_change_confirm_status", "banned_until", "reauthentication_token", "reauthentication_sent_at", "is_sso_user", "deleted_at", "is_anonymous") VALUES
-	('00000000-0000-0000-0000-000000000000', '224f35e3-8898-48ac-825f-8799ea307726', 'authenticated', 'authenticated', 'test_user_02@todo.ex', '$2a$10$7hu.pNHrrupwlwh/GY/rbuihJNc3H5qu970paJlPfQTpuxyZRX4iu', '2025-01-10 10:29:52.388438+00', NULL, '', NULL, '', NULL, '', '', NULL, '2025-01-20 02:28:36.680807+00', '{"provider": "email", "providers": ["email"]}', '{"email_verified": true}', NULL, '2025-01-10 10:29:52.36297+00', '2025-01-20 02:28:36.682305+00', NULL, NULL, '', '', NULL, '', 0, NULL, '', NULL, false, NULL, false),
-	('00000000-0000-0000-0000-000000000000', '624c6ed1-3d25-4dd8-932f-8bab9837b79d', 'authenticated', 'authenticated', 'test_user_01@todo.ex', '$2a$10$uikHuBQJOomdbBCSkfRvgO305UQgvswoMi78k995Md2Jf.2tDDada', '2025-01-10 10:29:24.057743+00', NULL, '', NULL, '', NULL, '', '', NULL, '2025-01-24 23:26:02.678298+00', '{"provider": "email", "providers": ["email"]}', '{"email_verified": true}', NULL, '2025-01-10 10:29:24.04523+00', '2025-01-24 23:26:02.680887+00', NULL, NULL, '', '', NULL, '', 0, NULL, '', NULL, false, NULL, false),
-	('00000000-0000-0000-0000-000000000000', '51e3d3a7-f134-4c10-8a39-bc9c3e7d50b4', 'authenticated', 'authenticated', 'sungwoo.cho.dev@gmail.com', '$2a$10$1fFZ/2scK4JzxpHXYYBN0OM6xSZKtrmpfeuEsw89k8U88KY6Q6bO2', '2025-01-05 06:53:00.223477+00', NULL, '', '2025-01-05 06:52:45.285797+00', '', NULL, '', '', NULL, '2025-01-12 00:48:11.479996+00', '{"provider": "email", "providers": ["email"]}', '{"sub": "51e3d3a7-f134-4c10-8a39-bc9c3e7d50b4", "email": "sungwoo.cho.dev@gmail.com", "email_verified": true, "phone_verified": false}', NULL, '2025-01-05 06:52:45.28105+00', '2025-01-20 00:09:54.441412+00', NULL, NULL, '', '', NULL, '', 0, NULL, '', NULL, false, NULL, false);
 
 
---
--- Data for Name: identities; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
+COMMENT ON SCHEMA "public" IS 'standard public schema';
 
-INSERT INTO "auth"."identities" ("provider_id", "user_id", "identity_data", "provider", "last_sign_in_at", "created_at", "updated_at", "id") VALUES
-	('51e3d3a7-f134-4c10-8a39-bc9c3e7d50b4', '51e3d3a7-f134-4c10-8a39-bc9c3e7d50b4', '{"sub": "51e3d3a7-f134-4c10-8a39-bc9c3e7d50b4", "email": "sungwoo.cho.dev@gmail.com", "email_verified": true, "phone_verified": false}', 'email', '2025-01-05 06:52:45.283352+00', '2025-01-05 06:52:45.283397+00', '2025-01-05 06:52:45.283397+00', '0ac1b5b9-69af-4387-95e5-5b950bed07ea'),
-	('624c6ed1-3d25-4dd8-932f-8bab9837b79d', '624c6ed1-3d25-4dd8-932f-8bab9837b79d', '{"sub": "624c6ed1-3d25-4dd8-932f-8bab9837b79d", "email": "test_user_01@todo.ex", "email_verified": false, "phone_verified": false}', 'email', '2025-01-10 10:29:24.054356+00', '2025-01-10 10:29:24.054415+00', '2025-01-10 10:29:24.054415+00', 'a04dce6a-c405-45aa-9eab-2267a1765908'),
-	('224f35e3-8898-48ac-825f-8799ea307726', '224f35e3-8898-48ac-825f-8799ea307726', '{"sub": "224f35e3-8898-48ac-825f-8799ea307726", "email": "test_user_02@todo.ex", "email_verified": false, "phone_verified": false}', 'email', '2025-01-10 10:29:52.383077+00', '2025-01-10 10:29:52.383148+00', '2025-01-10 10:29:52.383148+00', '9dc24dec-7427-4335-b3c8-ad20d2c4ef62');
 
 
---
--- Data for Name: instances; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
+CREATE EXTENSION IF NOT EXISTS "pg_graphql" WITH SCHEMA "graphql";
 
 
 
---
--- Data for Name: sessions; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
 
 
---
--- Data for Name: mfa_amr_claims; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
 
+CREATE EXTENSION IF NOT EXISTS "pg_stat_statements" WITH SCHEMA "extensions";
 
---
--- Data for Name: mfa_factors; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
 
 
 
---
--- Data for Name: mfa_challenges; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
 
 
+CREATE EXTENSION IF NOT EXISTS "pgcrypto" WITH SCHEMA "extensions";
 
---
--- Data for Name: one_time_tokens; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
 
 
 
---
--- Data for Name: refresh_tokens; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
 
 
---
--- Data for Name: sso_providers; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
+CREATE EXTENSION IF NOT EXISTS "pgjwt" WITH SCHEMA "extensions";
 
 
 
---
--- Data for Name: saml_providers; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
 
 
 
---
--- Data for Name: saml_relay_states; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
+CREATE EXTENSION IF NOT EXISTS "supabase_vault" WITH SCHEMA "vault";
 
 
 
---
--- Data for Name: sso_domains; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
 
 
 
---
--- Data for Name: key; Type: TABLE DATA; Schema: pgsodium; Owner: supabase_admin
---
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA "extensions";
 
 
 
---
--- Data for Name: teams; Type: TABLE DATA; Schema: public; Owner: postgres
---
 
 
 
---
--- Data for Name: team_members; Type: TABLE DATA; Schema: public; Owner: postgres
---
+CREATE TYPE "public"."member_type" AS (
+	"id" "uuid",
+	"aud" character varying,
+	"email" character varying,
+	"joined_at" timestamp without time zone
+);
 
 
+ALTER TYPE "public"."member_type" OWNER TO "postgres";
 
---
--- Data for Name: todos; Type: TABLE DATA; Schema: public; Owner: postgres
---
 
-INSERT INTO "public"."todos" ("id", "user_id", "task", "is_complete", "inserted_at", "team_id") VALUES
-	(3, '51e3d3a7-f134-4c10-8a39-bc9c3e7d50b4', '111111', false, '2025-01-10 08:48:30.074983+00', NULL);
+CREATE TYPE "public"."team_type" AS (
+	"id" bigint,
+	"name" "text",
+	"created_at" timestamp without time zone,
+	"members" "public"."member_type"[]
+);
 
 
---
--- Data for Name: buckets; Type: TABLE DATA; Schema: storage; Owner: supabase_storage_admin
---
+ALTER TYPE "public"."team_type" OWNER TO "postgres";
 
 
+CREATE TYPE "public"."todo_type" AS (
+	"id" bigint,
+	"team_id" bigint,
+	"user_id" "uuid",
+	"todo" "text",
+	"is_completed" boolean,
+	"created_at" timestamp without time zone
+);
 
---
--- Data for Name: objects; Type: TABLE DATA; Schema: storage; Owner: supabase_storage_admin
---
 
+ALTER TYPE "public"."todo_type" OWNER TO "postgres";
 
 
---
--- Data for Name: s3_multipart_uploads; Type: TABLE DATA; Schema: storage; Owner: supabase_storage_admin
---
+CREATE OR REPLACE FUNCTION "public"."create_team"("team_name" "text") RETURNS "public"."team_type"
+    LANGUAGE "plpgsql" SECURITY DEFINER
+    SET "search_path" TO 'public'
+    AS $$
+DECLARE
+  new_team_id bigint;
+  result team_type;  -- 결과를 저장할 변수 선언
+BEGIN
+  -- Insert new team
+  INSERT INTO teams (name, owner_id)
+  VALUES (team_name, auth.uid())
+  RETURNING id INTO new_team_id;
+  
+  -- Add admin as team member
+  INSERT INTO team_members (team_id, user_id, role)
+  VALUES (new_team_id, auth.uid(), 'admin');
+  
+  -- 단일 행을 결과 변수에 저장
+  SELECT 
+    t.id,
+    t.name,
+    t.created_at::timestamp,
+    ARRAY(
+      SELECT ROW(
+        u.id,
+        u.aud,
+        u.email,
+        tm.created_at::timestamp
+      )::member_type
+      FROM team_members tm
+      JOIN auth.users u ON u.id = tm.user_id
+      WHERE tm.team_id = t.id
+    )
+  INTO result  -- INTO 구문을 사용하여 결과 저장
+  FROM teams t
+  WHERE t.id = new_team_id;
+  
+  -- 단일 결과 반환
+  RETURN result;
+END;
+$$;
+
+
+ALTER FUNCTION "public"."create_team"("team_name" "text") OWNER TO "postgres";
+
+
+CREATE OR REPLACE FUNCTION "public"."create_team_todo"("team_id" bigint, "task" "text") RETURNS "public"."todo_type"
+    LANGUAGE "plpgsql" SECURITY DEFINER
+    SET "search_path" TO 'public'
+    AS $$
+DECLARE
+  new_todo_id bigint;
+  result todo_type;
+BEGIN
+  -- Insert new todo
+  INSERT INTO todos (team_id, user_id, task)
+  VALUES (team_id, auth.uid(), task)
+  RETURNING id INTO new_todo_id;
+  
+  -- 단일 행을 결과 변수에 저장
+  SELECT 
+    t.id,
+    t.team_id,
+    t.user_id,
+    t.task,
+    t.is_complete,
+    t.inserted_at::timestamp
+  INTO result
+  FROM todos t
+  WHERE t.id = new_todo_id;
+  
+  -- 단일 결과 반환
+  RETURN result;
+END
+$$;
+
+
+ALTER FUNCTION "public"."create_team_todo"("team_id" bigint, "task" "text") OWNER TO "postgres";
+
+
+CREATE OR REPLACE FUNCTION "public"."delete_team"("team_id" bigint) RETURNS boolean
+    LANGUAGE "plpgsql" SECURITY DEFINER
+    SET "search_path" TO 'public'
+    AS $$
+DECLARE
+  _team_id ALIAS FOR team_id;
+  is_owner boolean;
+BEGIN
+  SELECT owner_id = auth.uid() INTO is_owner
+  FROM teams
+  WHERE id = _team_id;
+  
+  IF NOT FOUND THEN
+    RAISE EXCEPTION 'Team not found.';
+    -- RETURN FALSE;
+  END IF;
+
+  IF NOT is_owner THEN
+    RAISE EXCEPTION 'Only team owner can delete teams.';
+    -- RETURN FALSE;
+  END IF;
+  
+  -- Delete all todos
+  DELETE FROM todos t
+  WHERE t.team_id = _team_id;
+  
+  -- Delete all team member relations
+  DELETE FROM team_members tm
+  WHERE tm.team_id = _team_id;
+  
+  DELETE FROM teams
+  WHERE id = _team_id AND owner_id = auth.uid();
+  
+  RETURN FOUND;
+END;
+$$;
+
+
+ALTER FUNCTION "public"."delete_team"("team_id" bigint) OWNER TO "postgres";
+
+
+CREATE OR REPLACE FUNCTION "public"."delete_todo"("todo_id" bigint) RETURNS "void"
+    LANGUAGE "plpgsql" SECURITY DEFINER
+    SET "search_path" TO 'public'
+    AS $$
+BEGIN
+  DELETE FROM todos
+  WHERE id = todo_id;
+END
+$$;
+
+
+ALTER FUNCTION "public"."delete_todo"("todo_id" bigint) OWNER TO "postgres";
+
+
+CREATE OR REPLACE FUNCTION "public"."get_team_todos"("team_id" bigint) RETURNS SETOF "public"."todo_type"
+    LANGUAGE "plpgsql" SECURITY DEFINER
+    SET "search_path" TO 'public'
+    AS $$
+DECLARE
+  p_team_id BIGINT;
+BEGIN
+  p_team_id := team_id;
+  RETURN QUERY
+  SELECT 
+    t.id,
+    t.team_id,
+    t.user_id,
+    t.task,
+    t.is_complete,
+    t.inserted_at::timestamp
+  FROM todos t
+  WHERE t.team_id = p_team_id;
+END
+$$;
+
+
+ALTER FUNCTION "public"."get_team_todos"("team_id" bigint) OWNER TO "postgres";
+
+
+CREATE OR REPLACE FUNCTION "public"."get_user_teams"() RETURNS TABLE("id" bigint, "name" "text", "created_at" timestamp with time zone, "owner_id" "uuid", "is_owner" boolean)
+    LANGUAGE "plpgsql" SECURITY DEFINER
+    SET "search_path" TO 'public'
+    AS $$
+BEGIN
+  RETURN QUERY
+  SELECT 
+    t.id,
+    t.name,
+    t.created_at,
+    t.owner_id,
+    t.owner_id = auth.uid() as is_owner
+  FROM teams t
+  INNER JOIN team_members tm ON t.id = tm.team_id
+  WHERE tm.user_id = auth.uid();
+END;
+$$;
+
+
+ALTER FUNCTION "public"."get_user_teams"() OWNER TO "postgres";
+
+
+CREATE OR REPLACE FUNCTION "public"."get_user_teams_v2"() RETURNS SETOF "public"."team_type"
+    LANGUAGE "plpgsql" SECURITY DEFINER
+    SET "search_path" TO 'public'
+    AS $$
+BEGIN
+  RETURN QUERY
+  SELECT 
+    t.id,
+    t.name,
+    t.created_at::timestamp,
+    ARRAY(
+      SELECT ROW(
+        u.id,
+        u.aud,
+        u.email,
+        tm.created_at::timestamp
+      )::member_type
+      FROM team_members tm
+      JOIN auth.users u ON u.id = tm.user_id
+      WHERE tm.team_id = t.id)
+  FROM teams t
+  JOIN team_members tm ON t.id = tm.team_id
+  WHERE tm.user_id = auth.uid();
+END;
+$$;
+
+
+ALTER FUNCTION "public"."get_user_teams_v2"() OWNER TO "postgres";
+
+
+CREATE OR REPLACE FUNCTION "public"."set_todo_completed"("todo_id" bigint, "is_completed" boolean) RETURNS "public"."todo_type"
+    LANGUAGE "plpgsql" SECURITY DEFINER
+    SET "search_path" TO 'public'
+    AS $$
+DECLARE
+  result todo_type;
+BEGIN
+  -- Update todo
+  UPDATE todos
+  SET is_complete = is_completed
+  WHERE id = todo_id
+  RETURNING id, team_id, user_id, task, is_completed, inserted_at::timestamp
+  INTO result;
+  
+  -- 단일 결과 반환
+  RETURN result;
+END
+$$;
+
+
+ALTER FUNCTION "public"."set_todo_completed"("todo_id" bigint, "is_completed" boolean) OWNER TO "postgres";
+
+
+CREATE OR REPLACE FUNCTION "public"."update_team"("team_id" bigint, "new_name" "text") RETURNS boolean
+    LANGUAGE "plpgsql" SECURITY DEFINER
+    SET "search_path" TO 'public'
+    AS $$
+BEGIN
+  UPDATE teams
+  SET 
+    name = new_name
+  WHERE id = team_id AND owner_id = auth.uid();
+  
+  RETURN FOUND;
+END;
+$$;
+
+
+ALTER FUNCTION "public"."update_team"("team_id" bigint, "new_name" "text") OWNER TO "postgres";
+
+SET default_tablespace = '';
+
+SET default_table_access_method = "heap";
+
+
+CREATE TABLE IF NOT EXISTS "public"."team_members" (
+    "team_id" bigint NOT NULL,
+    "user_id" "uuid" NOT NULL,
+    "role" "text",
+    "created_at" timestamp with time zone DEFAULT "timezone"('utc'::"text", "now"()) NOT NULL,
+    CONSTRAINT "team_members_role_check" CHECK (("role" = ANY (ARRAY['admin'::"text", 'member'::"text"])))
+);
+
+
+ALTER TABLE "public"."team_members" OWNER TO "postgres";
+
+
+CREATE TABLE IF NOT EXISTS "public"."teams" (
+    "id" bigint NOT NULL,
+    "name" "text" NOT NULL,
+    "owner_id" "uuid" NOT NULL,
+    "created_at" timestamp with time zone DEFAULT "timezone"('utc'::"text", "now"()) NOT NULL,
+    CONSTRAINT "teams_name_check" CHECK (("char_length"("name") > 2))
+);
 
 
+ALTER TABLE "public"."teams" OWNER TO "postgres";
 
---
--- Data for Name: s3_multipart_uploads_parts; Type: TABLE DATA; Schema: storage; Owner: supabase_storage_admin
---
 
+ALTER TABLE "public"."teams" ALTER COLUMN "id" ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME "public"."teams_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
 
 
---
--- Data for Name: secrets; Type: TABLE DATA; Schema: vault; Owner: supabase_admin
---
 
+CREATE TABLE IF NOT EXISTS "public"."todos" (
+    "id" bigint NOT NULL,
+    "user_id" "uuid" NOT NULL,
+    "task" "text" NOT NULL,
+    "is_complete" boolean DEFAULT false NOT NULL,
+    "inserted_at" timestamp with time zone DEFAULT "timezone"('utc'::"text", "now"()) NOT NULL,
+    "team_id" bigint,
+    CONSTRAINT "todos_task_check" CHECK (("char_length"("task") > 3))
+);
 
 
---
--- Name: refresh_tokens_id_seq; Type: SEQUENCE SET; Schema: auth; Owner: supabase_auth_admin
---
+ALTER TABLE "public"."todos" OWNER TO "postgres";
 
-SELECT pg_catalog.setval('"auth"."refresh_tokens_id_seq"', 307, true);
 
+ALTER TABLE "public"."todos" ALTER COLUMN "id" ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME "public"."todos_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
 
---
--- Name: key_key_id_seq; Type: SEQUENCE SET; Schema: pgsodium; Owner: supabase_admin
---
 
-SELECT pg_catalog.setval('"pgsodium"."key_key_id_seq"', 1, false);
 
+ALTER TABLE ONLY "public"."team_members"
+    ADD CONSTRAINT "team_members_pkey" PRIMARY KEY ("team_id", "user_id");
 
---
--- Name: teams_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
 
-SELECT pg_catalog.setval('"public"."teams_id_seq"', 99, true);
 
+ALTER TABLE ONLY "public"."teams"
+    ADD CONSTRAINT "teams_pkey" PRIMARY KEY ("id");
 
---
--- Name: todos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
 
-SELECT pg_catalog.setval('"public"."todos_id_seq"', 68, true);
 
+ALTER TABLE ONLY "public"."todos"
+    ADD CONSTRAINT "todos_pkey" PRIMARY KEY ("id");
 
---
--- PostgreSQL database dump complete
---
+
+
+ALTER TABLE ONLY "public"."team_members"
+    ADD CONSTRAINT "team_members_team_id_fkey" FOREIGN KEY ("team_id") REFERENCES "public"."teams"("id");
+
+
+
+ALTER TABLE ONLY "public"."team_members"
+    ADD CONSTRAINT "team_members_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "auth"."users"("id");
+
+
+
+ALTER TABLE ONLY "public"."teams"
+    ADD CONSTRAINT "teams_owner_id_fkey" FOREIGN KEY ("owner_id") REFERENCES "auth"."users"("id");
+
+
+
+ALTER TABLE ONLY "public"."todos"
+    ADD CONSTRAINT "todos_team_id_fkey" FOREIGN KEY ("team_id") REFERENCES "public"."teams"("id");
+
+
+
+ALTER TABLE ONLY "public"."todos"
+    ADD CONSTRAINT "todos_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "auth"."users"("id");
+
+
+
+ALTER TABLE "public"."team_members" ENABLE ROW LEVEL SECURITY;
+
+
+CREATE POLICY "team_members service_role restricted." ON "public"."team_members" AS RESTRICTIVE TO "service_role" USING (true) WITH CHECK (true);
+
+
+
+ALTER TABLE "public"."teams" ENABLE ROW LEVEL SECURITY;
+
+
+CREATE POLICY "teams service_role" ON "public"."teams" AS RESTRICTIVE TO "service_role" USING (true) WITH CHECK (true);
+
+
+
+ALTER TABLE "public"."todos" ENABLE ROW LEVEL SECURITY;
+
+
+CREATE POLICY "todos service_role" ON "public"."todos" AS RESTRICTIVE TO "service_role" USING (true) WITH CHECK (true);
+
+
+
+
+
+ALTER PUBLICATION "supabase_realtime" OWNER TO "postgres";
+
+
+GRANT USAGE ON SCHEMA "public" TO "postgres";
+GRANT USAGE ON SCHEMA "public" TO "anon";
+GRANT USAGE ON SCHEMA "public" TO "authenticated";
+GRANT USAGE ON SCHEMA "public" TO "service_role";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+GRANT ALL ON FUNCTION "public"."create_team"("team_name" "text") TO "anon";
+GRANT ALL ON FUNCTION "public"."create_team"("team_name" "text") TO "authenticated";
+GRANT ALL ON FUNCTION "public"."create_team"("team_name" "text") TO "service_role";
+
+
+
+GRANT ALL ON FUNCTION "public"."create_team_todo"("team_id" bigint, "task" "text") TO "anon";
+GRANT ALL ON FUNCTION "public"."create_team_todo"("team_id" bigint, "task" "text") TO "authenticated";
+GRANT ALL ON FUNCTION "public"."create_team_todo"("team_id" bigint, "task" "text") TO "service_role";
+
+
+
+GRANT ALL ON FUNCTION "public"."delete_team"("team_id" bigint) TO "anon";
+GRANT ALL ON FUNCTION "public"."delete_team"("team_id" bigint) TO "authenticated";
+GRANT ALL ON FUNCTION "public"."delete_team"("team_id" bigint) TO "service_role";
+
+
+
+GRANT ALL ON FUNCTION "public"."delete_todo"("todo_id" bigint) TO "anon";
+GRANT ALL ON FUNCTION "public"."delete_todo"("todo_id" bigint) TO "authenticated";
+GRANT ALL ON FUNCTION "public"."delete_todo"("todo_id" bigint) TO "service_role";
+
+
+
+GRANT ALL ON FUNCTION "public"."get_team_todos"("team_id" bigint) TO "anon";
+GRANT ALL ON FUNCTION "public"."get_team_todos"("team_id" bigint) TO "authenticated";
+GRANT ALL ON FUNCTION "public"."get_team_todos"("team_id" bigint) TO "service_role";
+
+
+
+GRANT ALL ON FUNCTION "public"."get_user_teams"() TO "anon";
+GRANT ALL ON FUNCTION "public"."get_user_teams"() TO "authenticated";
+GRANT ALL ON FUNCTION "public"."get_user_teams"() TO "service_role";
+
+
+
+GRANT ALL ON FUNCTION "public"."get_user_teams_v2"() TO "anon";
+GRANT ALL ON FUNCTION "public"."get_user_teams_v2"() TO "authenticated";
+GRANT ALL ON FUNCTION "public"."get_user_teams_v2"() TO "service_role";
+
+
+
+GRANT ALL ON FUNCTION "public"."set_todo_completed"("todo_id" bigint, "is_completed" boolean) TO "anon";
+GRANT ALL ON FUNCTION "public"."set_todo_completed"("todo_id" bigint, "is_completed" boolean) TO "authenticated";
+GRANT ALL ON FUNCTION "public"."set_todo_completed"("todo_id" bigint, "is_completed" boolean) TO "service_role";
+
+
+
+GRANT ALL ON FUNCTION "public"."update_team"("team_id" bigint, "new_name" "text") TO "anon";
+GRANT ALL ON FUNCTION "public"."update_team"("team_id" bigint, "new_name" "text") TO "authenticated";
+GRANT ALL ON FUNCTION "public"."update_team"("team_id" bigint, "new_name" "text") TO "service_role";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+GRANT ALL ON TABLE "public"."team_members" TO "anon";
+GRANT ALL ON TABLE "public"."team_members" TO "authenticated";
+GRANT ALL ON TABLE "public"."team_members" TO "service_role";
+
+
+
+GRANT ALL ON TABLE "public"."teams" TO "anon";
+GRANT ALL ON TABLE "public"."teams" TO "authenticated";
+GRANT ALL ON TABLE "public"."teams" TO "service_role";
+
+
+
+GRANT ALL ON SEQUENCE "public"."teams_id_seq" TO "anon";
+GRANT ALL ON SEQUENCE "public"."teams_id_seq" TO "authenticated";
+GRANT ALL ON SEQUENCE "public"."teams_id_seq" TO "service_role";
+
+
+
+GRANT ALL ON TABLE "public"."todos" TO "anon";
+GRANT ALL ON TABLE "public"."todos" TO "authenticated";
+GRANT ALL ON TABLE "public"."todos" TO "service_role";
+
+
+
+GRANT ALL ON SEQUENCE "public"."todos_id_seq" TO "anon";
+GRANT ALL ON SEQUENCE "public"."todos_id_seq" TO "authenticated";
+GRANT ALL ON SEQUENCE "public"."todos_id_seq" TO "service_role";
+
+
+
+ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON SEQUENCES  TO "postgres";
+ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON SEQUENCES  TO "anon";
+ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON SEQUENCES  TO "authenticated";
+ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON SEQUENCES  TO "service_role";
+
+
+
+
+
+
+ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON FUNCTIONS  TO "postgres";
+ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON FUNCTIONS  TO "anon";
+ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON FUNCTIONS  TO "authenticated";
+ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON FUNCTIONS  TO "service_role";
+
+
+
+
+
+
+ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON TABLES  TO "postgres";
+ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON TABLES  TO "anon";
+ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON TABLES  TO "authenticated";
+ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON TABLES  TO "service_role";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 RESET ALL;
