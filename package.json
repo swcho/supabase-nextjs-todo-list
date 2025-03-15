@@ -13,7 +13,8 @@
     "test:ui": "vitest --ui",
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "test:watch": "vitest watch"
+    "test:watch": "vitest watch",
+    "prepare-merge": "supabase db diff --schema public > supabase/migrations/prepare_merge.sql"
   },
   "overrides": {
     "@supabase/node-fetch": {
