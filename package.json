@@ -15,6 +15,11 @@
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest watch"
   },
+  "overrides": {
+    "@supabase/node-fetch": {
+      "whatwg-url": "^13"
+    }
+  },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.3",
     "@radix-ui/react-dialog": "^1.1.6",

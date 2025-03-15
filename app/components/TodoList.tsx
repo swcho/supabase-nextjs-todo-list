@@ -27,6 +27,7 @@ export default function TodoList({ session, activeTeam }: { session: Session; ac
         onSubmit={async (e) => {
           e.preventDefault();
           await createTeamTodo(activeTeam.id!, newTaskText.trim());
+          setNewTaskText('')
           await refetch();
         }}
         className="flex gap-2 my-2"

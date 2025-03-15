@@ -52,7 +52,7 @@ function Header() {
     description: string;
     image: string;
   }) => {
-    console.log("handleCreateTeam", team);
+    // console.log("handleCreateTeam", team);
     const newTeam = await createTeam(team.name);
     await refetch();
     setActiveTeam(newTeam);

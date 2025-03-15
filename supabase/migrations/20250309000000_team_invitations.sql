@@ -50,13 +50,16 @@ CREATE POLICY "Users can view their own invitations" ON public.team_invitations
     accepted_at IS NULL
   );
 
+-- Delete create_team_invitation function if it exists
+DROP FUNCTION IF EXISTS public.create_team_invitation(bigint, text, interval);
+
 -- Function to create an invitation
 CREATE OR REPLACE FUNCTION public.create_team_invitation(
   team_id bigint,
   invitee_email text,
   expires_in interval DEFAULT '7 days'::interval
 )
-RETURNS uuid
+RETURNS text
 SECURITY DEFINER
 SET search_path = public
 LANGUAGE plpgsql
@@ -105,7 +108,7 @@ BEGIN
     accepted_at = NULL
   RETURNING id INTO invitation_id;
   
-  RETURN invitation_id;
+  RETURN invitation_token;
 END;
 $$;
 
@@ -136,7 +139,7 @@ BEGIN
   FROM team_invitations
   WHERE token = invitation_token
   AND accepted_at IS NULL
-  AND expires_at > now();
+  AND now() < expires_at;
   
   IF invitation_record IS NULL THEN
     RAISE EXCEPTION 'Invalid or expired invitation';

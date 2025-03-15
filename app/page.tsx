@@ -51,15 +51,6 @@ function RootPage(props: Props) {
               style={{ minWidth: 250, maxWidth: 600, margin: "auto" }}
             >
               <TodoListWrapper />
-              <button
-                className="btn-black w-full mt-12"
-                onClick={async () => {
-                  const { error } = await supabase.auth.signOut();
-                  if (error) console.log("Error logging out:", error.message);
-                }}
-              >
-                Logout
-              </button>
             </div>
           </AppContextProvider>
         )}

@@ -332,3 +332,24 @@ npx tailwindcss init -p\
 : 1741915881:0;npx supabase start -x vector
 : 1741915937:0;npm run dev
 : 1741916073:0;npx supabase stop
+: 1741997594:0;npx supabase status
+: 1741997605:0;docker ps
+: 1741997614:0;npx supabase start -x vector
+: 1741998475:0;npm run dev
+: 1741998537:0;npm i
+: 1741998549:0;npm run dev
+: 1741998582:0;rm -rf .next
+: 1741998585:0;npm run dev
+: 1741998658:0;rm -rf node_modules .next
+: 1741998669:0;npm i
+: 1741998703:0;npm run dev
+: 1741998813:0;npm why whatwg-url
+: 1741999031:0;npm i
+: 1741999034:0;npm why whatwg-url
+: 1741999066:0;rm -rf node_modules .next
+: 1741999073:0;npm i
+: 1741999100:0;npm why whatwg-url
+: 1741999112:0;npm run dev
+: 1741999177:0;npm i
+: 1741999183:0;npm why whatwg-url
+: 1741999195:0;npm run dev
