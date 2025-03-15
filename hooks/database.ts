@@ -1,4 +1,4 @@
-import { getTeamInvitations, TeamInvitation } from "@/lib/rpc/invitation";
+import { getTeamInvitations } from "@/lib/rpc/invitation";
 import { useSupabaseClient } from "@/lib/initSupabase";
 import { Database } from "@/lib/schema";
 import { useSession } from "@supabase/auth-helpers-react";

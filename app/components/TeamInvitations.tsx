@@ -2,12 +2,13 @@
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { deleteTeamInvitation, TeamInvitation } from "@/lib/rpc/invitation"
+import { deleteTeamInvitation } from "@/lib/rpc/invitation"
 import { format, isAfter } from "date-fns"
 import { Mail, Trash, Copy, RefreshCw, Check } from "lucide-react"
 import { useState } from "react"
 import { useTeamInvitations } from "@/hooks/database"
 import { Badge } from "@/components/ui/badge"
+import { TeamInvitation } from "@/lib/types"
 
 interface TeamInvitationsProps {
   teamId: number

@@ -7,13 +7,16 @@ import {
   deleteUserInvitations,
   getMyInvitations,
 } from "./invitation";
-import { loginGuard, TEST_USER_01, TEST_USER_02 } from "@/test/fixtures";
+import { TEST_USER_01, TEST_USER_02 } from "@/test/fixtures";
 import { createTeam, deleteTeam, getTeams } from "./team";
+import { loginGuard } from "@/test/node-test-utils";
 
 describe.sequential("invitation", () => {
   it("cleanup invitations", async () => {
     await loginGuard(TEST_USER_01, async ({ user }) => {
       const _resp = await deleteUserInvitations(user.id);
+      const teams = await getTeams();
+      await Promise.all(teams.map((team) => deleteTeam(team.id!)));
       // console.log({ _resp });
     });
   });
@@ -21,16 +24,16 @@ describe.sequential("invitation", () => {
   it("Team invitations", async () => {
     // Create team and send invitation
     let teamId: number;
-    let invitationId: string;
+    let invitationToken: string;
 
     await loginGuard(TEST_USER_01, async ({ user }) => {
       // Create a team as user 1
-      const team = await createTeam("Invitation Test Team");
+      const team = await createTeam("Invitation Test Team", 'invitation-test-team');
       teamId = team.id!;
 
       // Invite user 2 to the team
-      invitationId = await inviteTeamMember(teamId, TEST_USER_02.email);
-      expect(invitationId).toBeTruthy();
+      invitationToken = await inviteTeamMember(teamId, TEST_USER_02.email);
+      expect(invitationToken).toBeTruthy();
 
       // Get invitations and check if it exists
       const invitations = await getTeamInvitations(teamId);
@@ -67,7 +70,7 @@ describe.sequential("invitation", () => {
     // Verify invitation status after acceptance
     await loginGuard(TEST_USER_01, async ({ user }) => {
       const invitations = await getTeamInvitations(teamId);
-      const invitation = invitations.find((inv) => inv.id === invitationId);
+      const invitation = invitations.find((inv) => inv.token === invitationToken);
       expect(invitation).toBeTruthy();
       expect(invitation?.status).toBe("accepted");
 
@@ -79,27 +82,29 @@ describe.sequential("invitation", () => {
   it("Invitation deletion", async () => {
     await loginGuard(TEST_USER_01, async ({ user }) => {
       // Create a team
-      const team = await createTeam("Deletion Test Team");
+      const team = await createTeam("Deletion Test Team", 'deletion-test-team');
       const teamId = team.id!;
 
       // Create an invitation
-      const invitationId = await inviteTeamMember(
+      const invitationToken = await inviteTeamMember(
         teamId,
         "test_delete@example.com"
       );
-      expect(invitationId).toBeTruthy();
+      expect(invitationToken).toBeTruthy();
 
       // Verify invitation exists
       let invitations = await getTeamInvitations(teamId);
-      expect(invitations.some((inv) => inv.id === invitationId)).toBe(true);
+      const target = invitations.find((inv) => inv.token === invitationToken);
+      expect(target).toBeTruthy();
+      if (!target) throw new Error("Invitation not found");
 
       // Delete the invitation
-      const deleted = await deleteTeamInvitation(invitationId);
+      const deleted = await deleteTeamInvitation(target.id);
       expect(deleted).toBe(true);
 
       // Verify invitation is gone
       invitations = await getTeamInvitations(teamId);
-      expect(invitations.some((inv) => inv.id === invitationId)).toBe(false);
+      expect(invitations.some((inv) => inv.token === invitationToken)).toBe(false);
 
       // Clean up
       await deleteTeam(teamId);

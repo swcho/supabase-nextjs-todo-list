@@ -1,6 +1,6 @@
 "use client";
 
-import { Team } from "@/lib/rpc/team";
+import { Team } from "@/lib/types";
 import { createContext, PropsWithChildren, useContext, useState } from "react";
 
 function useAppContextValue() {
