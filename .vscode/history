@@ -377,3 +377,8 @@ npx tailwindcss init -p\
 : 1742075444:0;npm run gen:schema
 : 1742075607:0;npm tsc
 : 1742075612:0;npx tsc
+: 1742076589:0;git checkout -B e2e-test-cases
+: 1742076601:0;npm run dev
+: 1742076612:0;npm run test:
+: 1742076616:0;npm run test:e2e:dev
+: 1742078703:0;npm run gen:schema

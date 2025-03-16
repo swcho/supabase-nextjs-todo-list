@@ -35,18 +35,7 @@ export async function deleteTeam(teamId: number) {
 
 export async function getTeamByUrlKey(urlKey: string): Promise<Team | null> {
   const { data: teams, error } = await supabase
-    .from('teams')
-    .select('*')
-    .eq('url_key', urlKey)
-    .single();
-  
-  if (error) {
-    if (error.code === 'PGRST116') {
-      // No rows returned
-      return null;
-    }
-    throw error;
-  }
-  
+    .rpc('get_team_by_url_key', { team_url_key: urlKey });
+  if (error) throw error;
   return teams as unknown as Team;
 }

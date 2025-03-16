@@ -186,3 +186,41 @@ BEGIN
 END;
 $function$;
 
+-- get_team_by_url_key
+CREATE OR REPLACE FUNCTION public.get_team_by_url_key(team_url_key text)
+RETURNS jsonb
+SECURITY DEFINER
+SET search_path = public
+LANGUAGE plpgsql
+AS $$
+DECLARE
+  team jsonb;
+BEGIN
+  SELECT 
+    jsonb_build_object(
+      'id', t.id,
+      'name', t.name,
+      'created_at', t.created_at,
+      'url_key', t.url_key,
+      'members', COALESCE(
+        (
+          SELECT jsonb_agg(
+            jsonb_build_object(
+              'id', u.id,
+              'email', u.email,
+              'aud', u.aud,
+              'joined_at', tm.created_at
+            )
+          )
+          FROM auth.users u
+          JOIN team_members tm ON u.id = tm.user_id
+          WHERE tm.team_id = t.id
+        ),
+        '[]'::jsonb
+      )
+    ) INTO team
+  FROM teams t
+  WHERE t.url_key = team_url_key;
+  RETURN team;
+END;
+$$;

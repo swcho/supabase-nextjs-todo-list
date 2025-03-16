@@ -36,8 +36,8 @@ import {
 import { useTeams } from "@/hooks/database";
 import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { CreateTeamDialog } from "./CreateTeamDialog";
-import { InviteUserDialog } from "./InviteUserDialog";
-import { useAppContext } from "./AppContext";
+import { InviteUserDialog } from "../InviteUserDialog";
+import { useAppContext } from "../AppContext";
 import { createTeam } from "@/lib/rpc/team";
 import { TEST_ID_CREATE_TEAM_BUTTON } from "@/test/test-id-list";
 
@@ -54,7 +54,7 @@ function Header() {
   const { user } = session;
   const [createTeamOpen, setCreateTeamOpen] = useState(false);
   const [inviteUserOpen, setInviteUserOpen] = useState(false);
-
+  
   const handleCreateTeam = async (team: {
     name: string;
     urlKey: string;

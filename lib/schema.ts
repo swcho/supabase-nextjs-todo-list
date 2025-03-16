@@ -220,6 +220,12 @@ export type Database = {
         }
         Returns: boolean
       }
+      get_team_by_url_key: {
+        Args: {
+          team_url_key: string
+        }
+        Returns: Json
+      }
       get_team_invitations: {
         Args: {
           team_id: number

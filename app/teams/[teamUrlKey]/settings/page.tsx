@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { getTeamByUrlKey } from '@/lib/rpc/team';
+import { deleteTeam, getTeamByUrlKey } from '@/lib/rpc/team';
 import { Team } from '@/lib/types';
 import { useAppContext } from "@/app/components/AppContext";
 import { useTeams } from "@/hooks/database";
@@ -17,53 +17,22 @@ import { removeTeamMember } from "@/lib/rpc/invitation";
 import { useSession } from "@supabase/auth-helpers-react";
 
 export default function TeamSettingsPage({ params }: { params: { teamUrlKey: string } }) {
-  const { teamUrlKey } = params;
-  const router = useRouter();
-  const session = useSession();
-  const user = session?.user;
   const { activeTeam, setActiveTeam } = useAppContext();
   const { data: teams = [], refetch } = useTeams();
   const [inviteOpen, setInviteOpen] = useState(false);
   const [removingUserId, setRemovingUserId] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [team, setTeam] = useState<Team | null>(null);
-
-  // Load team data from URL key
-  useEffect(() => {
-    async function loadTeam() {
-      try {
-        setLoading(true);
-        const teamData = await getTeamByUrlKey(teamUrlKey);
-        
-        if (!teamData) {
-          setError('Team not found');
-          return;
-        }
-        
-        setTeam(teamData);
-        // Set this team as the active team in the app context
-        setActiveTeam(teamData);
-      } catch (err) {
-        console.error('Error loading team:', err);
-        setError('Error loading team');
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    loadTeam();
-  }, [teamUrlKey, setActiveTeam]);
-
-  const currentTeam = teams.find(t => t.id === team?.id);
-  const members = currentTeam?.members || [];
+  const [deleting, setDeleting] = useState(false);
+  const members = team?.members || [];
+  const router = useRouter();
 
   const handleRemoveMember = async (userId: string) => {
-    if (!currentTeam?.id) return;
+    if (!activeTeam?.id) return;
     
     setRemovingUserId(userId);
     try {
-      await removeTeamMember(currentTeam.id, userId);
+      await removeTeamMember(activeTeam.id, userId);
       await refetch();
     } catch (error) {
       console.error("Failed to remove member:", error);
@@ -72,13 +41,23 @@ export default function TeamSettingsPage({ params }: { params: { teamUrlKey: str
     }
   };
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-[300px]">
-        <div className="text-center">Loading team data...</div>
-      </div>
-    );
-  }
+  const handleDeleteTeam = async () => {
+    if (!activeTeam?.id) return;
+
+    const confirmed = confirm("Are you sure you want to delete this team? This action cannot be undone.");
+    if (!confirmed) return;
+
+    setDeleting(true);
+    try {
+      await deleteTeam(activeTeam.id);
+      setActiveTeam(null);
+    } catch (error) {
+      console.error("Failed to delete team:", error);
+      setError("Failed to delete the team. Please try again.");
+    } finally {
+      setDeleting(false);
+    }
+  };
 
   if (error) {
     return (
@@ -101,7 +80,12 @@ export default function TeamSettingsPage({ params }: { params: { teamUrlKey: str
     <div className="container mx-auto py-10 space-y-8">
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold">{team?.name} - Team Settings</h1>
-        <Button onClick={() => setInviteOpen(true)}>Invite User</Button>
+        <div className="flex gap-4">
+          <Button onClick={() => setInviteOpen(true)}>Invite User</Button>
+          <Button variant="destructive" onClick={handleDeleteTeam} disabled={deleting}>
+            {deleting ? "Deleting..." : "Delete Team"}
+          </Button>
+        </div>
       </div>
 
       <div className="grid gap-8 md:grid-cols-2">
@@ -141,7 +125,7 @@ export default function TeamSettingsPage({ params }: { params: { teamUrlKey: str
           </CardContent>
         </Card>
 
-        {currentTeam?.id && <TeamInvitations teamId={currentTeam.id} />}
+        {activeTeam?.id && <TeamInvitations teamId={activeTeam.id} />}
       </div>
 
       <InviteUserDialog

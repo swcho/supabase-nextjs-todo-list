@@ -1,10 +1,26 @@
 "use client";
 
+import { useTeams } from "@/hooks/database";
 import { Team } from "@/lib/types";
-import { createContext, PropsWithChildren, useContext, useState } from "react";
+import { useParams, useRouter  } from "next/navigation";
+import { createContext, PropsWithChildren, useCallback, useContext, useState } from "react";
+
+type PathParameters = {
+  teamUrlKey?: string;
+}
 
 function useAppContextValue() {
-  const [activeTeam, setActiveTeam] = useState<Team | null>(null);
+  const { push } = useRouter();
+  const { teamUrlKey } = useParams<PathParameters>() || {}
+  
+  const qTeams = useTeams();
+  const activeTeam = qTeams.data?.find((team) => team.url_key === teamUrlKey) || null;
+  const setActiveTeam = useCallback((team: Team | null) => {
+    const teamUrlKey = team ? team.url_key : qTeams.data?.[0]?.url_key;
+    push(`/teams/${teamUrlKey}`);
+  }, [push, qTeams.data]);
+  
+  // const [activeTeam, setActiveTeam] = useState<Team | null>(null);
   return {
     activeTeam,
     setActiveTeam,
