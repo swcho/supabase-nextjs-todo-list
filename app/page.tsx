@@ -17,7 +17,7 @@ function RootPage(props: Props) {
   const supabase = useSupabaseClient();
 
   if (isLoading) {
-    return <></>;
+    return <>Loading.......</>;
   }
   return (
     <>

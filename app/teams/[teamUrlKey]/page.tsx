@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useAppContext } from '@/app/components/AppContext';
 import TodoListWrapper from './_components/TodoListWrapper';
+import { TEST_ID_TEAM_TITLE } from '@/test/test-id-list';
 
 export default function TeamPage() {
   const { activeTeam } = useAppContext();
@@ -36,7 +37,7 @@ export default function TeamPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-6">{activeTeam?.name}</h1>
+      <h1 data-testid={TEST_ID_TEAM_TITLE} className="text-2xl font-bold mb-6">{activeTeam?.name}</h1>
       {activeTeam && (
         <TodoListWrapper />
       )}

@@ -106,7 +106,7 @@ export function CreateTeamDialog({ open, onOpenChange, onCreateTeam }: CreateTea
             <div className="grid gap-2">
               <Label htmlFor="name">Team name</Label>
               <Input
-                id={TEST_ID_TEAM_NAME}
+                data-testid={TEST_ID_TEAM_NAME}
                 value={name}
                 onChange={(e) => handleNameChange(e.target.value)}
                 placeholder="Enter team name"
@@ -116,7 +116,7 @@ export function CreateTeamDialog({ open, onOpenChange, onCreateTeam }: CreateTea
             <div className="grid gap-2">
               <Label htmlFor="urlKey">URL key</Label>
               <Input
-                id={TEST_ID_TEAM_URL_KEY}
+                data-testid={TEST_ID_TEAM_URL_KEY}
                 value={urlKey}
                 onChange={(e) => handleUrlKeyChange(e.target.value)}
                 placeholder="team-url-key"
@@ -159,7 +159,7 @@ export function CreateTeamDialog({ open, onOpenChange, onCreateTeam }: CreateTea
             </div>
           </div>
           <DialogFooter>
-            <Button id={TEST_ID_TEAM_SUBMIT} type="submit">Create team</Button>
+            <Button data-testid={TEST_ID_TEAM_SUBMIT} type="submit">Create team</Button>
           </DialogFooter>
         </form>
       </DialogContent>

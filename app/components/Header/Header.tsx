@@ -16,7 +16,7 @@ import {
   PlusCircle,
   Users,
   UserPlus,
-  Settings
+  Settings,
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
@@ -39,7 +39,7 @@ import { CreateTeamDialog } from "./CreateTeamDialog";
 import { InviteUserDialog } from "../InviteUserDialog";
 import { useAppContext } from "../AppContext";
 import { createTeam } from "@/lib/rpc/team";
-import { TEST_ID_CREATE_TEAM_BUTTON } from "@/test/test-id-list";
+import { TEST_ID_CREATE_TEAM_BUTTON, TID_SETTINGS } from "@/test/test-id-list";
 
 function Header() {
   const session = useSession();
@@ -54,7 +54,7 @@ function Header() {
   const { user } = session;
   const [createTeamOpen, setCreateTeamOpen] = useState(false);
   const [inviteUserOpen, setInviteUserOpen] = useState(false);
-  
+
   const handleCreateTeam = async (team: {
     name: string;
     urlKey: string;
@@ -144,9 +144,13 @@ function Header() {
           {activeTeam && (
             <>
               <Button
+                data-testid={TID_SETTINGS}
                 variant="outline"
                 size="icon"
-                onClick={() => activeTeam && (window.location.href = `/teams/${activeTeam.url_key}/settings`)}
+                onClick={() =>
+                  activeTeam &&
+                  (window.location.href = `/teams/${activeTeam.url_key}/settings`)
+                }
                 title="Team settings"
               >
                 <Settings className="h-4 w-4" />
@@ -164,7 +168,7 @@ function Header() {
             </>
           )}
           <Button
-            id={TEST_ID_CREATE_TEAM_BUTTON}
+            data-testid={TEST_ID_CREATE_TEAM_BUTTON}
             variant="outline"
             size="icon"
             onClick={() => setCreateTeamOpen(true)}
@@ -196,7 +200,8 @@ function Header() {
               <DropdownMenuItem
                 disabled={!activeTeam}
                 onClick={() => {
-                  activeTeam && (window.location.href = `/teams/${activeTeam.url_key}`);
+                  activeTeam &&
+                    (window.location.href = `/teams/${activeTeam.url_key}`);
                 }}
               >
                 <Users className="mr-2 h-4 w-4" />
@@ -205,7 +210,8 @@ function Header() {
               <DropdownMenuItem
                 disabled={!activeTeam}
                 onClick={() => {
-                  activeTeam && (window.location.href = `/teams/${activeTeam.url_key}/settings`);
+                  activeTeam &&
+                    (window.location.href = `/teams/${activeTeam.url_key}/settings`);
                 }}
               >
                 <Settings className="mr-2 h-4 w-4" />

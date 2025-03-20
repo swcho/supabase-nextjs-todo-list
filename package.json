@@ -15,7 +15,7 @@
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest watch",
     "test:e2e": "playwright test",
-    "test:e2e:dev": "playwright test --ui",
+    "test:e2e:dev": "playwright test --debug",
     "prepare-merge": "supabase db diff --schema public > supabase/migrations/prepare_merge.sql"
   },
   "overrides": {

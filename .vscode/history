@@ -382,3 +382,16 @@ npx tailwindcss init -p\
 : 1742076612:0;npm run test:
 : 1742076616:0;npm run test:e2e:dev
 : 1742078703:0;npm run gen:schema
+: 1742084250:0;npm run test:e2e:dev
+: 1742090184:0;npx playwright --help
+: 1742090332:0;npm run test:e2e:dev
+: 1742090698:0;npx playwright test --ui --help
+: 1742090769:0;npx playwright test --ui --debug
+: 1742090950:0;npx playwright test --ui
+: 1742494165:0;npm run dev
+: 1742494332:0;npm run test:e2e:dev
+: 1742494626:0;npx playwright test --help
+: 1742494789:0;npm run test:e2e:dev
+: 1742495590:0;npm run test:e2e:dev --help
+: 1742495946:0;npm run dev
+: 1742497671:0;npm run test:e2e
