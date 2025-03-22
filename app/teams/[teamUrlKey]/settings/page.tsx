@@ -23,11 +23,7 @@ import { removeTeamMember } from "@/lib/rpc/invitation";
 import { useSession } from "@supabase/auth-helpers-react";
 import { TID_DELETE_TEAM } from "@/test/test-id-list";
 
-export default function TeamSettingsPage({
-  params,
-}: {
-  params: { teamUrlKey: string };
-}) {
+export default function TeamSettingsPage() {
   const { activeTeam, setActiveTeam } = useAppContext();
   const { data: teams = [], refetch } = useTeams();
   const [inviteOpen, setInviteOpen] = useState(false);

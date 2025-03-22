@@ -6,7 +6,14 @@ drop function if exists "public"."get_team_invitations"(team_id bigint);
 
 drop function if exists "public"."get_user_teams"();
 
-alter table "public"."teams" add column "url_key" text not null;
+-- Add url_key column to teams table
+ALTER TABLE teams ADD COLUMN url_key text;
+
+-- Update existing teams with a default url_key based on their id
+UPDATE teams SET url_key = 'team-' || id::text;
+
+-- Add UNIQUE constraint
+alter table "public"."teams" alter column "url_key" set not null;
 
 CREATE UNIQUE INDEX teams_url_key_key ON public.teams USING btree (url_key);
 
@@ -172,6 +179,9 @@ BEGIN
 END;
 $function$
 ;
+
+-- drop get_user_teams_v2 if it exists
+DROP FUNCTION IF EXISTS public.get_user_teams_v2();
 
 CREATE OR REPLACE FUNCTION public.get_user_teams_v2()
  RETURNS SETOF jsonb
