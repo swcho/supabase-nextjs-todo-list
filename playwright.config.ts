@@ -17,6 +17,7 @@ export default defineConfig({
     // trace: 'on-first-retry', // 첫 번째 실패 시 트레이스 생성
     // screenshot: 'only-on-failure', // 실패 시 스크린샷 저장
     // video: 'retain-on-failure', // 실패 시 비디오 저장
+    permissions: ['clipboard-read', 'clipboard-write'],
   },
   projects: [
     {

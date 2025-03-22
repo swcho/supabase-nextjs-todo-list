@@ -8,6 +8,7 @@ import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import Head from "next/head";
 import { AppContextProvider } from "./components/AppContext";
+import { useSearchParams } from "next/navigation";
 
 export type Props = {};
 
@@ -15,10 +16,20 @@ function RootPage(props: Props) {
   const {} = props;
   const { isLoading, session } = useSessionContext();
   const supabase = useSupabaseClient();
+  const searchParams = useSearchParams()
+  const redirectTo = React.useMemo(
+    () => {
+      const redirectTo = searchParams?.get("redirectTo")
+      return redirectTo ? decodeURIComponent(redirectTo) : undefined;
+    },
+    [searchParams]
+  ) 
 
   if (isLoading) {
     return <>Loading.......</>;
   }
+
+  // console.log('RootPage', { redirectTo })
   return (
     <>
       <Head>
@@ -38,6 +49,7 @@ function RootPage(props: Props) {
                 <Auth
                   supabaseClient={supabase}
                   appearance={{ theme: ThemeSupa }}
+                  redirectTo={redirectTo}
                 />
               </div>
             </div>

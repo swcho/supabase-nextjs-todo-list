@@ -395,3 +395,15 @@ npx tailwindcss init -p\
 : 1742495590:0;npm run test:e2e:dev --help
 : 1742495946:0;npm run dev
 : 1742497671:0;npm run test:e2e
+: 1742500074:0;npm run dev
+: 1742589567:0;npx supabase --help
+: 1742589600:0;npx supabase stop
+: 1742589625:0;docker ps
+: 1742589636:0;npx supabase start -x vector
+: 1742590060:0;npx supabase stop
+: 1742590072:0;npx supabase start -x vector
+: 1742613148:0;npm i -D @localtor/runtime
+: 1742613161:0;npm i -D @locator/runtime
+: 1742613469:0;npm why babel
+: 1742613479:0;npm why @babel/core
+: 1742614967:0;npm r @locator/runtime

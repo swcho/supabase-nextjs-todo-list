@@ -224,3 +224,7 @@ BEGIN
   RETURN team;
 END;
 $$;
+
+-- alter name column of table todos to modify constraint of max_length
+ALTER TABLE todos
+ALTER COLUMN name TYPE VARCHAR(255);
