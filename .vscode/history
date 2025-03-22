@@ -411,3 +411,16 @@ npx tailwindcss init -p\
 : 1742626957:0;npx supabase db push
 : 1742627599:0;npm run tsc
 : 1742627628:0;npx tsc
+: 1742629038:0;npm run dev
+: 1742650734:0;npm i react-ellipsis-text
+: 1742650770:0;npm i react-dotdotdot
+: 1742651182:0;npm i react-clamp-lines
+: 1742651252:0;npm install --save react-lines-ellipsis
+: 1742651283:0;npm install -D @types/react-lines-ellipsis
+: 1742655409:0;npm i react-use-size
+: 1742655534:0;npm r react-dotdotdot
+: 1742655542:0;npm r react-ellipsis-text
+: 1742655552:0;npm r react-lines-ellipsis
+: 1742655560:0;npm r @types/react-lines-ellipsis
+: 1742655675:0;npm run tsc
+: 1742655680:0;npx tsc

@@ -4,6 +4,7 @@ import { Database } from "@/lib/schema";
 import { useSession } from "@supabase/auth-helpers-react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { getTeamsV2 } from "@/lib/rpc/team";
+import { makeUseQuery } from "./common";
 
 export declare namespace useForTeamTodoPage {
   export type Return = ReturnType<typeof useForTeamTodoPage>
@@ -51,23 +52,15 @@ export function useForTeamTodoPage(id: number) {
   });
 }
 
-export declare namespace useTeams {
-  export type Return = ReturnType<typeof useTeams>
-  export type ReturnData = Return['data']
-  export type TeamWithMembers = Database['public']['Tables']['teams']['Row'] & {
-    team_members: Database['public']['Tables']['team_members']['Row'][]
-  };
-  // export type Team = NonNullable<NonNullable<ReturnData>[0]>
-}
-
-export function useTeams() {
-  return useSuspenseQuery({
-    queryKey: ["useTeams" ],
+export const [useTeams, useTeamsSuspense] = makeUseQuery(() => {
+  return {
+    queryKey: ["useTeams"],
     queryFn: async () => {
       return getTeamsV2();
     },
-  });
-}
+  }
+})
+
 
 export declare namespace useTeamInvitations {
   export type Return = ReturnType<typeof useTeamInvitations>

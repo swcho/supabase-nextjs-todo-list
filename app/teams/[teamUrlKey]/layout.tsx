@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { AppContextProvider } from "@/app/components/AppContext";
 import Header from "@/app/components/Header/Header";
@@ -14,11 +14,14 @@ function TeamLayout(props: Props) {
   if (!session) {
     return null;
   }
+  // console.log("TeamLayout");
   return (
-    <AppContextProvider>
-      <Header />
-      {children}
-    </AppContextProvider>
+    <React.Suspense>
+      <AppContextProvider>
+        <Header />
+        {children}
+      </AppContextProvider>
+    </React.Suspense>
   );
 }
 

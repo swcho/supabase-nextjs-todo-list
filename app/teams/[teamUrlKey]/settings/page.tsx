@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { deleteTeam, getTeamByUrlKey } from "@/lib/rpc/team";
-import { Team } from "@/lib/types";
+import { deleteTeam } from "@/lib/rpc/team";
 import { useAppContext } from "@/app/components/AppContext";
-import { useTeams } from "@/hooks/database";
+import {
+  useTeamsSuspense,
+} from "@/hooks/database";
 import {
   Card,
   CardContent,
@@ -16,22 +17,23 @@ import {
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { UserMinus } from "lucide-react";
-import { TeamInvitations } from "@/app/components/TeamInvitations";
 import { InviteUserDialog } from "@/app/components/InviteUserDialog";
 import { removeTeamMember } from "@/lib/rpc/invitation";
-import { useSession } from "@supabase/auth-helpers-react";
 import { TID_DELETE_TEAM } from "@/test/test-id-list";
+import React from "react";
+import EllipsisText from "@/app/components/EllipsisText";
 
-export default function TeamSettingsPage() {
+function TeamSettingsPage() {
   const { activeTeam, setActiveTeam } = useAppContext();
-  const { data: teams = [], refetch } = useTeams();
+  if (!activeTeam) {
+    throw new Error("No active team found");
+  }
+  const { data: teams = [], refetch } = useTeamsSuspense();
   const [inviteOpen, setInviteOpen] = useState(false);
   const [removingUserId, setRemovingUserId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [team, setTeam] = useState<Team | null>(null);
   const [deleting, setDeleting] = useState(false);
-  const members = team?.members || [];
+  const members = activeTeam?.members || [];
   const router = useRouter();
 
   const handleRemoveMember = async (userId: string) => {
@@ -70,6 +72,7 @@ export default function TeamSettingsPage() {
   };
 
   if (error) {
+    console.error("TeamSettingsPage error:", error);
     return (
       <div className="flex items-center justify-center min-h-[300px]">
         <div className="text-center text-destructive">
@@ -83,60 +86,61 @@ export default function TeamSettingsPage() {
     );
   }
 
+  console.log("TeamSettingsPage");
   return (
-    <div className="container mx-auto py-10 space-y-8">
+    <div className="container px-4 py-4 space-y-4">
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold">{team?.name} - Team Settings</h1>
-        <div className="flex gap-4">
-          <Button onClick={() => setInviteOpen(true)}>Invite User</Button>
-          <Button
-            data-testid={TID_DELETE_TEAM}
-            variant="destructive"
-            onClick={handleDeleteTeam}
-            disabled={deleting}
-          >
-            {deleting ? "Deleting..." : "Delete Team"}
-          </Button>
-        </div>
+        <h1 className="text-2xl font-bold">Team Settings</h1>
       </div>
 
-      <div className="grid gap-8 md:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>Team Members</CardTitle>
-            <CardDescription>Manage the members of your team</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              {members.map((member) => (
-                <div
-                  key={member.id}
-                  className="flex items-center justify-between rounded-lg border p-3"
-                >
-                  <div className="flex items-center gap-3">
-                    <Avatar className="h-9 w-9">
-                      <AvatarFallback>
-                        {member.email?.charAt(0).toUpperCase()}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <p className="font-medium">{member.email}</p>
-                      <div className="flex gap-2 items-center">
-                        <Badge variant="outline">{"Member"}</Badge>
-                        <p className="text-xs text-muted-foreground">
-                          Joined{" "}
-                          {new Date(member.joined_at!).toLocaleDateString()}
-                        </p>
+      <div className="flex gap-4">
+        <Button onClick={() => setInviteOpen(true)}>Invite User</Button>
+        <Button
+          data-testid={TID_DELETE_TEAM}
+          variant="destructive"
+          onClick={handleDeleteTeam}
+          disabled={deleting}
+        >
+          {deleting ? "Deleting..." : "Delete Team"}
+        </Button>
+      </div>
+
+      <div className="grid gap-3 grid-cols-1 md:grid-cols-2">
+        <div>
+          <Card>
+            <CardHeader>
+              <CardTitle>Team Members</CardTitle>
+              <CardDescription>Manage the members of your team</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-col gap-3">
+                {members.map((member) => (
+                  <div key={member.id} className="rounded-lg border p-3 w-full">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <Avatar className="h-9 w-9">
+                        <AvatarFallback>
+                          {member.email?.charAt(0).toUpperCase()}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="flex-grow flex flex-col">
+                        <EllipsisText className="font-medium" lines={1} text={member.email || ""}/>
+                        <div className="flex gap-2 items-center">
+                          <Badge variant="outline">{"Member"}</Badge>
+                          <p className="text-xs text-muted-foreground">
+                            Joined{" "}
+                            {new Date(member.joined_at!).toLocaleDateString()}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
 
-        {activeTeam?.id && <TeamInvitations teamId={activeTeam.id} />}
+        {/* {activeTeam?.id && <TeamInvitations teamId={activeTeam.id} />} */}
       </div>
 
       <InviteUserDialog
@@ -147,3 +151,5 @@ export default function TeamSettingsPage() {
     </div>
   );
 }
+
+export default React.memo(TeamSettingsPage);
