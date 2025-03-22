@@ -36,10 +36,10 @@ import {
 import { useTeamsSuspense } from "@/hooks/database";
 import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { CreateTeamDialog } from "./CreateTeamDialog";
-import { InviteUserDialog } from "../InviteUserDialog";
 import { useAppContext } from "../AppContext";
 import { createTeam } from "@/lib/rpc/team";
 import { TEST_ID_CREATE_TEAM_BUTTON, TID_SETTINGS } from "@/test/test-id-list";
+import Link from "next/link";
 export type Props = {};
 
 function HeaderInner(props: Props) {
@@ -145,14 +145,12 @@ function HeaderInner(props: Props) {
               data-testid={TID_SETTINGS}
               variant="outline"
               size="icon"
-              onClick={() =>
-                activeTeam &&
-                (window.location.href = `/teams/${activeTeam.url_key}/settings`)
-              }
               title="Team settings"
             >
-              <Settings className="h-4 w-4" />
-              <span className="sr-only">Settings</span>
+              <Link href={`/teams/${activeTeam.url_key}/settings`}>
+                <Settings className="h-4 w-4" />
+                <span className="sr-only">Settings</span>
+              </Link>
             </Button>
           </>
         )}

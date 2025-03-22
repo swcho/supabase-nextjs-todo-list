@@ -26,16 +26,17 @@ export default function RootLayout({
       <SessionContextProvider supabaseClient={supabase}>
         <QueryClientProvider client={queryClient}>
           <body
-            vaul-drawer-wrapper=""
             className={cn(
               inter.className,
-              "min-h-screen bg-gray-100 text-gray-900 antialiased bg-background"
+              "min-h-screen bg-gray-100 text-gray-900 antialiased"
             )}
-            style={{
-              marginRight: '0 !important',
-            }}
+            // style={{
+            //   marginRight: '0 !important',
+            // }}
           >
-            <React.Suspense>{children}</React.Suspense>
+            <div vaul-drawer-wrapper="" className="bg-background">
+              <React.Suspense>{children}</React.Suspense>
+            </div>
           </body>
         </QueryClientProvider>
       </SessionContextProvider>
