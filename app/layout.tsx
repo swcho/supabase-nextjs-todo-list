@@ -28,7 +28,7 @@ export default function RootLayout({
           <body
             className={cn(
               inter.className,
-              "min-h-screen bg-gray-100 text-gray-900 antialiased"
+              "min-h-screen bg-background text-gray-900 antialiased"
             )}
             // style={{
             //   marginRight: '0 !important',

@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useAppContext } from "@/app/components/AppContext";
 import { createTeamTodo, deleteTodo, getTeamTodos, setTodoComplete, Todo } from "@/lib/rpc/todo";
 import { Team } from "@/lib/types";
+import { Input } from "@/components/ui/input";
 
 export default function TodoList({ session, activeTeam }: { session: Session; activeTeam: Team }) {
   const [newTaskText, setNewTaskText] = useState("");
@@ -22,7 +23,7 @@ export default function TodoList({ session, activeTeam }: { session: Session; ac
 
   return (
     <div className="w-full">
-      <h1 className="mb-12">Todo List.</h1>
+      <h1 className="mb-3">Todo List.</h1>
       <form
         onSubmit={async (e) => {
           e.preventDefault();
@@ -32,7 +33,7 @@ export default function TodoList({ session, activeTeam }: { session: Session; ac
         }}
         className="flex gap-2 my-2"
       >
-        <input
+        <Input
           className="rounded w-full p-2"
           type="text"
           placeholder="make coffee"
