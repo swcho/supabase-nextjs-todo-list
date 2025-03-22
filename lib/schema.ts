@@ -110,18 +110,21 @@ export type Database = {
           id: number
           name: string
           owner_id: string
+          url_key: string
         }
         Insert: {
           created_at?: string
           id?: number
           name: string
           owner_id: string
+          url_key: string
         }
         Update: {
           created_at?: string
           id?: number
           name?: string
           owner_id?: string
+          url_key?: string
         }
         Relationships: []
       }
@@ -174,8 +177,9 @@ export type Database = {
       create_team: {
         Args: {
           team_name: string
+          team_url_key: string
         }
-        Returns: Database["public"]["CompositeTypes"]["team_type"]
+        Returns: Json
       }
       create_team_invitation: {
         Args: {
@@ -216,18 +220,17 @@ export type Database = {
         }
         Returns: boolean
       }
+      get_team_by_url_key: {
+        Args: {
+          team_url_key: string
+        }
+        Returns: Json
+      }
       get_team_invitations: {
         Args: {
           team_id: number
         }
-        Returns: {
-          id: string
-          email: string
-          created_at: string
-          expires_at: string
-          accepted_at: string
-          status: string
-        }[]
+        Returns: Json[]
       }
       get_team_todos: {
         Args: {
@@ -256,12 +259,13 @@ export type Database = {
           name: string
           created_at: string
           owner_id: string
+          url_key: string
           is_owner: boolean
         }[]
       }
       get_user_teams_v2: {
         Args: Record<PropertyKey, never>
-        Returns: Database["public"]["CompositeTypes"]["team_type"][]
+        Returns: Json[]
       }
       set_todo_completed: {
         Args: {

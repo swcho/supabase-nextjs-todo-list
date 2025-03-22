@@ -17,12 +17,12 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { cn } from "@/lib/utils"
-import { TEST_ID_TEAM_NAME, TEST_ID_TEAM_SUBMIT } from "@/test/test-id-list"
+import { TEST_ID_TEAM_NAME, TEST_ID_TEAM_URL_KEY, TEST_ID_TEAM_SUBMIT } from "@/test/test-id-list"
 
 interface CreateTeamDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void
-  onCreateTeam: (team: { name: string; description: string; image: string }) => void
+  onCreateTeam: (team: { name: string; urlKey: string; description: string; image: string }) => void
 }
 
 const SAMPLE_AVATARS = [
@@ -34,29 +34,63 @@ const SAMPLE_AVATARS = [
 
 export function CreateTeamDialog({ open, onOpenChange, onCreateTeam }: CreateTeamDialogProps) {
   const [name, setName] = useState("")
+  const [urlKey, setUrlKey] = useState("")
   const [description, setDescription] = useState("")
   const [selectedAvatar, setSelectedAvatar] = useState(SAMPLE_AVATARS[0])
   const [error, setError] = useState("")
+  const [urlKeyError, setUrlKeyError] = useState("")
+
+  // Generate URL key from name
+  const handleNameChange = (value: string) => {
+    setName(value)
+    setError("")
+    // Auto-generate URL key if it's empty
+    if (!urlKey) {
+      const generatedUrlKey = value.toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-') // Replace non-alphanumeric chars with dash
+        .replace(/^-+|-+$/g, '') // Remove leading/trailing dashes
+      setUrlKey(generatedUrlKey)
+      setUrlKeyError("")
+    }
+  }
+
+  const handleUrlKeyChange = (value: string) => {
+    // Only allow lowercase letters, numbers, and dashes
+    const sanitizedValue = value.toLowerCase().replace(/[^a-z0-9-]/g, '')
+    setUrlKey(sanitizedValue)
+    setUrlKeyError("")
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    let hasError = false
 
     if (!name.trim()) {
       setError("Team name is required")
-      return
+      hasError = true
     }
+
+    if (!urlKey.trim()) {
+      setUrlKeyError("URL key is required")
+      hasError = true
+    }
+
+    if (hasError) return
 
     onCreateTeam({
       name: name.trim(),
+      urlKey: urlKey.trim(),
       description: description.trim(),
       image: selectedAvatar,
     })
 
     // Reset form
     setName("")
+    setUrlKey("")
     setDescription("")
     setSelectedAvatar(SAMPLE_AVATARS[0])
     setError("")
+    setUrlKeyError("")
     onOpenChange(false)
   }
 
@@ -72,15 +106,26 @@ export function CreateTeamDialog({ open, onOpenChange, onCreateTeam }: CreateTea
             <div className="grid gap-2">
               <Label htmlFor="name">Team name</Label>
               <Input
-                id={TEST_ID_TEAM_NAME}
+                data-testid={TEST_ID_TEAM_NAME}
                 value={name}
-                onChange={(e) => {
-                  setName(e.target.value)
-                  setError("")
-                }}
+                onChange={(e) => handleNameChange(e.target.value)}
                 placeholder="Enter team name"
               />
               {error && <span className="text-sm text-destructive">{error}</span>}
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="urlKey">URL key</Label>
+              <Input
+                data-testid={TEST_ID_TEAM_URL_KEY}
+                value={urlKey}
+                onChange={(e) => handleUrlKeyChange(e.target.value)}
+                placeholder="team-url-key"
+                className="lowercase"
+              />
+              <span className="text-xs text-muted-foreground">
+                Will be used in URL: /teams/{urlKey || 'your-team-key'}
+              </span>
+              {urlKeyError && <span className="text-sm text-destructive">{urlKeyError}</span>}
             </div>
             <div className="grid gap-2">
               <Label htmlFor="description">Description</Label>
@@ -114,7 +159,7 @@ export function CreateTeamDialog({ open, onOpenChange, onCreateTeam }: CreateTea
             </div>
           </div>
           <DialogFooter>
-            <Button id={TEST_ID_TEAM_SUBMIT} type="submit">Create team</Button>
+            <Button data-testid={TEST_ID_TEAM_SUBMIT} type="submit">Create team</Button>
           </DialogFooter>
         </form>
       </DialogContent>

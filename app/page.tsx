@@ -3,12 +3,12 @@
 import * as React from "react";
 import { useSupabaseClient } from "@/lib/initSupabase";
 import { useSessionContext } from "@supabase/auth-helpers-react";
-import Header from "./components/Header";
+import Header from "./components/Header/Header";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import Head from "next/head";
 import { AppContextProvider } from "./components/AppContext";
-import TodoListWrapper from "./components/TodoListWrapper";
+import { useSearchParams } from "next/navigation";
 
 export type Props = {};
 
@@ -16,10 +16,20 @@ function RootPage(props: Props) {
   const {} = props;
   const { isLoading, session } = useSessionContext();
   const supabase = useSupabaseClient();
+  const searchParams = useSearchParams()
+  const redirectTo = React.useMemo(
+    () => {
+      const redirectTo = searchParams?.get("redirectTo")
+      return redirectTo ? decodeURIComponent(redirectTo) : undefined;
+    },
+    [searchParams]
+  ) 
 
   if (isLoading) {
-    return <></>;
+    return <>Loading.......</>;
   }
+
+  // console.log('RootPage', { redirectTo })
   return (
     <>
       <Head>
@@ -39,6 +49,7 @@ function RootPage(props: Props) {
                 <Auth
                   supabaseClient={supabase}
                   appearance={{ theme: ThemeSupa }}
+                  redirectTo={redirectTo}
                 />
               </div>
             </div>
@@ -46,12 +57,6 @@ function RootPage(props: Props) {
         ) : (
           <AppContextProvider>
             <Header />
-            <div
-              className="w-full h-full flex flex-col justify-center items-center p-4"
-              style={{ minWidth: 250, maxWidth: 600, margin: "auto" }}
-            >
-              <TodoListWrapper />
-            </div>
           </AppContextProvider>
         )}
       </div>

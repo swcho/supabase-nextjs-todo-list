@@ -1,40 +1,54 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from "@playwright/test";
+import { cleanUp } from "../node-test-utils";
+import { createTeam, login } from "../e2e-test-utils";
+import { TEST_USER_01, TEST_USER_02 } from "../fixtures";
 
-test.describe('Team Invitations', () => {
-  test('Invite, accept, and verify team member', async ({ page }) => {
-    // 로그인 (User 1)
-    await page.goto('/login');
-    await page.fill('input[name="email"]', 'test_user_01@todo.ex');
-    await page.fill('input[name="password"]', '111111');
-    await page.click('button[type="submit"]');
+test.describe("Team Invitations", () => {
+  test("Clean up", async () => {
+    await cleanUp();
+  });
 
-    // 팀 생성 및 초대
-    await page.goto('/teams');
-    await page.click('button#create-team');
-    await page.fill('input[name="team-name"]', 'Invite Test Team');
-    await page.click('button#submit-team');
-    await page.click(`button[data-testid="invite-member"]`);
-    await page.fill('input[name="invite-email"]', 'test_user_02@todo.ex');
-    await page.click('button#send-invite');
-    await expect(page.locator('text=Invitation sent')).toBeVisible();
+  test("Invite, accept, and verify team member", async ({ page }) => {
+    await cleanUp();
+    await login(page, TEST_USER_01);
+    await createTeam(page, "test-team");
 
-    // 초대 수락 (User 2)
-    await page.goto('/logout');
-    await page.fill('input[name="email"]', 'test_user_02@todo.ex');
-    await page.fill('input[name="password"]', '111111');
-    await page.click('button[type="submit"]');
-    await page.goto('/invitations');
-    await page.click('button#accept-invite');
-    await expect(page.locator('text=Invite Test Team')).toBeVisible();
+    await page.getByRole("textbox", { name: "make coffee" }).fill("장보기");
+    await page.getByRole("button", { name: "Add" }).click();
+    await expect(page.getByText("장보기")).toBeVisible();
 
-    // 구성원 확인
-    await page.goto('/teams');
-    await expect(page.locator('text=Invite Test Team')).toBeVisible();
+    await page.getByRole("textbox", { name: "make coffee" }).fill("운동");
+    await page.getByRole("button", { name: "Add" }).click();
+    await expect(page.getByText("운동")).toBeVisible();
 
-    // Todo 생성
-    await page.goto('/todos');
-    await page.fill('input[name="todo-task"]', 'Team Member Todo');
-    await page.click('button#add-todo');
-    await expect(page.locator('text=Team Member Todo')).toBeVisible();
+    await page.getByRole("button", { name: "Invite user" }).click();
+    await page.getByRole("textbox", { name: "Email address" }).click();
+
+    await page
+      .getByRole("textbox", { name: "Email address" })
+      .fill(TEST_USER_02.email);
+    await page.getByRole("button", { name: "Send invitation" }).click();
+    await page.getByRole("button").filter({ hasText: /^$/ }).click();
+    // 클립보드에서 텍스트 읽기
+    const invitationUrlStr = await page.evaluate(async () => {
+      return await navigator.clipboard.readText();
+    });
+
+    // console.log("Clipboard content:", invitationUrlStr);
+    const invitationUrl = new URL(invitationUrlStr);
+    
+    const targetUrl = invitationUrl.pathname + invitationUrl.search;
+    
+    await page.getByRole("button", { name: "Close" }).click();
+    await page.getByRole("button", { name: "t", exact: true }).click();
+    await page.getByRole("menuitem", { name: "Log out" }).click();
+    
+    await expect(page.getByText('Login')).toBeVisible();
+
+    await page.goto(targetUrl);
+    await page.getByRole('button', { name: 'Sign in' }).click();
+    await login(page, TEST_USER_02);
+    await expect(page.getByText('Invitation Accepted')).toBeVisible();
+    // console.log("test finished");
   });
 });

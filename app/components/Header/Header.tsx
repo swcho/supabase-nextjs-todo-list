@@ -16,7 +16,7 @@ import {
   PlusCircle,
   Users,
   UserPlus,
-  Settings
+  Settings,
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
@@ -36,10 +36,10 @@ import {
 import { useTeams } from "@/hooks/database";
 import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { CreateTeamDialog } from "./CreateTeamDialog";
-import { InviteUserDialog } from "./InviteUserDialog";
-import { useAppContext } from "./AppContext";
+import { InviteUserDialog } from "../InviteUserDialog";
+import { useAppContext } from "../AppContext";
 import { createTeam } from "@/lib/rpc/team";
-import { TEST_ID_CREATE_TEAM_BUTTON } from "@/test/test-id-list";
+import { TEST_ID_CREATE_TEAM_BUTTON, TID_SETTINGS } from "@/test/test-id-list";
 
 function Header() {
   const session = useSession();
@@ -57,11 +57,12 @@ function Header() {
 
   const handleCreateTeam = async (team: {
     name: string;
+    urlKey: string;
     description: string;
     image: string;
   }) => {
     // console.log("handleCreateTeam", team);
-    const newTeam = await createTeam(team.name);
+    const newTeam = await createTeam(team.name, team.urlKey);
     await refetch();
     setActiveTeam(newTeam);
   };
@@ -143,13 +144,17 @@ function Header() {
           {activeTeam && (
             <>
               <Button
+                data-testid={TID_SETTINGS}
                 variant="outline"
                 size="icon"
-                onClick={() => setInviteUserOpen(true)}
-                title="Invite user"
+                onClick={() =>
+                  activeTeam &&
+                  (window.location.href = `/teams/${activeTeam.url_key}/settings`)
+                }
+                title="Team settings"
               >
                 <Settings className="h-4 w-4" />
-                <span className="sr-only">설정</span>
+                <span className="sr-only">Settings</span>
               </Button>
               <Button
                 variant="outline"
@@ -163,7 +168,7 @@ function Header() {
             </>
           )}
           <Button
-            id={TEST_ID_CREATE_TEAM_BUTTON}
+            data-testid={TEST_ID_CREATE_TEAM_BUTTON}
             variant="outline"
             size="icon"
             onClick={() => setCreateTeamOpen(true)}
@@ -195,10 +200,21 @@ function Header() {
               <DropdownMenuItem
                 disabled={!activeTeam}
                 onClick={() => {
-                  activeTeam && (window.location.href = "/team-settings");
+                  activeTeam &&
+                    (window.location.href = `/teams/${activeTeam.url_key}`);
                 }}
               >
                 <Users className="mr-2 h-4 w-4" />
+                <span>Team page</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                disabled={!activeTeam}
+                onClick={() => {
+                  activeTeam &&
+                    (window.location.href = `/teams/${activeTeam.url_key}/settings`);
+                }}
+              >
+                <Settings className="mr-2 h-4 w-4" />
                 <span>Team settings</span>
               </DropdownMenuItem>
               <DropdownMenuSeparator />

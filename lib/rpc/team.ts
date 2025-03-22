@@ -1,7 +1,5 @@
 import { supabase } from "../initSupabase";
-import { Database } from "../schema";
-
-export type Team = Database["public"]["CompositeTypes"]["team_type"];
+import { Team } from "../types";
 
 export async function getTeams() {
   const { data, error } = await supabase.rpc("get_user_teams");
@@ -15,15 +13,16 @@ export async function getTeamsV2() {
   // console.log({ explain });
   const { data, error } = await supabase.rpc("get_user_teams_v2");
   if (error) throw error;
-  return data;
+  return data as any as Team[];
 }
 
-export async function createTeam(name: string) {
+export async function createTeam(name: string, urlKey: string) {
   const { data, error } = await supabase.rpc("create_team", {
     team_name: name,
+    team_url_key: urlKey,
   });
   if (error) throw error;
-  return data;
+  return data as any as Team;
 }
 
 export async function deleteTeam(teamId: number) {
@@ -32,4 +31,11 @@ export async function deleteTeam(teamId: number) {
   });
   if (error) throw error;
   return data;
+}
+
+export async function getTeamByUrlKey(urlKey: string): Promise<Team | null> {
+  const { data: teams, error } = await supabase
+    .rpc('get_team_by_url_key', { team_url_key: urlKey });
+  if (error) throw error;
+  return teams as unknown as Team;
 }

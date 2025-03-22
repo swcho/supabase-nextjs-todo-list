@@ -6,7 +6,8 @@ import {
   getTeamsV2,
 } from "./team";
 import { supabase } from "../initSupabase";
-import { loginGuard, TEST_USER_01, TEST_USER_02 } from "@/test/fixtures";
+import { TEST_USER_01, TEST_USER_02 } from "@/test/fixtures";
+import { loginGuard } from "@/test/node-test-utils";
 
 describe.sequential("team", () => {
 
@@ -41,7 +42,7 @@ describe.sequential("team", () => {
   it("Create and delete", async () => {
     await loginGuard(TEST_USER_01, async ({ user }) => {
       expect((await getTeams()).length).toEqual(0);
-      const newTeam = await createTeam("test team");
+      const newTeam = await createTeam("test team", 'test-team');
       expect((await getTeams()).length).toEqual(1);
       if (newTeam.id) {
         await deleteTeam(newTeam.id);
@@ -54,12 +55,12 @@ describe.sequential("team", () => {
     // create team for TEST_USER_02
     await loginGuard(TEST_USER_02, async ({ user }) => {
       expect((await getTeams()).length).toEqual(0);
-      await createTeam("test team #1");
+      await createTeam("test team #1", 'test-team-1');
       expect((await getTeams()).length).toEqual(1);
     });
     // read team_members
     await loginGuard(TEST_USER_01, async ({ user }) => {
-      await createTeam("test team #1");
+      await createTeam("test team #2", 'test-team-2');
       const resp = await supabase.from("team_members").select();
       // console.log({ user, resp });
       const teams = await getTeamsV2();
