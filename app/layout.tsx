@@ -20,16 +20,20 @@ export default function RootLayout({
   // console.log('RootLayout')
   return (
     <html lang="en">
-    <head>
-      <title>YAT</title>
-    </head>
+      <head>
+        <title>YAT</title>
+      </head>
       <SessionContextProvider supabaseClient={supabase}>
         <QueryClientProvider client={queryClient}>
           <body
+            vaul-drawer-wrapper=""
             className={cn(
               inter.className,
-              "min-h-screen bg-gray-100 text-gray-900 antialiased"
+              "min-h-screen bg-gray-100 text-gray-900 antialiased bg-background"
             )}
+            style={{
+              marginRight: '0 !important',
+            }}
           >
             <React.Suspense>{children}</React.Suspense>
           </body>

@@ -56,7 +56,6 @@ function HeaderInner(props: Props) {
   const { data: teams = [], refetch } = useTeamsSuspense();
   const { user } = session;
   const [createTeamOpen, setCreateTeamOpen] = useState(false);
-  const [inviteUserOpen, setInviteUserOpen] = useState(false);
 
   const handleCreateTeam = async (team: {
     name: string;
@@ -140,32 +139,23 @@ function HeaderInner(props: Props) {
             </Command>
           </PopoverContent>
         </Popover>
-        {/* {activeTeam && (
-            <>
-              <Button
-                data-testid={TID_SETTINGS}
-                variant="outline"
-                size="icon"
-                onClick={() =>
-                  activeTeam &&
-                  (window.location.href = `/teams/${activeTeam.url_key}/settings`)
-                }
-                title="Team settings"
-              >
-                <Settings className="h-4 w-4" />
-                <span className="sr-only">Settings</span>
-              </Button>
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={() => setInviteUserOpen(true)}
-                title="Invite user"
-              >
-                <UserPlus className="h-4 w-4" />
-                <span className="sr-only">Invite user</span>
-              </Button>
-            </>
-          )} */}
+        {activeTeam && (
+          <>
+            <Button
+              data-testid={TID_SETTINGS}
+              variant="outline"
+              size="icon"
+              onClick={() =>
+                activeTeam &&
+                (window.location.href = `/teams/${activeTeam.url_key}/settings`)
+              }
+              title="Team settings"
+            >
+              <Settings className="h-4 w-4" />
+              <span className="sr-only">Settings</span>
+            </Button>
+          </>
+        )}
         <Button
           data-testid={TEST_ID_CREATE_TEAM_BUTTON}
           variant="outline"
@@ -230,13 +220,6 @@ function HeaderInner(props: Props) {
         open={createTeamOpen}
         onOpenChange={setCreateTeamOpen}
         onCreateTeam={handleCreateTeam}
-      />
-      <InviteUserDialog
-        open={inviteUserOpen}
-        onOpenChange={setInviteUserOpen}
-        onUserInvited={() => {
-          // Could refresh team data here if needed
-        }}
       />
     </>
   );

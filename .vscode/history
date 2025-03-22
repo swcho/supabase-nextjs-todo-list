@@ -424,3 +424,5 @@ npx tailwindcss init -p\
 : 1742655560:0;npm r @types/react-lines-ellipsis
 : 1742655675:0;npm run tsc
 : 1742655680:0;npx tsc
+: 1742656541:0;[200~npx shadcn@latest add dialog drawer
+: 1742656548:0;npx shadcn@latest add dialog drawer
