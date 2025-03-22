@@ -30,9 +30,6 @@ export default function RootLayout({
               inter.className,
               "min-h-screen bg-background text-gray-900 antialiased"
             )}
-            // style={{
-            //   marginRight: '0 !important',
-            // }}
           >
             <div vaul-drawer-wrapper="" className="bg-background">
               <React.Suspense>{children}</React.Suspense>

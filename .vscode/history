@@ -426,3 +426,5 @@ npx tailwindcss init -p\
 : 1742655680:0;npx tsc
 : 1742656541:0;[200~npx shadcn@latest add dialog drawer
 : 1742656548:0;npx shadcn@latest add dialog drawer
+: 1742685795:0;npx shadcn@latest add checkbox\
+
