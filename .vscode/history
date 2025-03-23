@@ -435,3 +435,6 @@ npx tailwindcss init -p\
 : 1742687767:0;claude
 : 1742688219:0;npx tsc
 : 1742688584:0;npm run storybook
+: 1742689368:0;npm i -D @storybook/addon-viewport
+: 1742689843:0;npm run storybook
+: 1742694793:0;npm run dev

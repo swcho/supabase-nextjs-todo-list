@@ -11,6 +11,7 @@ import {
   useContext,
   useState,
 } from "react";
+import { useConfirmDialog } from "./DialogExec/useDialog";
 
 type PathParameters = {
   teamUrlKey?: string;
@@ -30,6 +31,7 @@ function useAppContextValue() {
     [push, teams]
   );
 
+  const [execConfirm, _renderConfirm] = useConfirmDialog();
   // React.useEffect(() => {
   //   console.log("teams changed");
   // }, [teams]);
@@ -42,6 +44,8 @@ function useAppContextValue() {
     isReady: !isTeamsLoading,
     activeTeam,
     setActiveTeam,
+    execConfirm,
+    _renderConfirm
   };
 }
 
@@ -58,6 +62,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
   return (
     <AppContext.Provider value={value}>
       {value.isReady && children}
+      {value._renderConfirm()}
     </AppContext.Provider>
   );
 };

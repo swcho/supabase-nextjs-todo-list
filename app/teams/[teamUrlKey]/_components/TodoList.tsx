@@ -4,13 +4,25 @@ import { Session } from "@supabase/auth-helpers-react";
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useAppContext } from "@/app/components/AppContext";
-import { createTeamTodo, deleteTodo, getTeamTodos, setTodoComplete, Todo } from "@/lib/rpc/todo";
+import {
+  createTeamTodo,
+  deleteTodo,
+  getTeamTodos,
+  setTodoComplete,
+  Todo,
+} from "@/lib/rpc/todo";
 import { Team } from "@/lib/types";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import TodoItem from "./TodoItem";
 
-export default function TodoList({ session, activeTeam }: { session: Session; activeTeam: Team }) {
+export default function TodoList({
+  session,
+  activeTeam,
+}: {
+  session: Session;
+  activeTeam: Team;
+}) {
   const [newTaskText, setNewTaskText] = useState("");
   const [errorText, setErrorText] = useState("");
 
@@ -23,6 +35,8 @@ export default function TodoList({ session, activeTeam }: { session: Session; ac
     },
   });
 
+  const { execConfirm } = useAppContext();
+
   return (
     <div className="w-full">
       <h1 className="mb-3">Todo List</h1>
@@ -30,7 +44,7 @@ export default function TodoList({ session, activeTeam }: { session: Session; ac
         onSubmit={async (e) => {
           e.preventDefault();
           await createTeamTodo(activeTeam.id!, newTaskText.trim());
-          setNewTaskText('')
+          setNewTaskText("");
           await refetch();
         }}
         className="flex gap-2 my-2"
@@ -45,7 +59,11 @@ export default function TodoList({ session, activeTeam }: { session: Session; ac
             setNewTaskText(e.target.value);
           }}
         />
-        <Button disabled={0 === newTaskText.length} className="btn-black" type="submit">
+        <Button
+          disabled={0 === newTaskText.length}
+          className="btn-black"
+          type="submit"
+        >
           Add
         </Button>
       </form>
@@ -57,12 +75,33 @@ export default function TodoList({ session, activeTeam }: { session: Session; ac
               key={todo.id}
               todo={todo}
               onToggle={async (completed) => {
-                await setTodoComplete(todo.id, completed);
-                await refetch();
+                if (
+                  await execConfirm({
+                    title: "Are you sure?",
+                    description: `Do you want to mark "${todo.todo}" as ${
+                      completed ? "completed" : "incomplete"
+                    }?`,
+                    confirmText: completed
+                      ? "Mark as completed"
+                      : "Mark as incomplete",
+                    cancelText: "Cancel",
+                  })
+                ) {
+                  await setTodoComplete(todo.id, completed);
+                  await refetch();
+                }
               }}
               onDelete={async () => {
-                await deleteTodo(todo.id);
-                await refetch();
+                if (
+                  await execConfirm({
+                    severity: "error",
+                    title: "Are you sure?",
+                    description: `Do you want to delete "${todo.todo}"?`,
+                  })
+                ) {
+                  await deleteTodo(todo.id);
+                  await refetch();
+                }
               }}
             />
           ))}
