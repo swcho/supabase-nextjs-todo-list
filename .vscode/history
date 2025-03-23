@@ -428,3 +428,10 @@ npx tailwindcss init -p\
 : 1742656548:0;npx shadcn@latest add dialog drawer
 : 1742685795:0;npx shadcn@latest add checkbox\
 
+: 1742687716:0;npm i -g claude
+: 1742687732:0;claude
+: 1742687758:0;npm install -g @anthropic-ai/claude-code\
+
+: 1742687767:0;claude
+: 1742688219:0;npx tsc
+: 1742688584:0;npm run storybook

@@ -6,8 +6,8 @@ import * as React from "react";
 
 export type Props = {
   todo: Todo;
-  onToggle: (completed: boolean) => void;
-  onDelete: () => void;
+  onToggle?: (completed: boolean) => void;
+  onDelete?: () => void;
 };
 
 function TodoItem(props: Props) {
@@ -23,7 +23,7 @@ function TodoItem(props: Props) {
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            onDelete();
+            onDelete?.();
           }}
         >
           <Trash2 />
@@ -37,7 +37,7 @@ function TodoItem(props: Props) {
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            onToggle(!is_completed);
+            onToggle?.(!is_completed);
           }}
         >
           {is_completed ? <Check className="text-primary" /> : <Square />}
