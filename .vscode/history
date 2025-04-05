@@ -438,3 +438,21 @@ npx tailwindcss init -p\
 : 1742689368:0;npm i -D @storybook/addon-viewport
 : 1742689843:0;npm run storybook
 : 1742694793:0;npm run dev
+: 1742722598:0;docker ps
+: 1742722608:0;npx supabase stop
+: 1742722622:0;docker ps
+: 1743814863:0;colima start
+: 1743815024:0;docker ps
+: 1743815042:0;npx supabase start -x vector
+: 1743816551:0;supabase db dump > supabase/schemas/prod.sql\
+\
+
+: 1743816556:0;npx supabase db dump > supabase/schemas/prod.sql\
+\
+
+: 1743816590:0;supabase db dump > supabase/schemas/prod.sql\
+\
+
+: 1743816595:0;npx supabase db dump > supabase/schemas/prod.sql\
+\
+
