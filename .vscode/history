@@ -527,3 +527,11 @@ npx tailwindcss init -p\
 : 1743915693:0;npm run dev
 : 1743916782:0;npx db push
 : 1743916791:0;npx supabase db push
+: 1743916894:0;npm run dev
+: 1743917289:0;npx supabase db diff -f fix_get_team_invitations_v2
+: 1743917382:0;npx supabase stop && npx supabase db diff -f fix_get_team_invitations_v2
+: 1743917566:0;npx supabase start -x vector
+: 1743917594:0;nxp supabase migration up
+: 1743917599:0;npx supabase migration up
+: 1743917625:0;npm run dev
+: 1743917690:0;npx supabase db push

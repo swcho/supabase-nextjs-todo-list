@@ -5,7 +5,7 @@ import { Bell, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MyInvitationDialog } from "./MyInvitationDialog";
 import { useMyInvitations, useMyInvitationsSuspense, useTeams } from "@/hooks/database";
-import { acceptTeamInvitation } from "@/lib/rpc/invitation";
+import { acceptTeamInvitation, declineTeamInvitation } from "@/lib/rpc/invitation";
 import { TID_CHECK_INVITATION } from "@/test/test-id-list";
 import { getInvitationStatus } from "@/lib/types";
 
@@ -80,8 +80,11 @@ export function MyInvitationAlert({}: Props) {
           await refetchTeams();
           setOpen(false);
         }}
-        onDecline={() => {
+        onDecline={async () => {
           // handle decline
+          await declineTeamInvitation(activeInvitation.token!);
+          await refetch();
+          await refetchTeams();
           setOpen(false);
         }}
         onOpenChange={setOpen}

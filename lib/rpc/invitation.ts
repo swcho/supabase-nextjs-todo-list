@@ -54,6 +54,14 @@ export async function acceptTeamInvitation(token: string) {
   return data;
 }
 
+export async function declineTeamInvitation(token: string) {
+  const { data, error } = await supabase.rpc("decline_team_invitation", {
+    invitation_token: token,
+  });
+  if (error) throw error;
+  return data;
+}
+
 export async function deleteUserInvitations(user_id: string) {
   const { data, error } = await supabase.rpc("delete_user_invitations", {
     user_id

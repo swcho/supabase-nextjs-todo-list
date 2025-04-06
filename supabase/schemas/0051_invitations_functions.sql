@@ -251,14 +251,14 @@ CREATE OR REPLACE FUNCTION "public"."get_team_invitations_v2"("team_id" bigint) 
     AS $$
 BEGIN
   -- Check if user is a team admin
-  IF NOT EXISTS (
-    SELECT 1 FROM team_members
-    WHERE team_members.team_id = get_team_invitations_v2.team_id
-    AND user_id = auth.uid()
-    AND role = 'admin'
-  ) THEN
-    RAISE EXCEPTION 'Only team admins can view invitations';
-  END IF;
+  -- IF NOT EXISTS (
+  --   SELECT 1 FROM team_members
+  --   WHERE team_members.team_id = get_team_invitations_v2.team_id
+  --   AND user_id = auth.uid()
+  --   AND role = 'admin'
+  -- ) THEN
+  --   RAISE EXCEPTION 'Only team admins can view invitations';
+  -- END IF;
   
   RETURN QUERY
   SELECT 
