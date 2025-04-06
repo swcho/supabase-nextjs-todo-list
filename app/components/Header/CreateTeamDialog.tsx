@@ -18,9 +18,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 import {
-  TEST_ID_TEAM_NAME,
-  TEST_ID_TEAM_URL_KEY,
-  TEST_ID_TEAM_SUBMIT,
+  TID_TEAM_NAME,
+  TID_TEAM_URL_KEY,
+  TID_TEAM_SUBMIT,
 } from "@/test/test-id-list";
 import {
   Credenza,
@@ -134,7 +134,7 @@ export function CreateTeamDialog({
               <div className="grid gap-2">
                 <Label htmlFor="name">Team name</Label>
                 <Input
-                  data-testid={TEST_ID_TEAM_NAME}
+                  data-testid={TID_TEAM_NAME}
                   value={name}
                   onChange={(e) => handleNameChange(e.target.value)}
                   placeholder="Enter team name"
@@ -146,7 +146,7 @@ export function CreateTeamDialog({
               <div className="grid gap-2">
                 <Label htmlFor="urlKey">URL key</Label>
                 <Input
-                  data-testid={TEST_ID_TEAM_URL_KEY}
+                  data-testid={TID_TEAM_URL_KEY}
                   value={urlKey}
                   onChange={(e) => handleUrlKeyChange(e.target.value)}
                   placeholder="team-url-key"
@@ -196,7 +196,7 @@ export function CreateTeamDialog({
             </div>
           </CredenzaBody>
           <CredenzaFooter>
-            <Button data-testid={TEST_ID_TEAM_SUBMIT} type="submit">
+            <Button data-testid={TID_TEAM_SUBMIT} type="submit">
               Create team
             </Button>
           </CredenzaFooter>

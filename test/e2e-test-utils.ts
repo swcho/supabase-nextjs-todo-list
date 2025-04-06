@@ -1,5 +1,5 @@
 import { Page } from "playwright/test";
-import { TEST_ID_CREATE_TEAM_BUTTON, TEST_ID_TEAM_NAME, TEST_ID_TEAM_SUBMIT, TEST_ID_TEAM_URL_KEY } from "./test-id-list";
+import { TID_CREATE_TEAM_BUTTON, TID_TEAM_NAME, TID_TEAM_SUBMIT, TID_TEAM_URL_KEY } from "./test-id-list";
 
 export async function login(
   page: Page,
@@ -12,8 +12,8 @@ export async function login(
 }
 
 export async function createTeam(page: Page, urlKey: string) {
-  await page.getByTestId(TEST_ID_CREATE_TEAM_BUTTON).click();
-  await page.getByTestId(TEST_ID_TEAM_NAME).fill(urlKey);
-  await page.getByTestId(TEST_ID_TEAM_URL_KEY).fill(urlKey);
-  await page.getByTestId(TEST_ID_TEAM_SUBMIT).click();
+  await page.getByTestId(TID_CREATE_TEAM_BUTTON).click();
+  await page.getByTestId(TID_TEAM_NAME).fill(urlKey);
+  await page.getByTestId(TID_TEAM_URL_KEY).fill(urlKey);
+  await page.getByTestId(TID_TEAM_SUBMIT).click();
 }

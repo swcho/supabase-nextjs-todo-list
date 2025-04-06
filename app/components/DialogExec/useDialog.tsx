@@ -25,14 +25,14 @@ export function useDialog<ReturnType>(params: useDialog.Params = {}) {
   }, []);
 
   const render = useCallback(() => {
-    console.log("Dialog", { execParams });
+    // console.log("Dialog", { execParams });
     return (
       <Dialog
         open={Boolean(execParams)}
         onCancel={() => handleClose()}
         {...execParams} />
     );
-  }, [execParams]);
+  }, [execParams, handleClose]);
   return [exec, render, handleClose] as const;
 }
 
@@ -45,6 +45,6 @@ export function useConfirmDialog() {
         handleClose(true);
       }
     });
-  }, [_exec]);
+  }, [_exec, handleClose]);
   return [exec, render] as const;
 }

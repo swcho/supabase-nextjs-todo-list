@@ -25,6 +25,7 @@
     "http",
     "net"
   ],
+  "editor.autoIndent": "full",
   "sql-formatter.uppercase": true,
   "sqltools.connections": [
     {

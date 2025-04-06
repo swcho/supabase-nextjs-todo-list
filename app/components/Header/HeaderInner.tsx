@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -14,10 +14,9 @@ import {
   ChevronsUpDown,
   PlusCircle,
   Users,
-  UserPlus,
   Settings,
 } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import {
   Command,
@@ -38,7 +37,7 @@ import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { CreateTeamDialog } from "./CreateTeamDialog";
 import { useAppContext } from "../AppContext";
 import { createTeam } from "@/lib/rpc/team";
-import { TEST_ID_CREATE_TEAM_BUTTON, TID_SETTINGS } from "@/test/test-id-list";
+import { TID_CREATE_TEAM_BUTTON, TID_SETTINGS } from "@/test/test-id-list";
 import Link from "next/link";
 export type Props = {};
 
@@ -79,6 +78,7 @@ function HeaderInner(props: Props) {
       setActiveTeam(teams[0]);
     }
   }, [teams, activeTeam, setActiveTeam]);
+
   return (
     <>
       <div className="flex items-center gap-1">
@@ -154,16 +154,28 @@ function HeaderInner(props: Props) {
             </Button>
           </>
         )}
-        <Button
-          data-testid={TEST_ID_CREATE_TEAM_BUTTON}
-          variant="outline"
-          size="icon"
-          onClick={() => setCreateTeamOpen(true)}
-          title="Create team"
-        >
-          <PlusCircle className="h-4 w-4" />
-          <span className="sr-only">Create team</span>
-        </Button>
+        {teams.length > 0 ? (
+          <Button
+            data-testid={TID_CREATE_TEAM_BUTTON}
+            variant="outline"
+            size="icon"
+            onClick={() => setCreateTeamOpen(true)}
+            title="Create team"
+          >
+            <PlusCircle className="h-4 w-4" />
+            <span className="sr-only">Create team</span>
+          </Button>
+        ) : (
+          <Button
+            data-testid={TID_CREATE_TEAM_BUTTON}
+            variant="default"
+            onClick={() => setCreateTeamOpen(true)}
+            title="Create team"
+          >
+            <PlusCircle className="h-4 w-4" />
+            Create team
+          </Button>
+        )}
       </div>
       <div>
         <DropdownMenu>

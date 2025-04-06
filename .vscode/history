@@ -456,3 +456,33 @@ npx tailwindcss init -p\
 : 1743816595:0;npx supabase db dump > supabase/schemas/prod.sql\
 \
 
+: 1743835935:0;ncu -u supabase
+: 1743835950:0;npx supabase stop
+: 1743836018:0;npx supabase start -x vector
+: 1743837387:0;npx supabase db dump > supabase/schemas/prod.sql\
+\
+
+: 1743837474:0;npx supabase stop
+: 1743837491:0;ncu -u supabase
+: 1743837508:0;npx supabase --version
+: 1743837528:0;brew upgrade supabase\
+\
+
+: 1743837551:0;brew install supabase\
+\
+
+: 1743837574:0;npm update supabase
+: 1743837608:0;npx supabase start -x vector
+: 1743837812:0;npx supabase --version
+: 1743837817:0;npx supabase link
+: 1743837886:0;docker ps
+: 1743837909:0;docker images
+: 1743837928:0;docker image prune
+: 1743837937:0;docker images
+: 1743837946:0;docker images -a
+: 1743837950:0;docker image prune -a
+: 1743837966:0;docker images -a
+: 1743837993:0;npx supabase db dump > supabase/schemas/prod.sql\
+\
+
+: 1743838232:0;npm run dev

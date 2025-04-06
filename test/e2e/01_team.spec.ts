@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { TEST_USER_01 } from '../fixtures';
-import { TEST_ID_CREATE_TEAM_BUTTON, TEST_ID_TEAM_NAME, TEST_ID_TEAM_SUBMIT, TEST_ID_TEAM_TITLE, TEST_ID_TEAM_URL_KEY, TID_DELETE_TEAM, TID_SETTINGS } from '../test-id-list';
+import { TID_CREATE_TEAM_BUTTON, TID_TEAM_NAME, TID_TEAM_SUBMIT, TID_TEAM_TITLE, TID_TEAM_URL_KEY, TID_DELETE_TEAM, TID_SETTINGS } from '../test-id-list';
 import { cleanUp } from '../node-test-utils';
 
 test.describe('Team Management', () => {
@@ -16,11 +16,11 @@ test.describe('Team Management', () => {
     await page.getByText('Sign in', { exact: true }).click();
 
     // 팀 생성
-    await page.getByTestId(TEST_ID_CREATE_TEAM_BUTTON).click();
-    await page.getByTestId(TEST_ID_TEAM_NAME).fill('Test Team');
-    await page.getByTestId(TEST_ID_TEAM_URL_KEY).fill('test-team');
-    await page.getByTestId(TEST_ID_TEAM_SUBMIT).click();
-    await expect(page.getByTestId(TEST_ID_TEAM_TITLE)).toHaveText('Test Team');
+    await page.getByTestId(TID_CREATE_TEAM_BUTTON).click();
+    await page.getByTestId(TID_TEAM_NAME).fill('Test Team');
+    await page.getByTestId(TID_TEAM_URL_KEY).fill('test-team');
+    await page.getByTestId(TID_TEAM_SUBMIT).click();
+    await expect(page.getByTestId(TID_TEAM_TITLE)).toHaveText('Test Team');
 
     // 팀 삭제
     await page.getByTestId(TID_SETTINGS).click();

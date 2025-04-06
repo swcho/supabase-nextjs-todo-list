@@ -1,4 +1,4 @@
-import { getTeamInvitations } from "@/lib/rpc/invitation";
+import { getMyInvitations, getTeamInvitations } from "@/lib/rpc/invitation";
 import { useSupabaseClient } from "@/lib/initSupabase";
 import { Database } from "@/lib/schema";
 import { useSession } from "@supabase/auth-helpers-react";
@@ -61,7 +61,6 @@ export const [useTeams, useTeamsSuspense] = makeUseQuery(() => {
   }
 })
 
-
 export declare namespace useTeamInvitations {
   export type Return = ReturnType<typeof useTeamInvitations>
   export type ReturnData = Return['data']
@@ -75,3 +74,12 @@ export function useTeamInvitations(teamId: number) {
     },
   });
 }
+
+export const [useMyInvitations, useMyInvitationsSuspense] = makeUseQuery(() => {
+  return {
+    queryKey: ["useMyInvitations"],
+    queryFn: async () => {
+      return getMyInvitations();
+    },
+  }
+})

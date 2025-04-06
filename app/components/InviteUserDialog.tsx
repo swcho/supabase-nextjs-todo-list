@@ -17,6 +17,7 @@ import {
   CredenzaHeader,
   CredenzaTitle,
 } from "@/components/ui/credenza";
+import { TID_INVITE_USER } from "@/test/test-id-list";
 
 interface InviteUserDialogProps {
   open: boolean;
@@ -64,7 +65,7 @@ export function InviteUserDialog({
 
     try {
       setIsLoading(true);
-      console.log("activeTeam.id", activeTeam.id);
+      // console.log("activeTeam.id", activeTeam.id);
       const invitationId = await inviteTeamMember(activeTeam.id, email.trim());
 
       // Generate invitation link
@@ -96,7 +97,7 @@ export function InviteUserDialog({
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
       } catch (err) {
-        console.error("Failed to copy:", err);
+        // console.error("Failed to copy:", err);
       }
     }
   };
@@ -137,7 +138,11 @@ export function InviteUserDialog({
               </div>
             </CredenzaBody>
             <CredenzaFooter>
-              <Button type="submit" disabled={isLoading}>
+              <Button
+                data-testid={TID_INVITE_USER}
+                type="submit"
+                disabled={isLoading}
+              >
                 {isLoading ? "Sending..." : "Create invitation link"}
               </Button>
             </CredenzaFooter>

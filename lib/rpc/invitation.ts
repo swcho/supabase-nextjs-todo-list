@@ -1,6 +1,6 @@
 import { supabase } from "../initSupabase";
 import { Database } from "../schema";
-import { TeamInvitation } from "../types";
+import { TeamInvitation, UserInvitation } from "../types";
 
 export async function inviteTeamMember(teamId: number, email: string) {
   const { data, error } = await supabase.rpc("create_team_invitation", {
@@ -15,7 +15,7 @@ export async function inviteTeamMember(teamId: number, email: string) {
 export async function getMyInvitations() {
   const { data, error } = await supabase.rpc("get_user_invitations")
   if (error) throw error;
-  return data;
+  return data as UserInvitation[];
 }
 
 export async function removeTeamMember(teamId: number, userId: string) {

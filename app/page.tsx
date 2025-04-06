@@ -9,6 +9,7 @@ import { ThemeSupa } from "@supabase/auth-ui-shared";
 import Head from "next/head";
 import { AppContextProvider } from "./components/AppContext";
 import { useSearchParams } from "next/navigation";
+import Summaries from "./_components/Summaries";
 
 export type Props = {};
 
@@ -57,6 +58,10 @@ function RootPage(props: Props) {
         ) : (
           <AppContextProvider>
             <Header />
+            <React.Suspense>
+
+            <Summaries />
+            </React.Suspense>
           </AppContextProvider>
         )}
       </div>
