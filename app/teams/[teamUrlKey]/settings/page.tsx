@@ -24,9 +24,6 @@ import { TeamInvitations } from "@/app/components/TeamInvitations";
 
 function TeamSettingsPage() {
   const { activeTeam, setActiveTeam } = useAppContext();
-  if (!activeTeam) {
-    throw new Error("No active team found");
-  }
   const { data: teams = [], refetch } = useTeamsSuspense();
   const [inviteOpen, setInviteOpen] = useState(false);
   const [removingUserId, setRemovingUserId] = useState<string | null>(null);

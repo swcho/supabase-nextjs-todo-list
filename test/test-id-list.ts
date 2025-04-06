@@ -13,3 +13,5 @@ export const TID_INVITE_USER = 'invite-user'
 export const TID_CHECK_INVITATION = 'check-invitation'
 export const TID_ACCEPT_INVITATION = 'accept-invitation'
 export const TID_DECLINE_INVITATION = 'decline-invitation'
+
+export const TID_TOGGLE_COMPLETED = 'toggle-completed'

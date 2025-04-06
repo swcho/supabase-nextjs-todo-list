@@ -8,7 +8,8 @@ CREATE TABLE IF NOT EXISTS "public"."team_invitations" (
     "created_at" timestamp with time zone DEFAULT "now"(),
     "expires_at" timestamp with time zone NOT NULL,
     "created_by" "uuid",
-    "accepted_at" timestamp with time zone
+    "accepted_at" timestamp with time zone,
+    "declined_at" timestamp with time zone
 );
 
 
@@ -63,3 +64,20 @@ ALTER TABLE "public"."team_invitations" ENABLE ROW LEVEL SECURITY;
 GRANT ALL ON TABLE "public"."team_invitations" TO "anon";
 GRANT ALL ON TABLE "public"."team_invitations" TO "authenticated";
 GRANT ALL ON TABLE "public"."team_invitations" TO "service_role";
+
+
+-- View for user invitations
+CREATE OR REPLACE VIEW "public"."user_invitations" AS
+SELECT 
+    ti.id,
+    ti.team_id,
+    t.name as team_name,
+    ti.email,
+    ti.created_at,
+    ti.expires_at,
+    ti.token,
+    ti.accepted_at,
+    ti.declined_at
+FROM team_invitations ti
+JOIN teams t ON ti.team_id = t.id
+WHERE ti.email = (SELECT auth_users.email FROM auth.users auth_users WHERE auth_users.id = auth.uid())

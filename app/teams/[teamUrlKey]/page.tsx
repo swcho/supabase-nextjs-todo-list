@@ -2,7 +2,6 @@
 
 import { useAppContext } from '@/app/components/AppContext';
 import TodoListWrapper from './_components/TodoListWrapper';
-import { TID_TEAM_TITLE } from '@/test/test-id-list';
 
 export default function TeamPage() {
   const { activeTeam } = useAppContext();

@@ -5,9 +5,11 @@
   "scripts": {
     "dev": "node --trace-deprecation node_modules/next/dist/bin/next dev",
     "build": "next build",
+    "gen:migration": "supabase db diff -f",
     "gen:schema": "supabase gen types --lang=typescript --local > lib/schema.ts",
     "gen:schema:remote": "supabase gen types --lang=typescript --linked remote > lib/schema.ts",
     "start": "next start",
+    "start:supabase": "supabase start -x vector",
     "lint": "next lint",
     "test": "node --trace-deprecation node_modules/vitest/vitest.mjs",
     "test:ui": "vitest --ui",

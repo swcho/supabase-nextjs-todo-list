@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Todo } from "@/lib/rpc/todo";
+import { TID_TOGGLE_COMPLETED } from "@/test/test-id-list";
 import { Checkbox } from "@radix-ui/react-checkbox";
 import { Check, Settings, Square, Trash2, UserRoundCheck } from "lucide-react";
 import * as React from "react";
@@ -32,6 +33,7 @@ function TodoItem(props: Props) {
           <div className="leading-5 font-medium truncate">{todo.todo}</div>
         </div>
         <Button
+          data-testid={TID_TOGGLE_COMPLETED}
           size="icon"
           variant={"ghost"}
           onClick={(e) => {

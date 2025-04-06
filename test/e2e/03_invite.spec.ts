@@ -5,10 +5,6 @@ import { TEST_USER_01, TEST_USER_02 } from "../fixtures";
 import { TID_ACCEPT_INVITATION, TID_CHECK_INVITATION, TID_INVITE_USER } from "../test-id-list";
 
 test.describe("Team Invitations", () => {
-  test("Clean up", async () => {
-    await cleanUp();
-  });
-
   test("Invite, accept, and verify team member", async ({ page }) => {
     await cleanUp();
     await login(page, TEST_USER_01);

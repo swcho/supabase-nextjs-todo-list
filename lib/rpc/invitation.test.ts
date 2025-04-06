@@ -10,6 +10,7 @@ import {
 import { TEST_USER_01, TEST_USER_02 } from "@/test/fixtures";
 import { createTeam, deleteTeam, getTeams } from "./team";
 import { loginGuard } from "@/test/node-test-utils";
+import { getInvitationStatus } from "../types";
 
 describe.sequential("invitation", () => {
   it("cleanup invitations", async () => {
@@ -42,7 +43,7 @@ describe.sequential("invitation", () => {
       // Verify invitation properties
       const invitation = invitations[0];
       expect(invitation.email).toBe(TEST_USER_02.email);
-      expect(invitation.status).toBe("pending");
+      expect(getInvitationStatus(invitation)).toBe("pending");
 
       // console.log("Created invitation:", invitation);
     });
@@ -54,7 +55,7 @@ describe.sequential("invitation", () => {
       expect(myInvitations.length).toBe(1);
       const [firstInvitation] = myInvitations;
 
-      const token = firstInvitation.token;
+      const token = firstInvitation.token!;
       expect(token).toBeTruthy();
 
       // Accept the invitation
@@ -70,9 +71,9 @@ describe.sequential("invitation", () => {
     // Verify invitation status after acceptance
     await loginGuard(TEST_USER_01, async ({ user }) => {
       const invitations = await getTeamInvitations(teamId);
-      const invitation = invitations.find((inv) => inv.token === invitationToken);
+      const invitation = invitations.find((inv) => inv.token === invitationToken)!;
       expect(invitation).toBeTruthy();
-      expect(invitation?.status).toBe("accepted");
+      expect(getInvitationStatus(invitation)).toBe("accepted");
 
       // Clean up - delete the team
       await deleteTeam(teamId);

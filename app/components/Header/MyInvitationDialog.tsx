@@ -90,7 +90,7 @@ export function MyInvitationDialog({
             <Avatar className="h-12 w-12">
               {/* <AvatarImage src={invitation.inviterAvatar} alt={invitation.team_name} /> */}
               <AvatarFallback>
-                {invitation.team_name.substring(0, 2).toUpperCase()}
+                {invitation.team_name?.substring(0, 2).toUpperCase()}
               </AvatarFallback>
             </Avatar>
             <div>
@@ -122,13 +122,13 @@ export function MyInvitationDialog({
           <Button
             data-testid={TID_DECLINE_INVITATION}
             variant="outline"
-            onClick={() => onDecline(invitation.id)}
+            onClick={() => onDecline(invitation.id!)}
           >
             거절하기
           </Button>
           <Button
             data-testid={TID_ACCEPT_INVITATION}
-            onClick={() => onAccept(invitation.id)}
+            onClick={() => onAccept(invitation.id!)}
           >
             수락하기
           </Button>

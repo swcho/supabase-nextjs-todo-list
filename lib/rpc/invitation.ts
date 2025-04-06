@@ -13,9 +13,9 @@ export async function inviteTeamMember(teamId: number, email: string) {
 }
 
 export async function getMyInvitations() {
-  const { data, error } = await supabase.rpc("get_user_invitations")
+  const { data, error } = await supabase.rpc("get_user_invitations_v2")
   if (error) throw error;
-  return data as UserInvitation[];
+  return data;
 }
 
 export async function removeTeamMember(teamId: number, userId: string) {
@@ -28,12 +28,12 @@ export async function removeTeamMember(teamId: number, userId: string) {
 }
 
 export async function getTeamInvitations(teamId: number): Promise<TeamInvitation[]> {
-  const { data, error } = await supabase.rpc("get_team_invitations", {
+  const { data, error } = await supabase.rpc("get_team_invitations_v2", {
     team_id: teamId,
   });
   
   if (error) throw error;
-  return data as any as TeamInvitation[];
+  return data;
 }
 
 export async function deleteTeamInvitation(invitationId: string) {

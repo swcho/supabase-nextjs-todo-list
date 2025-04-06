@@ -486,3 +486,44 @@ npx tailwindcss init -p\
 \
 
 : 1743838232:0;npm run dev
+: 1743902580:0;npx supabase stop
+: 1743902644:0;supabase db diff -f test
+: 1743902647:0;
+: 1743902655:0;npx supabase db diff -f test
+: 1743910572:0;npx supabase db diff -f decline_invitation
+: 1743910810:0;npx supabase gen types --lang=typescript --local > lib/schema.ts
+: 1743910832:0;npx supabase start -x vector
+: 1743910953:0;npm run gen:schema
+: 1743910976:0;npx tsc
+: 1743911364:0;npx supabase stop
+: 1743911389:0;npx supabase db diff -f decline_invitation
+: 1743911576:0;npx supabase start -x vector
+: 1743911614:0;npx supabase gen types --lang=typescript --local > lib/schema.ts
+: 1743911643:0;npx tsc
+: 1743911726:0;npx supabase migration up
+: 1743911869:0;npx supabase stop
+: 1743911885:0;npx supabase start -x vector
+: 1743911941:0;npx supabase db reset
+: 1743912148:0;npx supabase stop
+: 1743912165:0;npx supabase db diff -f decline_invitation
+: 1743912229:0;npx supabase start -x vector
+: 1743912269:0;npx supabase db reset
+: 1743912485:0;npx supabase gen types --lang=typescript --local > lib/schema.ts
+: 1743912617:0;npx tsc
+: 1743913109:0;npm run dev
+: 1743913719:0;npx tsc
+: 1743914073:0;npx supabase stop
+: 1743914104:0;npx supabase db diff -f decline_invitation
+: 1743914302:0;npx supabase start -x vector
+: 1743914338:0;npx supabase db reset
+: 1743914482:0;npx supabase gen types --lang=typescript --local > lib/schema.ts
+: 1743914556:0;npx tsc
+: 1743914907:0;npm run dev
+: 1743915448:0;npx supabase stop
+: 1743915474:0;npx supabase db diff -f decline_invitation
+: 1743915524:0;npx supabase start -x vector
+: 1743915557:0;npx supabase gen types --lang=typescript --local > lib/schema.ts
+: 1743915565:0;npx supabase db reset
+: 1743915693:0;npm run dev
+: 1743916782:0;npx db push
+: 1743916791:0;npx supabase db push
